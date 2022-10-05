@@ -1,0 +1,480 @@
+%! Aldo Luna, Alexandra Mazzetti, Carlos Aznarán, Edward Canales
+%! Universidad Nacional de Ingeniería
+%! Facultad de Ciencias
+%! Lima, Perú
+%! Uso:
+%! $ sudo pacman -Syu texlive-most zathura # instalar las dependencias y un visor
+%! $ arara primera
+%! $ zathura primera.pdf
+%! Ver https://wiki.archlinux.org/title/TeX_Live
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['aux','log','nav',
+% arara: --> 'out','snm','toc','pdf']
+% arara: --> }
+% arara: lualatex: {
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['aux','log','nav',
+% arara: --> 'out','snm','toc']
+% arara: --> }
+\PassOptionsToPackage{svgnames}{xcolor}
+\documentclass[
+	spanish,
+	8pt,
+	utf8,
+	xcolor=table,
+	handout,
+	aspectratio=169,
+	professionalfonts,
+	notheorems,
+	mathserif,
+	% t
+]{beamer}
+\setbeamersize{text margin left=0pt,text margin right=0pt}
+\usepackage[spanish,es-sloppy]{babel}
+\spanishdatedel\decimalpoint
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage[linesnumbered,ruled,boxed,vlined,spanish]{algorithm2e}
+\usepackage{algorithmicx}
+
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+
+\newcounter{savedenum}
+\newcommand*{\saveenum}{\setcounter{savedenum}{\theenumi}}
+\newcommand*{\resume}{\setcounter{enumi}{\thesavedenum}}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+
+\begin{document}
+
+\begin{frame}
+	\begin{enumerate}
+		\item
+		      Sea $\left\{a_{n}\right\}_{n\in\mathbb{N}}$ la sucesión
+		      recurrente definida por
+
+		      \begin{equation*}
+			      a_{1}=1,\quad
+			      a_{n+1}=\sqrt[3]{4+{\left(a_{n}\right)}^{2}}.
+		      \end{equation*}
+
+		      Demuestre que
+
+		      \begin{multicols}{2}
+			      \begin{enumerate}[a)]
+
+				      \item
+
+				            $\forall n\in\mathbb{N}:a_{n}\leq2$.
+
+				      \item
+
+				            $\left\{a_{n}\right\}_{n\in\mathbb{N}}$ es
+				            convergente y determine su límite.
+			      \end{enumerate}
+		      \end{multicols}
+
+		\item
+		      Sea $\left\{a_{n}\right\}_{n\in\mathbb{N}}$ la sucesión
+		      definida por
+
+		      \begin{equation*}
+			      a_{1}=\sqrt{2},\quad
+			      a_{n}=\sqrt{2a_{n-1}}.
+		      \end{equation*}
+
+		      Demuestre que $\left\{a_{n}\right\}_{n\in\mathbb{N}}$ es
+		      convergente y determine su límite.
+
+		\item
+		      Sea $\left\{a_{n}\right\}_{n\in\mathbb{N}}$ la sucesión
+		      definida por
+
+		      \begin{equation*}
+			      a_{1}=7,\quad
+			      a_{n+1}=\sqrt{\frac{{\left(a_{n}\right)}^{2}+2}{a_{n}+2}}.
+		      \end{equation*}
+
+		      Demuestre que
+
+		      \begin{multicols}{2}
+
+			      \begin{enumerate}[a)]
+				      \item
+
+				            $\forall n\in\mathbb{N}:a_{n}\geq1$.
+
+				      \item
+
+				            $\left\{a_{n}\right\}_{n\in\mathbb{N}}$ es
+				            convergente y determine su límite.
+			      \end{enumerate}
+		      \end{multicols}
+
+		      \saveenum
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}
+		\resume
+
+		\item
+		      Sean $\left\{a_{n}\right\}_{n\in\mathbb{N}}$ la sucesión
+		      definida por
+
+		      \begin{equation*}
+			      a_{1}=1,\quad
+			      a_{n}=4n+a_{n-1},
+		      \end{equation*}
+		      y $b_{n}\coloneqq\dfrac{a_{n}}{2n^{2}}$.
+		      Demuestre que
+
+		      \begin{multicols}{2}
+
+			      \begin{enumerate}[a)]
+				      \item
+
+				            $\forall n\in\mathbb{N}:\left|a_{n}-2n^{2}\right|<2n$.
+
+				      \item
+
+				            Estude la acotación de
+				            $\left\{b_{n}\right\}_{n\in\mathbb{N}}$ y
+				            determine su límite.
+			      \end{enumerate}
+		      \end{multicols}
+
+		\item
+		      Sea $\left\{a_{n}\right\}_{n\in\mathbb{N}}$ la sucesión
+		      definida por
+
+		      \begin{equation*}
+			      a_{1}=\sqrt{3},\quad
+			      a_{n}=\sqrt{3a_{n-1}}.
+		      \end{equation*}
+
+		      Determine $\lim\limits_{n\to\infty}a_{n}$.
+
+		\item
+		      Sea la sucesión $\left\{x_{n}\right\}_{n\in\mathbb{N}}$
+		      definida por
+
+		      \begin{equation*}
+			      x_{n}=\cos\left(\frac{1}{n}\right),
+		      \end{equation*}
+
+		      converge linealmente a $1$, y
+		      $\left\{p_{n}\right\}_{n\in\mathbb{N}}$ con
+
+		      \begin{equation*}
+			      p_{n}=
+			      x_{n}-
+			      \frac{
+			      {\left(x_{n+1}-x_{n}\right)}^{2}}{
+			      x_{n+2}-2x_{n+1}+x_{n}
+			      }=
+			      \cos\left(\frac{1}{n}\right)-
+			      \frac{
+				      {\left(
+						      \cos\left(\frac{1}{n+1}\right)-
+						      \cos\left(\frac{1}{n}\right)
+						      \right)}^{2}
+			      }{
+				      \cos\left(\frac{1}{n+2}\right)-
+				      2\cos\left(\frac{1}{n+1}\right)+
+				      \cos\left(\frac{1}{n}\right)
+			      },
+		      \end{equation*}
+
+		      que es el método $\Delta^{2}$ de Aitken,
+		      compruebe que converge linealmente a $1$ más rápidamente.
+
+		      % \begin{algorithm}[H]
+		      %   $A\leftarrow 1.0$\;
+		      %   $B\leftarrow 1.0$\;
+		      %   $p\leftarrow 0$\;
+		      %   \Mientras{\normalfont $\left(\left(A+1\right)-A\right)-1=0$}{
+		      %     $A\leftarrow 2\ast A$\;
+		      %     $p\leftarrow p+1$\;
+		      %     \Mientras{\normalfont $\left(\left(A+B\right)-A\right)-B\neq0$}{
+		      %       $B\leftarrow B+1$\;
+		      %     }
+		      %   }
+		      % \end{algorithm}
+
+		      \saveenum
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}
+		\resume
+
+		\item
+
+		      Sea la sucesión $\left\{x_{n}\right\}_{n\in\mathbb{N}}$
+		      definida por
+
+		      \begin{equation*}
+			      x_{n}=2^{-n}.
+		      \end{equation*}
+
+		      Determine los valores de la sucesión usando el método
+		      $\Delta^{2}$ de Aitken.
+
+		\item
+
+		      Sea la sucesión
+		      $\left\{x_{n}\right\}_{n\in\mathbb{N}\cup\{0\}}$ definida
+		      por
+
+		      \begin{equation*}
+			      x_{0}=\frac{1}{10},\quad
+			      x_{n}=\frac{1}{4}e^{n}.
+		      \end{equation*}
+
+		      Determine los valores de la sucesión usando el método
+		      $\Delta^{2}$ de Aitken.
+
+		\item
+
+		      Sea la sucesión
+		      $\left\{x_{n}\right\}_{n\in\mathbb{N}\cup\{0\}}$ definida
+		      por
+
+		      \begin{equation*}
+			      x_{0}=\frac{1}{2},\quad
+			      x_{n}=e^{-n}.
+		      \end{equation*}
+
+		      Determine los valores de la sucesión usando el método
+		      $\Delta^{2}$ de Aitken.
+
+		\item
+
+		      Sea la sucesión
+		      $\left\{u_{n}\right\}_{n\in\mathbb{N}\cup\{0\}}$ definida
+		      por
+
+		      \begin{equation*}
+			      u_{0}=\frac{3}{2},\quad
+			      u_{1}=\frac{5}{3},\quad
+			      u_{n+1}=2003-\frac{6002}{u_{n}}+\frac{4000}{u_{n}u_{n-1}}.
+		      \end{equation*}
+
+		      Determine los valores de la sucesión usando el método
+		      $\Delta^2$ de Aitken.
+
+		      \saveenum
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}
+		\resume
+
+		\item
+
+		      Implemente un programa en \texttt{python} para convertir
+		      los siguientes números binarios con signo de $8$ bits a
+		      base $10$.
+
+		      \begin{multicols}{4}
+
+			      \begin{enumerate}[a)]
+				      \item
+
+				            $\left(10111000\right)_{2}$.
+
+				      \item
+
+				            $\left(01010101\right)_{2}$.
+
+				      \item
+
+				            $\left(11111111\right)_{2}$.
+
+				      \item
+
+				            $\left(00011011\right)_{2}$.
+			      \end{enumerate}
+		      \end{multicols}
+
+		\item
+
+		      Implemente un programa en \texttt{python} para convertir
+		      los siguientes números decimales a binarios con signo de
+		      $8$ bits.
+
+		      \begin{multicols}{4}
+			      \begin{enumerate}[a)]
+				      \item
+
+				            $56$.
+
+				      \item
+
+				            $85$.
+
+				      \item
+
+				            $127$.
+
+				      \item
+
+				            $27$.
+			      \end{enumerate}
+		      \end{multicols}
+
+		\item
+
+		      Implemente un programa en \texttt{python} un registro de
+		      $5$ bits.
+		      Encuentre la suma de los siguientes números usando el
+		      complemento a $2$.
+
+
+		      \begin{multicols}{3}
+			      \begin{enumerate}[a)]
+				      \item
+
+				            $-1011$ y $-0101$.
+
+				            \
+
+				      \item
+
+				            $+0111$ y $-0011$.
+
+
+
+				      \item
+
+				            $+0011$ y $-0101$.
+
+				            \
+
+				      \item
+
+				            $+0100$ y $-0111$.
+
+
+
+				      \item
+
+				            $-0011$ y $-0101$.
+
+				            \
+				      \item
+
+				            $-0111$ y $-0010$.
+			      \end{enumerate}
+		      \end{multicols}
+
+		      \saveenum
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}
+		\resume
+		\item
+
+		      Dado el siguiente sistema numérico de punto flotante, con
+		      las siguientes características
+
+		      \begin{multicols}{3}
+
+			      \begin{enumerate}[i)]
+				      \item
+
+				            Una base $\beta$,
+
+				      \item
+
+				            $n$ dígitos de la mantisa,
+
+				      \item
+
+				            un exponente $m\leq e\leq M$,
+			      \end{enumerate}
+		      \end{multicols}
+
+		      donde $\left\{\beta,n,m,e,M\right\}\subset\mathbb{Z}$.
+		      Defina la forma normalizada de un número y en especial la
+		      del cero.
+		      Halle el número total de números que se puede expresar en
+		      este sistema.
+
+		\item
+
+		      Del sistema de punto flotante, halle el número cuyo valor
+		      absoluto es el más pequeño, su sucesor inmediato y la
+		      distancia entre ellos.
+
+
+		\item
+
+		      Demuestre que $\frac{4}{5}$ no se puede representar de
+		      manera exacta como número de máquina.
+		      ¿Cuál será el número de máquina más cercano?
+
+		\item
+
+		      Encuentre el número de máquina de 32 bits que está a la
+		      derecha de $\frac{1}{9}$.
+
+		\item
+
+		      Determine el mayor, menor elemento positivo, números de
+		      elementos del conjunto $\mathbb{F}\left(10,6,-9,9\right)$,
+		      así como las siguientes operaciones $x+y$, $x-y$, $xy$ y
+		      $\frac{x}{y}$, donde $x=\pi=3.141592653589\ldots$ e
+		      $y=e=2.7182818284590\ldots$.
+
+		\item Justificando su respuesta, determine el valor de verdad de
+		      las siguientes proposiciones.
+
+		      \begin{enumerate}[a)]
+			      \item
+
+			            Si la cantidad de elementos del conjunto
+			            $\mathbb{F}$, con $\mathbb{F}(2, t .-1,2)$ es $33$,
+			            entonces los dígitos en la mantisa son $4$.
+
+			      \item
+
+			            En un computadora de doble precisión su sistema de
+			            números puntos flotantes está distribuido en $11$
+			            bits para la mantisa y $52$ para el exponente.
+
+		      \end{enumerate}
+
+
+		\item
+
+		      Probar que el cardinal del sistema de números de punto
+		      flotante normalizado $\mathbb{F}\left(\beta, t, L, U\right)$ es
+
+
+		      \begin{equation*}
+			      \operatorname{card}\left(\mathbb{F}\right)=
+			      2\left(\beta-1\right)\beta^{t-1}\left(U-L+1\right)+1.
+		      \end{equation*}
+
+		      En particular, para $\mathbb{F}\left(10,3,-2,3\right)$,
+		      calcular $x_{\min}$, $x_{\max}$, $\epsilon_{M}$.
+
+	\end{enumerate}
+\end{frame}
+
+\end{document}

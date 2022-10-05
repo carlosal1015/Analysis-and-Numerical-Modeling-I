@@ -1,0 +1,1306 @@
+%! Aldo Luna, Alexandra Mazzetti, Carlos Aznarán, Edward Canales
+%! Universidad Nacional de Ingeniería
+%! Facultad de Ciencias
+%! Lima, Perú
+%! Uso:
+%! $ sudo pacman -Syu texlive-most zathura # dependencias, visor
+%! $ arara primera
+%! $ zathura primera.pdf
+%! Ver https://wiki.archlinux.org/title/TeX_Live
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['aux','log','nav',
+% arara: --> 'out','snm','toc','pytxcode','pdf']
+% arara: --> }
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> draft: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: biber
+%! arara: pythontex
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> draft: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> synctex: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['aux','log','nav',
+% arara: --> 'out','snm','toc','pytxcode']
+% arara: --> }
+\PassOptionsToPackage{svgnames}{xcolor}
+\documentclass[
+	spanish,
+	8pt,
+	utf8,
+	xcolor=table,
+	handout,
+	aspectratio=169,
+	professionalfonts,
+	% notheorems,
+	mathserif,
+	leqno,
+	% t
+]{beamer}
+\setbeamersize{text margin left=5pt,text margin right=5pt}
+\usepackage[spanish,es-sloppy]{babel}
+\spanishdatedel\decimalpoint
+\usepackage{mathtools}
+\usepackage{minted}
+\usepackage{enumerate}
+\usepackage{multicol}
+% \usepackage{pythontex}
+\usepackage[
+	citestyle=numeric,
+	style=apa,
+	backend=biber,
+	defernumbers=true,
+	sorting=ynt,
+	maxcitenames=4
+]{biblatex}
+\addbibresource{references.bib}
+
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+
+\newcounter{savedenum}
+\newcommand*{\saveenum}{\setcounter{savedenum}{\theenumi}}
+\newcommand*{\resume}{\setcounter{enumi}{\thesavedenum}}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+
+% https://tex.stackexchange.com/questions/68080/beamer-bibliography-icon
+\setbeamertemplate{bibliography item}{%
+	\ifboolexpr{ test {\ifentrytype{book}} or test {\ifentrytype{mvbook}}
+		or test {\ifentrytype{collection}} or test {\ifentrytype{mvcollection}}
+		or test {\ifentrytype{reference}} or test {\ifentrytype{mvreference}} }
+	{\setbeamertemplate{bibliography item}[book]}
+	{\ifentrytype{online}
+		{\setbeamertemplate{bibliography item}[online]}
+		{\setbeamertemplate{bibliography item}[article]}}%
+	\usebeamertemplate{bibliography item}}
+
+\defbibenvironment{bibliography}
+{\list{}
+	{\settowidth{\labelwidth}{\usebeamertemplate{bibliography item}}%
+		\setlength{\leftmargin}{\labelwidth}%
+		\setlength{\labelsep}{\biblabelsep}%
+		\addtolength{\leftmargin}{\labelsep}%
+		\setlength{\itemsep}{\bibitemsep}%
+		\setlength{\parsep}{\bibparsep}}}
+{\endlist}
+{\item}
+
+\title{
+	\huge\sffamily
+	Primera Práctica Dirigida\quad Grupo N$^{\circ}$~1
+}
+
+\subtitle{
+	\large\scshape
+	Análisis y Modelamiento Numérico I\quad CM4F1 B\\
+		\normalsize\normalfont
+		Profesor Jonathan Munguia La Cotera
+}
+
+\author{
+	Aldo Luna Bueno\quad\and\quad
+	Alexandra Gutierrez Mazzetti\quad\and\quad
+	Carlos Aznarán Laos\quad\and\quad
+	Edward Canales Yarin
+}
+
+\institute{\large
+	Facultad de Ciencias \and
+	Universidad Nacional de Ingeniería
+}
+\date{28 de septiembre del 2022}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% \begin{frame}
+% 	\begin{theorem}[El Principio de Inducción Matemática]
+% 		Sea $F$ un \alert{cuerpo ordenado}.
+% 		Suponga que $\forall n\in\mathbb{N}_{F}$, $p\left(n\right)$ es
+% 		una proposición acerca de $n$.
+% 		Si
+
+% 		\begin{multicols}{2}
+% 			\begin{enumerate}[(1)]
+% 				\item\label{hyp:1}
+
+% 				$p\left(1\right)$ es verdadero, y
+
+% 				\item\label{hyp:2}
+
+% 				$\forall k\in\mathbb{N}_{F}$,
+% 				$p\left(k\right)\implies p\left(k+1\right)$,
+% 			\end{enumerate}
+% 		\end{multicols}
+
+% 		entonces $\forall n\in\mathbb{N}_{F}$, $p\left(n\right)$ es
+% 		verdadero.
+% 	\end{theorem}
+
+% 	\begin{proof}
+% 		Suponga que $p\left(n\right)$ es como se describe en la
+% 		hipótesis.
+% 		Sea
+% 		\begin{math}
+% 			A=
+% 			\left\{
+% 			x\in\mathbb{N}_{F}:
+% 			p\left(x\right)\text{ es verdadero}
+% 			\right\}
+% 		\end{math}.
+% 		Entonces,
+% 		\begin{enumerate}[(i)]
+% 			\item
+
+% 			      $1\in A$, por~\eqref{hyp:1}.
+
+% 			\item
+
+% 			      Suponga que $x\in A$. Entonces, $x\in\mathbb{N}_{F}$ y
+% 			      $p\left(x\right)$ es verdadero.
+% 			      Así, por~\eqref{hyp:2}, $p\left(x+1\right)$ es verdadero.
+% 			      Esto es, $x+1\in A$.
+% 			      Por lo tanto, $x\in A\implies x+1\in A$.
+% 			      Finalmente, $A$ es conjunto inductivo y
+% 			      $\mathbb{N}_{F}\subset A$.
+% 			      Esto es, $\forall n\in\mathbb{N}_{F}$, $p\left(n\right)$
+% 			      es verdadero.
+% 		\end{enumerate}
+% 	\end{proof}
+
+% 	\begin{definition}[Sucesión acotada]
+% 		Una sucesión $\left\{x_{n}\right\}$ es \alert{acotada} si el
+% 		conjunto $\left\{x_{n}:n\in\mathbb{N}\right\}$ es un conjunto
+% 		acotado.
+% 		Hay dos maneras equivalentes de decir que $\left\{x_{n}\right\}$
+% 		es \alert{acotada}:
+% 		\begin{multicols}{2}
+% 			\begin{enumerate}[(1)]
+% 				\item
+
+% 				      $\exists a,b\in\mathbb{R}$ tal que
+% 				      $\forall n\in\mathbb{N}$, $a\leq x_{n}\leq b$.
+
+% 				\item
+
+% 				      $\exists M>0$ tal que $\forall n\in\mathbb{N}$,
+% 				      $\left|x_{n}\right|\leq M$.
+% 			\end{enumerate}
+% 		\end{multicols}
+% 	\end{definition}
+% \end{frame}
+
+% \begin{frame}
+% 	\begin{definition}[Sucesiones monótonas]
+% 		Una sucesión $\left\{a_{n}\right\}$ es
+% 		\begin{enumerate}[a)]
+% 			\item
+
+% 			      \alert{monótona creciente} sii $\forall n\in\mathbb{N}$,
+% 			      $a_{n}\leq a_{n+1}$; esto es
+
+% 			      \begin{equation*}
+% 				      a_{1}\leq
+% 				      a_{2}\leq
+% 				      \cdots\leq
+% 				      a_{n}\leq
+% 				      a_{n+1}\leq
+% 				      \cdots.
+% 			      \end{equation*}
+
+% 			\item
+
+% 			      \alert{monótona decreciente} sii
+% 			      $\forall n\in\mathbb{N}$, $a_{n}\geq a_{n+1}$; esto es
+
+% 			      \begin{equation*}
+% 				      a_{1}\geq
+% 				      a_{2}\geq
+% 				      \cdots\geq
+% 				      a_{n}\geq
+% 				      a_{n+1}\geq
+% 				      \cdots.
+% 			      \end{equation*}
+
+% 			\item
+
+% 			      \alert{estrictamente creciente} sii
+% 			      $\forall n\in\mathbb{N}$, $a_{n}<a_{n+1}$; esto es
+
+% 			      \begin{equation*}
+% 				      a_{1}<
+% 				      a_{2}<
+% 				      \cdots<
+% 				      a_{n}<
+% 				      a_{n+1}<
+% 				      \cdots.
+% 			      \end{equation*}
+
+% 			\item
+
+% 			      \alert{estrictamente decreciente} sii $\forall n\in\mathbb{N}$,
+% 			      $a_{n}>a_{n+1}$; esto es
+
+% 			      \begin{equation*}
+% 				      a_{1}>
+% 				      a_{2}>
+% 				      \cdots>
+% 				      a_{n}>
+% 				      a_{n+1}>
+% 				      \cdots.
+% 			      \end{equation*}
+% 		\end{enumerate}
+% 	\end{definition}
+
+% \end{frame}
+
+% \begin{frame}
+% 	\begin{theorem}[Convergencia Monótona para sucesiones]
+% 		Cualquier sucesión monótona y acotada \alert{converge}.
+% 		Más precisamente, si $\left\{a_{n}\right\}$ es una sucesión
+% 		monótona creciente que es acotada superiormente, entonces el
+% 		\begin{math}
+% 			\lim\limits_{n\to\infty}a_{n}=
+% 			\sup\left\{a_{n}:n\in\mathbb{N}\right\}
+% 		\end{math}.
+
+% 		% \begin{enumerate}[a)]
+% 		% 	\item
+% 		% \item
+% 		% Si $\left\{a_{n}\right\}_{n\in\mathbb{N}}$ es una sucesión
+% 		% monótona decreciente que es acotada inferiormente, entonces el
+% 		% $\lim\limits_{n\to\infty}a_{n}=\inf\left\{a_{n}:n\in\mathbb{N}\right\}$;
+% 		% \end{enumerate}
+% 	\end{theorem}
+
+% 	\begin{proof}
+% 		% \begin{enumerate}[a)]
+% 		% 	\item
+
+% 		Suponga que $\left\{a_{n}\right\}_{n\in\mathbb{N}}$ es acotada y
+% 		monótona creciente.
+% 		Dado que $\left\{a_{n}\right\}_{n\in\mathbb{N}}$ es acotada, el
+% 		conjunto $\left\{a_{n}:n\in\mathbb{N}\right\}$ tiene una cota
+% 		superior.
+% 		Por la completitud de $\mathbb{R}$,
+% 		$\exists u=\sup\left\{a_{n}:n\in\mathbb{N}\right\}$.
+
+% 		Sea $\varepsilon>0$.
+% 		Por el criterio $\varepsilon$ para el supremo,
+% 		$\exists n_{0}\in\mathbb{N}$ tal que $a_{n_{0}}>u-\varepsilon$.
+% 		Pero $\left\{a_{n}\right\}$ es monótona creciente, por lo tanto,
+% 		$n\geq n_{0}\implies a_{n}\geq a_{n_{0}}$.
+
+% 		Así,
+% 		\begin{equation}\label{eq:increasing}
+% 			n\geq n_{0}\implies a_{n}\geq a_{n_{0}}>u-\varepsilon.
+% 		\end{equation}
+
+% 		Pero, dado que $u=\sup\left\{a_{n}:n\in\mathbb{N}\right\}$,
+% 		\begin{equation}\label{eq:upperbound}
+% 			\forall n\in\mathbb{N}, a_{n}\leq u.
+% 		\end{equation}
+% 		Juntando~\eqref{eq:increasing} y~\eqref{eq:upperbound}, tenemos
+% 		\begin{align*}
+% 			n\geq n_{0}
+% 			 & \implies u-\varepsilon<a_{n}\leq u< u+\varepsilon \\
+% 			 & \implies u-\varepsilon<a_{n}<u+\varepsilon        \\
+% 			 & \implies \left|a_{n}-u\right|<\varepsilon.
+% 		\end{align*}
+% 		Por lo tanto,
+% 		\begin{math}
+% 			\lim\limits_{n\to\infty}a_{n}=
+% 			u=
+% 			\sup\left\{a_{n}:n\in\mathbb{N}\right\}
+% 		\end{math}.
+% 		% \item De manera análoga.
+% 		% \end{enumerate}
+% 	\end{proof}
+
+% 	% \begin{corollary}[Teorema Fundamental de las Sucesiones Monótonas]
+% 	% 	Una sucesión monótona converge sii esta es es acotada.
+% 	% \end{corollary}
+
+% 	% \begin{theorem}[Teorema de Bolzano-Weierstraß para sucesiones]
+% 	% 	\label{thm:bolzano-weierstraß}
+% 	% 	Cualquier sucesión acotada tiene una subsucesión convergente.
+% 	% \end{theorem}
+
+% 	% \begin{proof}
+% 	% 	\begin{enumerate}
+% 	% 		\item
+
+% 	% 		      Suponga cualquier sucesión acotada.
+
+% 	% 		\item
+
+% 	% 		      Cree el intervalo cerrado inicial cuyos extremos son
+% 	% 					dichas cotas y construya una sucesión de intervalos
+% 	% 					encajados.
+
+% 	% 		\item
+
+% 	% 		      Use el teorema de intervalos encajados de Cantor y
+% 	% 					concluya que existe un único número real en la
+% 	% 					intersección.
+
+% 	% 		\item
+
+% 	% 		      Pruebe que la subsucesión converge a ese número real.
+% 	% 	\end{enumerate}
+% 	% \end{proof}
+
+% 	% \begin{theorem}
+% 	% 	Una sucesión acotada es convergente sii tiene uno y solo un punto
+% 	% 	de acumulación.
+% 	% \end{theorem}
+
+% 	% \begin{proof}
+% 	% 	Para el recíproco use el teorema~\ref{thm:bolzano-weierstraß} y
+% 	% 	por contradicción.
+% 	% \end{proof}
+% \end{frame}
+
+% \begin{frame}
+% 	\begin{definition}[Funciones monótonas]
+% 		Una función $f$ es
+% 		\begin{enumerate}[(a)]
+% 			\item\label{mon:increasing}
+
+% 			\alert{monótona creciente} en un conjunto
+% 			$A\subset\mathcal{D}\left(f\right)$ sii
+% 			$\forall x_{1},x_{2}$ en $A$,
+
+% 			\begin{equation*}
+% 				x_{1}<
+% 				x_{2}\implies
+% 				f\left(x_{1}\right)\leq
+% 				f\left(x_{2}\right);
+% 			\end{equation*}
+
+% 			\item\label{mon:decreasing}
+
+% 			\alert{monótona decreciente} en un conjunto
+% 			$A\subset\mathcal{D}\left(f\right)$ sii
+% 			$\forall x_{1},x_{2}$ en $A$,
+
+% 			\begin{equation*}
+% 				x_{1}<
+% 				x_{2}\implies
+% 				f\left(x_{1}\right)\geq
+% 				f\left(x_{2}\right);
+% 			\end{equation*}
+
+% 			\item\label{mon:strict-increasing}
+
+% 			\alert{estrictamente creciente} en un conjunto
+% 			$A\subset\mathcal{D}\left(f\right)$ sii
+% 			$\forall x_{1},x_{2}$ en $A$,
+
+% 			\begin{equation*}
+% 				x_{1}<
+% 				x_{2}\implies
+% 				f\left(x_{1}\right)<
+% 				f\left(x_{2}\right);
+% 			\end{equation*}
+
+% 			\item\label{mon:strict-decreasing}
+
+% 			\alert{estrictamente decreciente} en un conjunto
+% 			$A\subset\mathcal{D}\left(f\right)$ sii
+% 			$\forall x_{1},x_{2}$ en $A$,
+
+% 			\begin{equation*}
+% 				x_{1}<
+% 				x_{2}\implies
+% 				f\left(x_{1}\right)>
+% 				f\left(x_{2}\right);
+% 			\end{equation*}
+
+% 			\item
+
+% 			      \alert{monótona} en $A\subset\mathcal{D}\left(f\right)$
+% 			      si este satisface~\eqref{mon:increasing}
+% 			      o~\eqref{mon:decreasing}
+% 			      y \alert{estrictamente monótona} en
+% 			      $A\subset\mathcal{D}\left(f\right)$ si este satisface
+% 			      satisface~\eqref{mon:strict-increasing}
+% 			      o~\eqref{mon:strict-decreasing}.
+% 		\end{enumerate}
+% 	\end{definition}
+
+% \end{frame}
+
+% \begin{frame}
+% 	\begin{theorem}
+% 		Suponga que $f$ es diferenciable sobre un intervalo $I$.
+% 		\begin{enumerate}[(a)]
+% 			\item\label{crit:increasing}
+
+% 			Si $f^{\prime}\left(x\right)\geq 0$, $\forall x\in I$, entonces
+% 			$f$ es monótona creciente sobre $I$.
+
+% 			\item\label{crit:decreasing}
+
+% 			Si $f^{\prime}\left(x\right)\leq 0$, $\forall x\in I$, entonces
+% 			$f$ es monótona decreciente sobre $I$.
+
+% 			\item\label{crit:strict-increasing}
+
+% 			Si $f^{\prime}\left(x\right)>0$, $\forall x\in I$, entonces
+% 			$f$ es estrictamente creciente sobre $I$.
+
+% 			\item\label{crit:strict-decreasing}
+
+% 			Si $f^{\prime}\left(x\right)<0$, $\forall x\in I$, entonces
+% 			$f$ es estrictamente decreciente sobre $I$.
+% 		\end{enumerate}
+% 	\end{theorem}
+
+% 	\begin{alertblock}{Tener cuidado}
+% 		Las reciprocas de~\eqref{crit:strict-increasing}
+% 		y~\eqref{crit:strict-decreasing} son falsas.
+% 	\end{alertblock}
+
+% 	\begin{proof}
+% 		Suponga que $f$ es diferenciable sobre un intervalo $I$.
+% 		\begin{enumerate}[(a)]
+% 			\item
+
+% 			      Suponga que $f^{\prime}\left(x\right)\geq0$,
+% 			      $\forall x\in I$.
+% 			      Sea $x_{1}<x_{2}$ en $I$.
+% 			      Aplicando el \alert{teorema del valor medio} a $f$ en el
+% 			      intervalo $\left[x_{1},x_{2}\right]$,
+% 			      $\exists c\in\left(x_{1},x_{2}\right)$ tal que
+% 			      \begin{math}
+% 				      f^{\prime}\left(c\right)=
+% 				      \frac{
+% 				      f\left(x_{2}\right)-f\left(x_{1}\right)
+% 				      }{
+% 				      x_{2}-x_{1}
+% 				      }
+% 			      \end{math}.
+% 			      Dado que $f^{\prime}\geq0$,
+% 			      \begin{equation*}
+% 				      \frac{
+% 				      f\left(x_{2}\right)-
+% 				      f\left(x_{1}\right)
+% 				      }{x_{2}-x_{1}}\geq
+% 				      0.
+% 			      \end{equation*}
+% 			      Pero $x_{2}-x_{1}>0$ dado que $x_{1}<x_{2}$.
+% 			      Así, $f\left(x_{2}\right)-f\left(x_{1}\right)\geq0$;
+% 			      esto es,
+% 			      \begin{math}
+% 				      f\left(x_{2}\right)\geq
+% 				      f\left(x_{1}\right).
+% 			      \end{math}
+% 			      Hemos provado que $\forall x_{1}<x_{2}$ en $I$,
+% 			      $f\left(x_{2}\right)\geq f\left(x_{1}\right)$.
+% 			      Esto es, $f$ es monótona creciente sobre $I$.
+% 		\end{enumerate}
+% 	\end{proof}
+% \end{frame}
+
+% \begin{frame}[fragile]
+% 	\printpythontex
+% \end{frame}
+
+\begin{frame}
+
+	\begin{enumerate}\setcounter{enumi}{4}
+		\item
+
+		      Sea $\left\{a_{n}\right\}_{n\in\mathbb{N}}$ la sucesión
+		      definida por
+
+		      \begin{equation*}
+			      a_{1}=\sqrt{3},\quad
+			      a_{n}=\sqrt{3a_{n-1}}.
+		      \end{equation*}
+
+		      Determine $\lim\limits_{n\to\infty}a_{n}$.
+	\end{enumerate}
+
+	\begin{solution}
+		Primero probaremos que la \alert{existencia del límite} y luego
+		lo calcularemos.
+		Según el teorema de convergencia monótona, si la sucesión
+		$a_{n}$ es monótona y acotada, entonces converge a un valor
+		(el límite que se pide determinar).
+
+		\begin{description}
+			\item[$a_{n}$ es monótona creciente.]
+
+				Definimos la proposición $p\left(n\right)\coloneqq a_{n+1}\geq a_{n}$.
+
+				Por el \alert{Principio de Inducción Matemática}, vemos que
+				el caso base $p\left(1\right)$ se cumple
+				\begin{equation*}
+					a_{2}=\sqrt{3\sqrt3}>
+					\sqrt{3}=a_{1}.
+				\end{equation*}
+
+				Para la hipótesis inductiva, asumamos que $p\left(k\right)$ se
+				cumple hasta un $k\in\mathbb{N}$ fijo.
+				\begin{align*}
+					a_{k+1}         & \geq a_{k}        \\
+					3a_{k+1}        & \geq 3a_{k}       \\
+					\sqrt{3a_{k+1}} & \geq\sqrt{3a_{k}} \\
+					a_{k+2}         & \geq a_{k+1}.
+				\end{align*}
+
+				Luego, $p\left(k+1\right)$ se cumple.
+				Por lo tanto, $p\left(n\right)$ se cumple para todo $n$ natural
+				y la sucesión $a_{n}$ es monótona creciente.
+
+		\end{description}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		\begin{description}
+			\item[$a_{n}$ es acotada superiormente.]
+
+				Sea la proposición $q\left(n\right)\coloneqq\text{existe un natural $M$ tal que $a_n\leq M$}$.
+
+				Por el \alert{Principio de Inducción Matemática}, si $M=3$ vemos que el caso base
+				$q\left(1\right)$ se cumple
+				\begin{equation*}
+					a_{1}=\sqrt{3}\leq 3.
+				\end{equation*}
+
+				Para la hipótesis inductivo, asumamos que $q\left(k\right)$ se
+				cumple hasta un $k\in\mathbb{N}$ fijo.
+
+				\begin{align*}
+					a_{k+1}       & \leq a_{k}   \\
+					a_{k}         & \leq 3       \\
+					3a_{k}        & \leq 9       \\
+					\sqrt{3a_{k}} & \leq\sqrt{9} \\
+					a_{k+1}       & \leq 3.
+				\end{align*}
+
+				Luego, $q\left(k+1\right)$ se cumple.
+				Por lo tanto, $q\left(n\right)$ se cumple para todo $n$ natural
+				y la sucesión $a_{n}$ es acotada superiormente.
+
+				\alert{Cálculo del límite.}
+				\begin{equation*}
+					L=\lim\limits_{n\to\infty}a_{n}=
+					\lim\limits_{n\to\infty}\sqrt{3a_{n-1}}=
+					\sqrt{3\lim\limits_{n\to\infty}a_{n-1}}=
+					\sqrt{3L}
+					\implies
+					L\left(L-3\right)=0
+					\implies
+					L=0 \vee L=3.
+				\end{equation*}
+				Sabemos que $a_{n}$ es una sucesión monótona creciente, así
+				que $a_{n}\leq a_{1}=\sqrt{3}$ para todo $n\geq1$
+				Luego, $L\geq\sqrt{3}>0$, por lo que $L=3$.
+		\end{description}
+	\end{solution}
+\end{frame}
+
+% \begin{frame}
+% 	\begin{solution}
+% 		Otra forma.
+
+% 		\begin{description}[leftmargin=*] %\leavevmode
+% 			\item[$a_{n}$ es estrictamente creciente.]
+
+% 				Definimos la proposición $p\left(n\right)$:
+
+% 				Definimos la función
+% 				\begin{align*}
+% 					f\colon\mathbb{R}^{+} & \longrightarrow\mathbb{R} \\
+% 					t                     & \longmapsto\sqrt{3t}
+% 				\end{align*}
+% 				Además,
+% 				\begin{math}
+% 					t>0\implies
+% 					3t>0\implies
+% 					f\left(t\right)=\sqrt{3t}>0\implies
+% 					\frac{1}{f\left(t\right)}>0\implies
+% 					f^{\prime}\left(t\right)=\frac{3}{2f\left(t\right)}>0.
+% 				\end{math}
+% 				Por lo tanto, $f$ es estrictamente creciente en
+% 				$\mathbb{R}^{+}$.
+% 				Y como
+% 				\begin{math}
+% 					\left\{a_{n}\right\}_{n\in\mathbb{N}}\subset
+% 					f\left(\mathbb{R}^{+}\right)
+% 				\end{math}.
+% 				Concluimos que $\left\{a_{n}\right\}_{n\in\mathbb{N}}$ es
+% 				estrictamente creciente.
+
+% 			\item[$a_{n}$ es acotada superiormente.]
+
+% 				% $\exists 3>0$ tal que $\forall n\in\mathbb{N}$,
+% 				% $a_{n}=\sqrt{3a_{n-1}}\leq 3$.
+% 				% acotada superiormente
+% 				% $\lim\limits_{n\to\infty}\sqrt[n]{x}=1$, $\forall x>0$.
+% 				% teorema del punto fijo de Banach.
+
+% 				Supongamos que $p\left(n\right)$ es la proposición
+% 				$\exists 3>0$ tal que $a_{n}\leq 3$.
+% 				Por el \alert{Principio de Inducción Matemática},
+
+% 				\begin{enumerate}[(1)]
+% 					\item\label{hyp:5.1}
+
+% 					$p\left(1\right)$ es verdadero, es decir, $\exists 3>0$
+% 					tal que $a_{1}=\sqrt{3}\leq 3$.
+
+% 					\item\label{hyp:5.2}
+
+% 					$\forall k\in\mathbb{N}$, $p\left(k\right)$ es verdadero,
+% 					es decir, $\exists 3>0$ tal que
+% 					$a_{k}=\sqrt{3a_{k-1}}\leq 3$.
+% 				\end{enumerate}
+
+% 				Veamos que $p\left(k+1\right)$ es verdadero.
+% 				En efecto, por la hipótesis de inducción~\eqref{hyp:5.2},
+% 				$p\left(k\right)$ es verdadero, es decir,
+% 				$\exists 3>0$ tal que
+% 				\begin{math}
+% 					a_{k}\leq 3\implies
+% 					3a_{k}\leq 3\times 3\implies
+% 					\sqrt{3a_{k}}\leq\sqrt{9}\implies
+% 					a_{k+1}\leq3
+% 				\end{math}.
+% 				En otras palabras, $p\left(k+1\right)$ es verdadero.
+% 				Por lo tanto, $\forall n\in\mathbb{N}$, $\exists 3>0$
+% 				tal que $a_{n}\leq 3$.
+% 		\end{description}
+% 	\end{solution}
+% \end{frame}
+
+% \begin{frame}
+% 	Como $\left\{a_{n}\right\}$ es monótona creciente y acotada
+% 	superiormente, entonces el
+% 	\begin{math}
+% 		\lim\limits_{n\to\infty}
+% 		\left\{a_{n}\right\}_{n\in\mathbb{N}}=
+% 		L=
+% 		\sup\left\{a_{n}:n\in\mathbb{N}\right\}
+% 	\end{math}.
+
+% 	O sea, $\exists L\in\mathbb{R}$ tal que
+% 	\begin{align*}
+% 		\lim\limits_{n\to\infty}a_{n}           & =L.                 \qquad\text{Ya que la sucesión $a_{n}$ es convergente.}          & \\
+% 		\lim\limits_{n\to\infty}\sqrt{3a_{n-1}} & =L.                 \qquad\text{Definición de $a_{n}$.}                              & \\
+% 		\sqrt{\lim\limits_{n\to\infty}3a_{n-1}} & =L.                 \qquad\text{La raíz cuadrada es una función continua.}           & \\
+% 		\sqrt{3\lim\limits_{n\to\infty}a_{n-1}} & =L.                                                                                  & \\
+% 		\sqrt{3L}                               & =L.              \qquad\text{Ya que la sucesión $a_{n}$ es convergente.}             & \\
+% 		3L                                      & =L^{2}.                                                                              & \\
+% 		0                                       & =L\left(L-3\right). \qquad\text{$L\neq0$ porque $a_{n}$ es estrictamente creciente.} & \\
+% 		3                                       & =L.                                                                                  & \\
+% 	\end{align*}
+% \end{frame}
+
+% \begin{frame}
+% 	\begin{theorem}[Aceleración de Aitken]
+% 		Sea $r_{n}$ una sucesión de números reales que converge al límite
+% 		$r$.
+% 		Entonces, la nueva sucesión
+% 		\begin{equation*}
+% 			s_{n}=
+% 			\frac{r_{n}r_{n+2}-r^{2}_{n+1}}{r_{n+2}-2r_{n+1}+r_{n}}\quad
+% 			\left(n\geq0\right)
+% 		\end{equation*}
+% 		converge a $r$ más rápido, si
+% 		$r_{n+1}-r=\left(c+\delta_{n}\right)\left(r_{n}-r\right)$ con
+% 		$\left|c\right|<1$
+% 		y $\lim\limits_{n\to\infty}\delta_{n}=0$.
+% 		De hecho, $\lim\limits_{n\to\infty}\frac{s_{n}-r}{r_{n}-r}=0$.
+% 	\end{theorem}
+
+% 	\begin{proof}
+% 		Defina el error de la sucesión como $h_{n}\coloneqq r_{n}-r$. Entonces,
+% 		\begin{align*}
+% 			s_{n}   & =
+% 			\frac{
+% 			\left(r+h_{n}\right)
+% 			\left(r+h_{n+2}\right)-
+% 			{\left(r+h_{n+1}\right)}^2
+% 			}{
+% 			\left(r+h_{n+2}\right)-
+% 			2\left(r+h_{n+1}\right)+
+% 			\left(r+h_{n}\right)
+% 			}             \\
+% 			        & =r+
+% 			\frac{h_{n}h_{n+2}-h^{2}_{n+1}}{h_{n+2}-2h_{n+1}+h_{n}}
+% 			\shortintertext{
+% 			Use la hipótesis $h_{n+1}=\left(c+\delta_{n}\right)h_{n}$
+% 			para obtener
+% 			\begin{math}
+% 				h_{n+2}=
+% 				\left(c+\delta_{n+1}\right)
+% 				\left(c+\delta_{n}\right)h_{n}
+% 			\end{math}
+% 			y
+% 			}
+% 			s_{n}-r & =
+% 			\frac{
+% 			h_{n}
+% 			\left(c+\delta_{n+1}\right)
+% 			\left(c+\delta_{n}\right)
+% 			h_{n}-
+% 			{\left(c+\delta_{n}\right)}^{2}h^{2}_{n}
+% 			}{
+% 			\left(c+\delta_{n+1}\right)
+% 			\left(c+\delta_{n}\right)
+% 			h_{n}-
+% 			2\left(c+\delta_{n}\right)
+% 			h_{n}+
+% 			h_{n}
+% 			}             \\
+% 			        & =
+% 			h_{n}
+% 			\frac{
+% 			\left(c+\delta_{n+1}\right)
+% 			\left(c+\delta_{n}\right)-
+% 			{\left(c+\delta_{n}\right)}^{2}
+% 			}{
+% 			\left(c+\delta_{n+1}\right)
+% 			\left(c+\delta_{n}\right)-
+% 			2\left(c+\delta_{n}\right)+
+% 			1
+% 			}
+% 		\end{align*}
+% 		Y el $\lim\limits_{n\to\infty}\frac{s_{n}-r}{h_{n}}=0$.
+% 	\end{proof}
+% \end{frame}
+
+% \begin{frame}
+% 	\begin{definition}[Orden de convergencia]
+% 		Sea $x_{n}$ una sucesión de números reales que tiene al límite $x^{\ast}$.
+% 		Decimos que la tasa de convergencia es de por lo menos
+% 		\begin{itemize}
+% 			\item
+
+% 			      \alert{lineal} sii
+
+% 			      \begin{equation*}
+% 				      \exists c<1, N\in\mathbb{N}\text{ tal que }
+% 				      \forall n\geq N:
+% 				      \left|x_{n+1}-x^{\ast}\right|\leq
+% 				      c\left|x_{n}-x^{\ast}\right|.
+% 			      \end{equation*}
+
+% 			\item
+
+% 			      \alert{superlineal} sii
+
+% 			      \begin{equation*}
+% 				      \exists \left\{\varepsilon_{n}\right\}\searrow0, N\in\mathbb{N}\text{ tal que }
+% 				      \forall n\geq N:
+% 				      \left|x_{n+1}-x^{\ast}\right|\leq
+% 				      \varepsilon_{n}\left|x_{n}-x^{\ast}\right|.
+% 			      \end{equation*}
+
+% 			\item
+
+% 			      \alert{cuadrática} sii
+
+% 			      \begin{equation*}
+% 				      \exists c\in\mathbb{R}, N\in\mathbb{N}\text{ tal que }
+% 				      \forall n\geq N:
+% 				      \left|x_{n+1}-x^{\ast}\right|\leq
+% 				      c{\left|x_{n}-x^{\ast}\right|}^2.
+% 			      \end{equation*}
+
+% 			\item
+
+% 			      \alert{orden $\alpha$} sii
+
+% 			      \begin{equation*}
+% 				      \exists c\in\mathbb{R}, N\in\mathbb{N}\text{ tal que }
+% 				      \forall n\geq N:
+% 				      \left|x_{n+1}-x^{\ast}\right|\leq
+% 				      c{\left|x_{n}-x^{\ast}\right|}^{\alpha}.
+% 			      \end{equation*}
+% 		\end{itemize}
+
+% 	\end{definition}
+% \end{frame}
+
+\begin{frame}
+	\begin{enumerate}\setcounter{enumi}{6}
+		\item
+
+		      Sea la sucesión $\left\{x_{n}\right\}_{n\in\mathbb{N}}$
+		      definida por
+
+		      \begin{equation*}
+			      x_{n}=\frac{1}{2^{n}}.
+		      \end{equation*}
+
+		      Determine los valores de la sucesión usando el método
+		      $\Delta^{2}$ de Aitken.
+
+	\end{enumerate}
+
+	\begin{solution}
+		Debemos asegurar que $x_{n}$ es convergente y al menos del tipo lineal.
+		\begin{description}
+			\item[$x_{n}$ converge a $0$.]
+
+				\begin{equation*}
+					x_{n}=\frac{1}{2^{n}}.
+				\end{equation*}
+				Vemos que:
+				\begin{math}
+					\lim\limits_{n\to\infty}
+					{
+						x_{n}
+					}=\lim\limits_{n\to\infty}
+					\dfrac{
+						{1}
+					}{
+						{{2^{n}}}
+					}=0
+				\end{math}.
+				% \begin{math}
+				% 	\forall n\in\mathbb{N}:
+				% 	n<2^{n}\iff
+				% 	0<
+				% 	\frac{1}{2^{n}}<
+				% 	\frac{1}{n}
+				% \end{math}.
+				% Por el teorema del encaje, tenemos que el
+				% $\lim\limits_{n\to\infty}x_{n}=0$.
+
+				% \begin{math}
+				% 	\forall\varepsilon>0:
+				% 	\exists n_{0}=
+				% 	\left\lceil
+				% 	-\log_{2}\varepsilon
+				% 	\right\rceil
+				% 	\in\mathbb{N}
+				% \end{math}
+				% tal que
+				% \begin{math}
+				% 	\forall n\geq n_{0}:
+				% 	\left|\frac{1}{2^{n}}-0\right|=
+				% 	\left|\frac{1}{2^{n}}\right|=
+				% 	\frac{1}{2^{n}}<
+				% 	\varepsilon
+				% \end{math}.
+
+			\item[$x_{n}$ converge linealmente.]
+
+				\begin{align*}
+					\left|x_{n+1}-L\right| =
+					\left|\frac{1}{2^{n+1}}\right|
+				\end{align*}
+
+				\begin{math}
+					\lim\limits_{n\to\infty}
+					\dfrac{
+					\left|x_{n+1}-L\right|
+					}{
+					{\left|x_{n}-L\right|}^{1}
+					}=
+					\lim\limits_{n\to\infty}
+					\dfrac{
+					\left|{2^{-n-1}}-0\right|
+					}{
+					{\left|{2^{-n}}-0\right|}^{1}
+					}
+					=\lim\limits_{n\to\infty}
+					{
+						{2^{-1}}
+					}
+					=
+					\dfrac{1}{2}.
+				\end{math}
+
+				% \begin{align*}
+				% 	\exists c<1,N\in\mathbb{N}\text{ tal que }\forall n\geq N:
+				% 	\left|x_{n+1}-x^{\ast}\right|    & \leq
+				% 	c\left|x_{n}-x^{\ast}\right|.           \\
+				% 	\exists \frac{1}{2}<1,1\in\mathbb{N}\text{ tal que }\forall n\geq 1:
+				% 	\left|\frac{1}{2^{n+1}}-0\right| & \leq
+				% 	\frac{1}{2}\left|\frac{1}{2^{n}}-0\right|.
+				% \end{align*}
+
+				% \begin{math}
+				% 	\lim\limits_{n\to\infty}
+				% 	\frac{
+				% 	\left|x_{n+1}-x^{\ast}\right|
+				% 	}{
+				% 	{\left|x_{k}-L\right|}^{1}
+				% 	}=
+				% 	\lim\limits_{n\to\infty}
+				% 	\frac{
+				% 		\left|\frac{1}{2^{n+1}}-0\right|
+				% 	}{
+				% 		{\left|\frac{1}{2^{n}}-0\right|}^{1}
+				% 	}
+				% 	=\lim\limits_{n\to\infty}=
+				% 	\frac{
+				% 		\left|\frac{1}{2^{n}}\cdot\frac{1}{2}\right|
+				% 	}{
+				% 		{\left|\frac{1}{2^{n}}\right|}^{1}
+				% 	}
+				% 	=
+				% 	\frac{1}{2}\in\mathbb{R}.
+				% \end{math}
+
+				% \begin{align*}
+				% 	r_{n+1}-r           & =\left(c+\delta_{n}\right)\left(r_{n}-r\right)                     \\
+				% 	\frac{1}{2^{n+1}}-0 & =\left(\frac{1}{2}+\delta_{n}\right)\left(\frac{1}{2^{n}}-0\right) \\
+				% 	0                   & = \delta_{n},\quad\lim\limits_{n\to\infty}\delta_{n}=0.
+				% \end{align*}
+		\end{description}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		Por el método $\Delta^{2}$ de Aitken, tenemos
+		\begin{align*}
+			\hat{x}_{n} & =
+			x_{n}-
+			\frac{{\left(x_{n+1}-x_{n}\right)}^{2}}{x_{n+2}-2x_{n+1}+x_{n}} \\
+			            & ={2^{-n}}-
+			\frac{{\left({2^{-n-1}}-{2^{-n}}\right)}^{2}}{{2^{-n-2}}-{2{\left({2^{-n-1}}\right)}}+{2^{-n}}}
+			\\
+			            & =0.
+		\end{align*}
+		% \begin{align*}
+		% 	\hat{p}_{n}=
+		% 	p_{n}-
+		% 	\frac{
+		% 	{\left(p_{n+1}-p_{n}\right)}^{2}
+		% 	}{
+		% 	p_{n+2}-2p_{n+1}+p_{n}
+		% 	}
+		% 	=\frac{1}{2^{n}}-
+		% 	\frac{
+		% 		{\left(
+		% 				\frac{1}{2^{n+1}}-\frac{1}{2^{n}}
+		% 				\right)}^{2}
+		% 	}{
+		% 		\frac{1}{2^{n+2}}-\frac{2^{1}}{2^{n+1}}+\frac{1}{2^{n}}
+		% 	}
+		% 	 & =\frac{1}{2^{n}}-
+		% 	\frac{
+		% 		\frac{1}{2^{2n+2}}-\frac{2^{1}}{2^{n+1}\cdot2^{n}}+\frac{1}{2^{2n}}
+		% 	}{
+		% 		\frac{1}{2^{n+2}}-\frac{1}{2^{n}}+\frac{1}{2^{n}}
+		% 	}                    \\
+		% 	 & =\frac{1}{2^{n}}-
+		% 	\frac{
+		% 		\frac{1}{2^{2n+2}}-\frac{1}{2^{2n}}+\frac{1}{2^{2n}}
+		% 	}{
+		% 		\frac{1}{2^{n+2}}
+		% 	}                    \\
+		% 	 & =\frac{1}{2^{n}}-
+		% 	\frac{
+		% 		\frac{1}{2^{2n+2}}
+		% 	}{
+		% 		\frac{1}{2^{n+2}}
+		% 	}                    \\
+		% 	 & =\frac{1}{2^{n}}-
+		% 	\frac{
+		% 		1
+		% 	}{
+		% 		2^{n}
+		% 	}                    \\
+		% 	 & =0.
+		% \end{align*}
+
+		\begin{table}[ht!]
+			\centering
+			\begin{tabular}{|x{0.5cm}x{1cm}x{0.5cm}|}
+				\hline
+				$n$      & $x_{n}$  & $\hat{x}_{n}$ \\
+				\hline
+				$1$      & $0.5000$ & $0$           \\
+				% \hline
+				$2$      & $0.2500$ & $0$           \\
+				% \hline
+				$3$      & $0.1250$ & $0$           \\
+				% \hline
+				$4$      & $0.0625$ & $0$           \\
+				\hline
+				$\infty$ & $0$      & $0$           \\
+				\hline
+			\end{tabular}
+		\end{table}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}\setcounter{enumi}{10}
+		\item
+
+		      Implemente un programa en \texttt{python} para convertir
+		      los siguientes números binarios con signo de $8$ bits a
+		      base $10$.
+
+		      \begin{multicols}{4}
+
+			      \begin{enumerate}[a)]
+				      \item
+
+				            $\left(10111000\right)_{2}$.
+
+				      \item
+
+				            $\left(01010101\right)_{2}$.
+
+				      \item
+
+				            $\left(11111111\right)_{2}$.
+
+				      \item
+
+				            $\left(00011011\right)_{2}$.
+			      \end{enumerate}
+		      \end{multicols}
+
+	\end{enumerate}
+
+	\begin{solution}
+		\begin{minipage}{0.55\textwidth}
+			% \url{https://docs.python.org/3/library/functions.html\#int}.
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\footnotesize,
+					breaklines,
+				]{python}{binary2decimal.py}
+			\end{listing}
+		\end{minipage}
+		\begin{minipage}{0.35\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\footnotesize,
+				]{text}{output.txt}
+			\end{listing}
+		\end{minipage}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}\setcounter{enumi}{19}
+		\item
+
+		      Probar que el cardinal del sistema de números de punto
+		      flotante normalizado
+		      $\mathbb{F}\left(\beta, t, L, U\right)$ es
+
+		      \begin{equation*}
+			      \operatorname{card}\left(\mathbb{F}\right)=
+			      2\left(\beta-1\right)\beta^{t-1}\left(U-L+1\right)+1.
+		      \end{equation*}
+
+		      En particular, para $\mathbb{F}\left(10,3,-2,3\right)$,
+		      calcular $x_{\min}$, $x_{\max}$, $\epsilon_{M}$.
+
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\begin{definition}[Representación de
+			punto flotante]
+		Un número real no nulo $x$, tiene como
+		\alert{representación de punto flotante} a
+		\begin{equation*}
+			x=
+			{\left(-1\right)}^{s}\cdot
+			\left(0.a_{1}\ldots a_{t}\right)\cdot
+			{\beta}^{e}=
+			{\left(-1\right)}^{s}\cdot
+			m\cdot{\beta}^{e-t},
+		\end{equation*}
+		donde $t\in\mathbb{N}$ es el número de dígitos significativos
+		permitidos $a_{i}$ (con $0\leq a_{i}\leq\beta-1$),
+		$m=a_{1}\ldots a_{t}$ es un número entero llamado mantisa tal
+		que $0\leq m\leq{\beta}^{t}-1$ y $e$ es número entero
+		llamado exponente, donde $0>L\leq e\leq U>0$.
+	\end{definition}
+
+	\begin{definition}[El conjunto de los números punto flotante]
+		El conjunto de los números punto flotante con $t$ dígitos
+		significativos, base $\beta\geq2$, $0\leq a_{i}\leq\beta-1$ y
+		$L\leq e\leq U$.
+		\begin{equation*}
+			\mathbb{F}\left(\beta, t, L, U\right)=
+			\left\{0\right\}\cup
+			\left\{
+			x\in\mathbb{R}:x=
+			{\left(-1\right)}^{s}
+			\beta^{e}
+			\sum_{i=1}^{t}a_{i}\beta^{-i}
+			\right\}.
+		\end{equation*}
+	\end{definition}
+	Con el fin de tener una representación numérica única, asumimos
+	que $a_{i}\neq0$ y $m\geq{\beta}^{t-1}$.
+	$a_{1}$ es el dígito significativo principal, $a_{t}$ es el
+	último dígito significativo y la
+	representación de $x$ es llamado \alert{normalizado}.
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		Sea el sistema de punto flotante normalizado, un elemento de
+		$\mathbb{F}\left(\beta, t, L, U\right)$ es de la forma
+		\begin{equation*}
+			x=
+			{\left(-1\right)}^{s}\cdot
+			\left(0.a_{1}\ldots a_{t}\right)\cdot
+			{\beta}^{e}.
+		\end{equation*}
+
+		Notamos que
+
+		\begin{itemize}
+			\item
+
+			      El signo $s\in\left\{0,1\right\}$ toma dos valores.
+
+			\item
+
+			      Los dígitos significativos
+			      $a_{i}\in\left\{0,\ldots,\beta-1\right\}$ con
+			      $a_{1}\neq 0$ e $i\in\left\{1,\ldots,t\right\}$.
+
+			\item
+
+			      El exponente $e\in\left\{L,\ldots,U\right\}$ toma $U-L+1$ valores.
+		\end{itemize}
+
+		Por el principio de la multiplicación, la cantidad total de
+		términos son
+		\begin{equation*}
+			\operatorname{card}\left(\mathbb{F}\right)=
+			2\times
+			\left(\beta-1\right)\times
+			\beta^{t-1}\times
+			\left(U-L+1\right)+
+			\operatorname{card}\left(\left\{0\right\}\right)=
+			2\left(\beta-1\right)\beta^{t-1}\left(U-L+1\right)+
+			1.
+		\end{equation*}
+
+		Por otro lado, las cotas inferior y superior del valor absoluto
+		de $x$ son
+		\begin{align*}
+			x_{\min} & =
+			{\left(-1\right)}^{0}\cdot
+			\left(0.1\ldots 0\right)\cdot
+			{\beta}^{L}=
+			1\cdot
+			{\beta}^{-1}\cdot
+			{\beta}^{L}=
+			{\beta}^{-1+L}=
+			\beta^{L-1}\leq
+			\left|x\right|. \\
+			x_{\max} & =
+			{\left(-1\right)}^{0}\cdot
+			\left(0.\beta-1\ldots \beta-1\right)\cdot
+			{\beta}^{U}=
+			1\cdot
+			\sum_{i=1}^{t}
+			\left(\beta-1\right)
+			\beta^{-i}\cdot
+			{\beta}^{U}=
+			\left(\beta-1\right)
+			{\beta}^{U}
+			\sum_{i=1}^{t}
+			\beta^{-i}.     \\
+			x_{\max} & =
+			\left(\beta-1\right)
+			{\beta}^{U}
+			\left(\frac{1-\beta^{-t}}{\beta-1}\right)
+			=\beta^{U}\left(1-\beta^{-t}\right)\geq
+			\left|x\right|.
+		\end{align*}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		Consideremos el conjunto de punto flotante normalizado
+		$\mathbb{F}\left(10,3,-2,3\right)$, aplicando la fórmula deducida
+		obtenemos que el
+		\begin{equation*}
+			\operatorname{card}
+			\left(
+			\mathbb{F}
+			\left(\beta=10,t=3,L=-2,U=3\right)
+			\right)=2\times
+			\left(10-1\right)\times
+			10^{3-1}\times
+			\left(3-\left(-2\right)+1\right)+
+			1=
+			2\times 9\times 10^{2}\times 6 + 1
+			=10801.
+		\end{equation*}
+
+		También,
+		\begin{align*}
+			x_{\min}     & =
+			\beta^{L-1}=
+			10^{-2-1}=
+			10^{-3}.         \\
+			x_{\max}     & =
+			\beta^{U}\left(1-\beta^{-t}\right)=
+			10^{3}\left(1-10^{-3}\right)=
+			999.             \\
+			\epsilon_{M} & =
+			\beta^{1-U}=
+			10^{1-3}=10^{-2}.
+		\end{align*}
+	\end{solution}
+\end{frame}
+
+\begin{frame}\transblindsvertical
+	\frametitle{Referencias}
+	%------------------------------------------------------------ 1
+	\only<1>{
+		\begin{itemize}
+			\item Libros
+			      \nocite{*}
+			      \printbibliography[heading=none,keyword=book]
+		\end{itemize}
+	}
+	%------------------------------------------------------------ 2
+	\only<2>{
+		\begin{itemize}
+			\item Artículos científicos
+			      \printbibliography[heading=none,keyword=paper]
+		\end{itemize}
+	}
+	%------------------------------------------------------------ 3
+	\only<3>{
+		\begin{itemize}
+			\item Sitios web
+			      \printbibliography[heading=none,keyword=online]
+		\end{itemize}
+	}
+\end{frame}
+
+\end{document}

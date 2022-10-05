@@ -1,0 +1,3 @@
+[submodule "numerico1"]
+	path = numerico1
+	url = https://github.com/luisrocag/numerico1
