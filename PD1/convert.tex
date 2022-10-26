@@ -1,0 +1,260 @@
+%! Carlos Aznarán, Cristhian Caleb
+%! Universidad Nacional de Ingeniería
+%! Facultad de Ciencias
+%! Lima, Perú
+%! Uso:
+%! $ sudo pacman -Syu texlive-most zathura # dependencias, visor
+%! $ arara primeras
+%! $ zathura primera.pdf
+%! Ver https://wiki.archlinux.org/title/TeX_Live
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['aux','log','nav',
+% arara: --> 'out','snm','toc','pytxcode','pdf']
+% arara: --> }
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> draft: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: biber
+%! arara: pythontex
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> draft: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> synctex: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['aux','log','nav',
+% arara: --> 'out','snm','toc','pytxcode']
+% arara: --> }
+\PassOptionsToPackage{svgnames}{xcolor}
+\documentclass[
+	spanish,
+	8pt,
+	utf8,
+	xcolor=table,
+	handout,
+	aspectratio=169,
+	professionalfonts,
+	% notheorems,
+	mathserif,
+	leqno,
+	% t
+]{beamer}
+\setbeamersize{text margin left=5pt,text margin right=5pt}
+\usepackage[spanish,es-sloppy]{babel}
+\spanishdatedel\decimalpoint
+\usepackage{mathtools}
+\usepackage{minted}
+\usepackage{enumerate}
+\usepackage{multicol}
+% \usepackage{pythontex}
+\usepackage[
+	citestyle=numeric,
+	style=apa,
+	backend=biber,
+	defernumbers=true,
+	sorting=ynt,
+	maxcitenames=4
+]{biblatex}
+\addbibresource{references.bib}
+
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+
+\newcounter{savedenum}
+\newcommand*{\saveenum}{\setcounter{savedenum}{\theenumi}}
+\newcommand*{\resume}{\setcounter{enumi}{\thesavedenum}}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+
+% https://tex.stackexchange.com/questions/68080/beamer-bibliography-icon
+\setbeamertemplate{bibliography item}{%
+	\ifboolexpr{ test {\ifentrytype{book}} or test {\ifentrytype{mvbook}}
+		or test {\ifentrytype{collection}} or test {\ifentrytype{mvcollection}}
+		or test {\ifentrytype{reference}} or test {\ifentrytype{mvreference}} }
+	{\setbeamertemplate{bibliography item}[book]}
+	{\ifentrytype{online}
+		{\setbeamertemplate{bibliography item}[online]}
+		{\setbeamertemplate{bibliography item}[article]}}%
+	\usebeamertemplate{bibliography item}}
+
+\defbibenvironment{bibliography}
+{\list{}
+	{\settowidth{\labelwidth}{\usebeamertemplate{bibliography item}}%
+		\setlength{\leftmargin}{\labelwidth}%
+		\setlength{\labelsep}{\biblabelsep}%
+		\addtolength{\leftmargin}{\labelsep}%
+		\setlength{\itemsep}{\bibitemsep}%
+		\setlength{\parsep}{\bibparsep}}}
+{\endlist}
+{\item}
+
+\title{
+	\huge\sffamily
+	Primera Práctica Calificada\quad Grupo N$^{\circ}$~8
+}
+
+\subtitle{
+	\large\scshape
+	Análisis y Modelamiento Numérico I\quad CM4F1 B\\
+		\normalsize\normalfont
+		Profesor Jonathan Munguia La Cotera
+}
+
+\author{
+	Carlos Alonso Aznarán Laos\quad\and\quad
+  Cristhian Caleb Blas Huaroc
+}
+
+\institute{\large
+	Facultad de Ciencias \and
+	Universidad Nacional de Ingeniería
+}
+\date{5 de octubre del 2022}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{1. Calculadora decimal binario}
+
+\begin{frame}
+	\frametitle{\secname}
+	\begin{enumerate}
+		\item
+
+		      Calculadora que convierta un número en sistema decimal a sistema binario.
+
+		\item
+
+		      Calculadora que convierta un número en sistema binario a sistema decimal.
+	\end{enumerate}
+
+	\begin{solution}
+		Debemos asegurar que $x_{n}$ es convergente y al menos del tipo lineal.
+		\begin{description}
+			\item[$x_{n}$ converge a $0$.]
+
+				Vemos que:
+		\end{description}
+	\end{solution}
+\end{frame}
+
+\section{2. Calculadora decimal complemento a 1}
+
+\begin{frame}
+	\frametitle{\secname}
+\end{frame}
+
+\section{3. Calculadora decimal complemento a 2}
+
+\begin{frame}
+	\frametitle{\secname}
+\end{frame}
+
+\section{4. Calculadora decimal octal binario}
+
+\begin{frame}
+	\frametitle{\secname}
+\end{frame}
+
+\section{5. Calculadora decimal hexadecimal binario}
+
+\begin{frame}
+	\frametitle{\secname}
+\end{frame}
+
+\section{6. Calculadora decimal binario fraccionario}
+
+\begin{frame}
+	\frametitle{\secname}
+\end{frame}
+
+\section{7. Calculadora decimal a flotante preción simple IEEE-754}
+
+\begin{frame}
+	\frametitle{\secname}
+\end{frame}
+
+\section{8. Calculadora decimal a flotante precisión doble IEEE-754}
+
+\begin{frame}
+	\frametitle{\secname}
+\end{frame}
+
+\begin{frame}
+
+	\begin{solution}
+		\begin{minipage}{0.55\textwidth}
+			% \url{https://docs.python.org/3/library/functions.html\#int}.
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\footnotesize,
+					breaklines,
+				]{python}{pruebas.py}
+			\end{listing}
+		\end{minipage}
+		\begin{minipage}{0.35\textwidth}
+			hola hola hola
+		\end{minipage}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{alertblock}{Cambio de base}
+		Sean $r$ y $s$ dos bases cualesquiera.
+		Hay dos métodos que son generales.
+		\begin{equation*}
+			37.75_{\left(10\right)} = 100101.11_{\left(2\right)}
+		\end{equation*}
+		\begin{equation*}
+			r\longrightarrow s
+		\end{equation*}
+		Vamos a operar en base decimal.
+		La que opera en la base de origen se conoce como división y multiplicación por la base.
+		Es útil cuando queramos pasar de base 10 a cualquier otra base, por ejemplo, base 2.
+		Utiliza divisiones para la parte entera y multiplicaciones para la parte fraccionaria.
+
+		El método de sustitución en serie opera en la base de destino.
+		Es útil cuando queramos pasar de cualquier otra base, por ejemplo, base 2 hacia la base 10.
+
+
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}\transblindsvertical
+	\frametitle{Referencias}
+	%------------------------------------------------------------ 1
+	\only<1>{
+		\begin{itemize}
+			\item Libros
+			      \nocite{*}
+			      \printbibliography[heading=none,keyword=book]
+		\end{itemize}
+	}
+	%------------------------------------------------------------ 2
+	\only<2>{
+		\begin{itemize}
+			\item Artículos científicos
+			      \printbibliography[heading=none,keyword=paper]
+		\end{itemize}
+	}
+	%------------------------------------------------------------ 3
+	\only<3>{
+		\begin{itemize}
+			\item Sitios web
+			      \printbibliography[heading=none,keyword=online]
+		\end{itemize}
+	}
+\end{frame}
+
+\end{document}

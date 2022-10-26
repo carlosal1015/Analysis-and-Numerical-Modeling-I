@@ -1,0 +1,8 @@
+1. Calculadora Decimal Binario                    decimal2binary            binary2decimal
+2. Calculadora Decimal Complemento a 1            decimal2complementone     complementone2decimal
+3. Calculadora Decimal Complemento a 2            decimal2complementtwo     complementtwo2decimal
+4. Calculadora Decimal Octal Binario              octal2binary              binary2octal
+5. Calculadora Decimal Hexadecimal Binario        hexadecimal2decimal       decimal2hexadecimal       hexadecimal2binary       binary2hexadecimal
+6. Calculadora Decimal Binario Fraccionario       hexadecimal2decimal_frac  decimal2hexadecimal_frac  hexadecimal2binary_frac  binary2hexadecimal_frac
+7. Calculadora Decimal a Flotante Simple IEEE754
+8. Calculadora Decimal a Flotante Double IEEE754

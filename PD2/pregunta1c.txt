@@ -1,0 +1,33 @@
+Trying:
+    condition_number([[4.1, 2.8], [9.7, 6.6]])
+Expecting:
+    1622.9993838568262
+ok
+Trying:
+    condition_number()
+Expecting:
+    1.0
+ok
+1 items had no tests:
+    __main__
+1 items passed all tests:
+   2 tests in __main__.condition_number
+2 tests in 2 items.
+2 passed and 0 failed.
+Test passed.
+Solution: [1. 0.]
+Solution: [0.34 0.97]
+Condition number of A: 1622.9993838568262
+Upper bound on the possible change in x: 1.5411772226905964
+Actual change in x: 1.1732433677631406
+A=
+[[4.1 2.8]
+ [9.7 6.6]]
+A2=
+[[4.1   2.8  ]
+ [9.676 6.608]]
+A2inv=
+[[-1.538e+15  6.516e+14]
+ [ 2.252e+15 -9.542e+14]]
+0.0
+Epsilon machine: 2.220446049250313e-16
