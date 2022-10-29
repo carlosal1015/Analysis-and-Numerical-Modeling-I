@@ -1260,6 +1260,76 @@
 			                                                & =
 			\kappa\left(B\right).
 		\end{align*}
+		Es decir, $\kappa\left(A\right)\leq \kappa\left(B\right)$.
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		De manera análoga, despejando tenemos que $B={U}^{-1}{A}{V}^{-1}$.
+		\begin{align*}
+			\shortintertext{Y así,}
+			\kappa\left(B\right)                  & =
+			\left\|
+			{U}^{-1}\alert{{A}{V}^{-1}}
+			\right\|
+			\left\|
+			{\left({U}^{-1}{A}\alert{{V}^{-1}}\right)}^{-1}
+			\right\|                              &
+			\text{definición del número de condición de $B$}            \\
+			                                      & \leq
+			\left\|
+			{U}^{-1}
+			\right\|
+			\left\|
+			\alert{AV^{-1}}
+			\right\|
+			\left\|
+			\alert{{V}}{\left(U^{-1}\alert{A}\right)}^{-1}
+			\right\|                              &
+			\left\|A\alert{B}\right\|\leq
+			\left\|A\right\|\left\|\alert{B}\right\|,\quad
+			{\left(A\alert{B}\right)}^{-1}=\alert{B^{-1}}A^{-1}         \\
+			                                      & \leq
+			\left\|{U}^{-1}\right\|
+			\left\|A\right\|
+			\left\|
+			\alert{{V}^{-1}}
+			\right\|
+			\left\|{V}\alert{{A}^{-1}}{U}\right\| &
+			\left\|A\alert{B}\right\|\leq
+			\left\|A\right\|\left\|\alert{B}\right\|,\quad
+			{\left(A\alert{B}\right)}^{-1}=\alert{B^{-1}}A^{-1}         \\
+			                                      & \leq
+			\left\|{U}^{-1}\right\|
+			\left\|A\right\|
+			\left\|{V}^{-1}\right\|
+			\left\|V\right\|
+			\left\|{A}^{-1}\right\|
+			\left\|U\right\|                      &
+			\text{aplicando dos veces }
+			\left\|A\alert{B}\right\|\leq
+			\left\|A\right\|\left\|\alert{B}\right\|                    \\
+			                                      & =
+			\left\|U\right\|
+			\left\|{U}^{-1}\right\|
+			\left\|V\right\|
+			\left\|{V}^{-1}\right\|
+			\left\|A\right\|
+			\left\|{A}^{-1}\right\|               &                     \\
+			                                      & =
+			\kappa\left(U\right)
+			\kappa\left(V\right)
+			\kappa\left(A\right)                  &
+			\text{definición del número de condición de $U$, $V$ y $A$} \\
+			                                      & =
+			1\cdot 1\cdot\kappa\left(A\right)     &
+			\text{$\kappa\left(A\right)=1$ cuando $A$ es ortogonal}     \\
+			                                      & =
+			\kappa\left(A\right).
+		\end{align*}
+		Es decir, $\kappa\left(B\right)\leq \kappa\left(A\right)$.
+		Finalmente, concluimos que $\kappa\left(A\right)=\kappa\left(B\right)$.
 	\end{solution}
 \end{frame}
 

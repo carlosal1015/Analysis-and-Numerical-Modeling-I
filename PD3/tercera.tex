@@ -64,127 +64,123 @@
 	\begin{enumerate}
 		\item
 
-		      Obtenga los números de condición relativos de las
-		      siguientes funciones
+		      Usando la eliminación gaussiana, factorice las siguientes
+		      matrices en la forma $A=LU$, donde $L$ es una matriz
+		      triangular inferior unitaria y $U$ es una matriz triangular
+		      superior.
 
-		      \begin{multicols}{4}
+		      \begin{multicols}{2}
 			      \begin{enumerate}[a)]
 
 				      \item
 
 				            \begin{math}
-					            f\left(x\right)=
-					            x^{p}.
-				            \end{math}
+					            \begin{bNiceMatrix}
+						            3 & 0  & 3 \\
+						            0 & -1 & 3
+						            \\ 1 & 3 & 0
+					            \end{bNiceMatrix}
+				            \end{math}.
 
 				      \item
 
 				            \begin{math}
-					            f\left(x\right)=
-					            \log\left(x\right).
-				            \end{math}
-
-
-				      \item
-
-				            \begin{math}
-					            f\left(x\right)=
-					            \cos\left(x\right).
-				            \end{math}
-
-				      \item
-
-				            \begin{math}
-					            f\left(x\right)=
-					            \exp\left(x\right).
-				            \end{math}
+					            \begin{bNiceMatrix}
+						            1 & 0  & \frac{1}{3} & 0  \\
+						            0 & 1  & 3           & -1 \\
+						            3 & -3 & 0           & 6  \\
+						            0 & 2  & 4           & -6
+					            \end{bNiceMatrix}
+				            \end{math}.
 			      \end{enumerate}
 		      \end{multicols}
 		\item
 
-		      Suponga que $f$ y $g$ son funciones de valor real que
-		      tienen números de condición $\kappa_{f}$ y $\kappa_{g}$,
-		      respectivamente.
-		      Defina una nueva función
+		      Considere la matriz
 		      \begin{math}
-			      h\left(x\right)=
-			      \left(f\circ g\right)
-			      \left(x\right)
+			      \begin{bNiceMatrix}
+				      2 & 2 & 1 \\
+				      1 & 1 & 1 \\
+				      3 & 2 & 1
+			      \end{bNiceMatrix}
 		      \end{math}.
-		      Muestre que para $x$ en el dominio de $h$, el número de
-		      condición de $h$ satisface
-		      \begin{equation*}
-			      \kappa_{h}\left(x\right)=
-			      \kappa_{f}\left(g\left(x\right)\right)\cdot
-			      \kappa_{g}\left(x\right).
-		      \end{equation*}
-
-		\item
-
-		      Usando la regla de la cadena, obtenga los números de
-		      condición relativos de las siguientes funciones
-		      \begin{multicols}{3}
-			      \begin{enumerate}[a)]
-
-				      \item
-
-				            \begin{math}
-					            f\left(x\right)=
-					            \sqrt{x+5}.
-				            \end{math}
-
-				      \item
-
-				            \begin{math}
-					            f\left(x\right)=
-					            \exp\left(-x^{2}\right).
-				            \end{math}
-
-
-				      \item
-
-				            \begin{math}
-					            f\left(x\right)=
-					            \cos\left(2\pi x\right).
-				            \end{math}
-			      \end{enumerate}
-		      \end{multicols}
-
-		\item
-
-		      Suponga que $f$ es una función con número de condición
-		      $\kappa_{f}$, y que $f^{-1}$ es su función inversa.
-		      Muestre que el número de condición de $f^{-1}$ satisface
-
-		      \begin{equation*}
-			      \kappa_{f^{-1}}\left(x\right)=
-			      \frac{1}{\kappa_{f}\left(f^{-1}\left(x\right)\right)},
-		      \end{equation*}
-
-		      siempre que el denominador sea distinto de cero.
-
-
-		\item
-
-		      El polinomio $x^{2}-2x+1$ tiene una raíz doble $r=1$.
 
 		      \begin{enumerate}[a)]
 
-			      \item\label{poly:i}
+			      \item
 
-			      Usando una computadora o calculadora, haga una
-			      tabla de las raíces de
-			      $x^{2}-\left(2+\epsilon\right)x+1$ para
-			      $\epsilon=10^{-4},10^{-6},\ldots,10^{-12}$.
-
-			      \
+			            Demuestre que $A$ no se puede factorizar en el
+			            producto de una matriz triangular inferior
+			            unitaria y una matriz triangular superior.
 
 			      \item
 
-			            ¿Qué parecen implicar los resultados del
-			            inciso~\eqref{poly:i} acerca del número de
-			            condición de la raíz?
+			            Intercambie las filas de $A$ para que esto se pueda
+			            hacer.
 		      \end{enumerate}
+
+		\item
+
+		      Use el algoritmo de factorización $LDL^{t}$ y obtenga una
+		      factorización de la matriz $A$:
+
+		      \begin{multicols}{2}
+			      \begin{enumerate}[a)]
+				      \item
+
+				            \begin{math}
+					            \begin{bNiceMatrix}
+						            4 & 1  & 1  & 1 \\
+						            1 & 3  & -1 & 1 \\
+						            1 & -1 & 2  & 0 \\
+						            1 & 1  & 0  & 2
+					            \end{bNiceMatrix}
+				            \end{math}.
+
+				      \item
+
+				            \begin{math}
+					            \begin{bNiceMatrix}
+						            6  & 2 & 1  & -1 \\
+						            2  & 4 & 1  & 0  \\
+						            1  & 1 & 4  & -1 \\
+						            -1 & 0 & -1 & 3
+					            \end{bNiceMatrix}
+				            \end{math}.
+			      \end{enumerate}
+		      \end{multicols}
+
+		\item
+
+		      Use el algoritmo de Choleski y obtenga una factorización de
+		      la forma $A=LL^{t}$ para la matrices.
+
+
+		      \begin{multicols}{2}
+			      \begin{enumerate}[a)]
+				      \item
+
+				            \begin{math}
+					            \begin{bNiceMatrix}
+						            4 & 1  & 1  & 1 \\
+						            1 & 3  & -1 & 1 \\
+						            1 & -1 & 2  & 0 \\
+						            1 & 1  & 0  & 2
+					            \end{bNiceMatrix}
+				            \end{math}.
+
+				      \item
+
+				            \begin{math}
+					            \begin{bNiceMatrix}
+						            6  & 2 & 1  & -1 \\
+						            2  & 4 & 1  & 0  \\
+						            1  & 1 & 4  & -1 \\
+						            -1 & 0 & -1 & 3
+					            \end{bNiceMatrix}
+				            \end{math}.
+			      \end{enumerate}
+		      \end{multicols}
 		      \saveenum
 	\end{enumerate}
 \end{frame}
@@ -194,171 +190,216 @@
 		\resume
 
 		\item
-		      Determine el Landau de las siguientes funciones
+		      Use la factorización de Crout con sistemas tridiagonales
+		      para resolver los siguientes sistemas lineales:
 
-		      \begin{multicols}{4}
+		      \begin{multicols}{2}
 			      \begin{enumerate}[a)]
+				      \item
+
+				            \begin{math}
+					            \systeme{
+					            x_{1}-
+					            x_{2}=
+					            0,
+					            -2x_{1}+
+					            4x_{2}-
+					            2x_{3}=
+					            1,
+					            -x_{2}+
+					            2x_{3}=
+					            1.5
+					            }
+				            \end{math}.
 
 				      \item
 
 				            \begin{math}
-					            \dfrac{1}{n^{2}}.
-				            \end{math}
-
-				      \item
-
-				            \begin{math}
-					            \cos\left(n\right).
-				            \end{math}
-
-
-				      \item
-
-				            \begin{math}
-					            \sin\left(\dfrac{x}{n}\right).
-				            \end{math}
-
-				      \item
-
-				            \begin{math}
-					            \sqrt{n+1}-\sqrt{n}.
-				            \end{math}
+					            \systeme{
+						            0.5x_{1}+
+						            0.25x_{2}=
+						            0.35,
+						            0.35x_{1}+
+						            0.8x_{2}+
+						            0.4x_{3}=
+						            0.77,
+						            0.25x_{2}+
+						            x_{3}+
+						            0.5x_{4}=
+						            -0.5,
+						            x_{3}-
+						            2x_{4}=
+						            -2.25
+					            }
+				            \end{math}.
 			      \end{enumerate}
 		      \end{multicols}
 
 		\item
 
-		      La pérdida de cifras significativas se puede evitar
-		      reordenando los cálculos.
-		      Determine en los siguientes casos una forma equivalente que
-		      evite la pérdida de cifras significativas para valores
-		      indicados de $x$.
+		      Implemente el algoritmo de la descomposición de Schur y
+		      aplíquelo a las siguientes matrices
 
-		      \begin{multicols}{4}
+		      \begin{multicols}{2}
 			      \begin{enumerate}[a)]
-
 				      \item
 
 				            \begin{math}
-					            \ln\left(x+1\right)-\ln\left(x\right).
-				            \end{math}
+					            A=
+					            \begin{bNiceMatrix}
+						            5  & 7  \\
+						            -2 & -4
+					            \end{bNiceMatrix}
+				            \end{math}.
 
 				      \item
 
-				            \begin{math}
-					            \sqrt{x^{2}+1}-x.
-				            \end{math}
-
-
-				      \item
 
 				            \begin{math}
-					            1-\cos\left(x\right).
-				            \end{math}
-
-				      \item
-
-				            \begin{math}
-					            \sin\left(x\right)-x.
-				            \end{math}
+					            B=
+					            \begin{bNiceMatrix}
+						            0.9 & 0 \\
+						            -1  & 2
+					            \end{bNiceMatrix}
+				            \end{math}.
 			      \end{enumerate}
 		      \end{multicols}
 
 		\item
 
-		      Sea $f\colon\mathbb{R}^{n}\to\mathbb{R}$ definida por
+		      Una compañía minera trabaja en 3 minas, cada una de las
+		      cuales produce minerles de tres clases.
+		      La primera mina puede producir 4 toneladas del mineral A, 3
+		      toneladas del mineral B, y 5 toneladas del mineral C; la
+		      segunda mina puede producir 1 tonelada de cada uno de los
+		      minerales y la tercera mina, 2 toneladas del A,
+		      4 toneladas del B y 3 toneladas del C, por cada hora de
+		      funcionamiento.
+		      Se desea satisfacer los tres pedidos siguientes
+		      \begin{table}[ht!]
+			      \centering
+			      \tiny
+			      \begin{tabular}{|c|c|c|c|}
+				      \hline
+				      Pedidos & Mineral A & Mineral B & Mineral C \\
+				      \hline
+				      $P_{1}$ & $19$      & $25$      & $25$      \\
+				      \hline
+				      $P_{2}$ & $13$      & $16$      & $16$      \\
+				      \hline
+				      $P_{3}$ & $8$       & $12$      & $10$      \\
+				      \hline
+			      \end{tabular}
+		      \end{table}
 
-		      \begin{multicols}{3}
+		      Determine
+		      \begin{multicols}{2}
+
 			      \begin{enumerate}[a)]
+				      \item
+
+				            Modele el sistema a resolver.
 
 				      \item
 
-				            \begin{math}
-					            f\left(x\right)=
-					            \dfrac{x}{4}
-				            \end{math},
-				            con $n=1$.
-
-				      \item
-
-				            \begin{math}
-					            f\left(x\right)=
-					            \sqrt{x}
-				            \end{math},
-				            con $n=1$.
-
-
-				      \item
-
-				            \begin{math}
-					            f\left(x_{1},x_{2}\right)=x_{1}\cdot x_{2}
-				            \end{math},
-				            con $n=2$.
+				            Resolver usando los programas $LDL^{T}$ y Cholesky.
 			      \end{enumerate}
 		      \end{multicols}
 
-		      Determine el número de condición.
+		\item
+
+		      Determine el número de diagonales de un polígono convexo de $n$ lados.
+
+		      \begin{multicols}{2}
+
+			      \begin{enumerate}[a)]
+				      \item
+
+				            Modele el sistema a resolver.
+
+				      \item
+
+				            Resolver usando los programas $LDL^{T}$ y Cholesky.
+			      \end{enumerate}
+		      \end{multicols}
+		      \saveenum
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}
+		\resume
 
 		\item
 
-		      En un aparcamiento hay 55 vehículos entre coches y motos.
-		      Si el total de ruedas es de 170.
-		      Determine el número de coches y motos que hay según el
+		      Una familia consta de una madre, un padre y una hija.
+		      La suma de las edades actuales de los 3 es de 80 años.
+		      Dentro de 22 años, la edad del hijo será la mitad que la de la madre.
+		      Si el padre es un año mayor que la madre.
+		      Determinar la edad de la familia según lo siguientes requerimientos
+
+		      \begin{multicols}{2}
+
+			      \begin{enumerate}[a)]
+				      \item
+
+				            Modele el sistema a resolver.
+
+				      \item
+
+				            Resolver usando los programas $LDL^{T}$ y Cholesky.
+			      \end{enumerate}
+		      \end{multicols}
+
+		\item
+
+		      En la empresa plástica Elsa se fabrican tres tipos de
+		      productos: botellas, garrafas y bidones.
+		      Se utiliza como materia prima 10 kg de granza de
+		      polietileno cada hora.
+		      Se sabe que para fabricar cada botella se necesitan 50
+		      gramos de granza, para cada garrafa 100 gramos y para cada
+		      bidón 1 kg.
+		      El gerente también nos dice que se debe producir el doble
+		      de botellas que de garrafas.
+		      Por último, se sabe que por motivos de capacidad de trabajo
+		      en las máquinas se producen en total 52 productos cada hora.
+		      Se desea conocer la producción en cada hora según el
 		      siguiente requerimiento
 
 		      \begin{multicols}{2}
+
 			      \begin{enumerate}[a)]
+				      \item
+
+				            Modele el sistema a resolver.
 
 				      \item
 
-				            Modele el problema.
-
-				      \item
-
-				            Determine la norma matricial de $A$.
-
-
-				      \item
-
-				            Determine el número de condicionamiento de $A$.
-
-				      \item
-
-				            Indique si está bien o mal condicionado.
+				            Resolver usando los programas $LDL^{T}$ y Cholesky.
 			      \end{enumerate}
 		      \end{multicols}
 
 		\item
 
-		      Un fabricante de bombillas gana 0,3 dólares por cada
-		      bombilla que sale de la fábrica, pero pierde 0,4 dólares
-		      por cada una que sale defectuosa.
-		      Un día en el que fabricó 2100 bombillas obtuvo un beneficio
-		      de 484,4 dólares.
-		      Determine el número de bombillas buenas y defectuosa según
-		      el siguiente requerimiento
+		      En una heladería, por un helado, dos zumos y 4 batidos nos cobraron 35 soles.
+		      Otro día, por 4 helados, 4 zumos y un batido nos cobraron 34 soles.
+		      Un tercer día por 2 helados, 3 zumos y 4 batidos 42 soles.
+		      Determine el precio de cada uno según el siguiente requerimiento
 
 		      \begin{multicols}{2}
+
 			      \begin{enumerate}[a)]
+				      \item
+
+				            Modele el sistema a resolver.
 
 				      \item
 
-				            Modele el problema.
-
-				      \item
-
-				            Determine la norma matricial de $A$.
-
-
-				      \item
-
-				            Determine el número de condicionamiento de $A$.
-
-				      \item
-
-				            Indique si está bien o mal condicionado.
+				            Resolver usando los programas $LDL^{T}$ y Cholesky.
 			      \end{enumerate}
 		      \end{multicols}
+
 		      \saveenum
 	\end{enumerate}
 \end{frame}
@@ -369,256 +410,96 @@
 
 		\item
 
-		      Suponga que $A=uv^{t}$ donde $u$ y $v$ son vectores.
-		      Demuestre que
+		      Dado la matriz
 		      \begin{math}
-			      {\left\|A\right\|}_{2}=
-			      \left\|u\right\|
-			      \left\|v\right\|
-		      \end{math},
-		      donde
-		      \begin{math}
-			      \left\|A\right\|_{2}\coloneqq
-			      \max\limits_{x\neq0}
-			      \dfrac{\left\|Ax\right\|}{\left\|x\right\|}
+			      A=
+			      \begin{bNiceMatrix}
+				      1 & 4  & 2  & 3  \\
+				      4 & 27 & 16 & 13 \\
+				      2 & 16 & 10 & 7  \\
+				      3 & 13 & 7  & 7
+			      \end{bNiceMatrix}
 		      \end{math}
-		      (norma espectral)
-		      y $\left\|\cdot\right\|$ representa la norma euclidiana.
+
+		      determine la descomposición Parlett-Reid.
+
+		\item
+
+		      Dado la matriz
+		      \begin{math}
+			      A=
+			      \begin{bNiceMatrix}
+				      0 & 1 & 2 & 3 \\
+				      1 & 2 & 2 & 2 \\
+				      2 & 2 & 3 & 3 \\
+				      3 & 2 & 3 & 4
+			      \end{bNiceMatrix}
+		      \end{math}
+
+		      determine la descomposición Parlett-Reid.
+
+		\item
+
+		      Dado la matriz
+		      \begin{math}
+			      A=
+			      \begin{bNiceMatrix}
+				      1  & 10 & 20 \\
+				      10 & 1  & 30 \\
+				      20 & 30 & 1
+			      \end{bNiceMatrix}
+		      \end{math}
+		      determine la descomposición Parlett-Reid.
 
 
 		\item
 
-		      Dados
-		      \begin{equation*}
-			      A=
-			      \frac{1}{2}
-			      \begin{bNiceMatrix}
-				      1   & 1   \\
-				      1+a & 1-a
-			      \end{bNiceMatrix},\quad
-			      A^{-1}=
-			      \frac{1}{a}
-			      \begin{bNiceMatrix}
-				      a-1 & 1  \\
-				      a+1 & -1
-			      \end{bNiceMatrix},
-		      \end{equation*}
+		      Dado la matriz
 
-		      donde $a$ es pequeño y distinto de cero
-		      (por ejemplo $a=10^{-10}$).
-		      Demuestre que el número de condición
-		      $\kappa\left(A\right)\geq\dfrac{1}{\left|a\right|}$,
-		      donde
 		      \begin{math}
-			      \kappa\left(A\right)=
-			      {\left\|A\right\|}_{2}
-			      {\left\|A^{-1}\right\|}_2
+			      A=
+			      \begin{bNiceMatrix}
+				      0,0909 & 0,1111  & 0,1429  & 0,2000  & 0,3333  & 1,0000  \\
+				      0,1111 & 0,1429  & 0,2000  & 0,3333  & 1,0000  & -1,0000 \\
+				      0,1429 & 0,2000  & 0,3333  & 1,0000  & -1,0000 & -0,3333 \\
+				      0,2000 & 0,3333  & 1,0000  & -1,0000 & -0,3333 & -0,2000 \\
+				      0,3333 & 1,0000  & -1,0000 & -0,3333 & -0,2000 & -0,1429 \\
+				      1,0000 & -1,0000 & -0,3333 & -0,2000 & -0,1429 & -0,1111
+			      \end{bNiceMatrix}
+		      \end{math}
+
+		      determine la descomposición Parlett-Reid.
+
+		\item
+
+		      Dado la matriz
+		      \begin{math}
+			      A=
+			      \begin{bNiceMatrix}
+				      1 & 1 & 1 \\
+				      1 & 1 & 1 \\
+				      1 & 1 & 1
+			      \end{bNiceMatrix}
+		      \end{math}
+		      determine la descomposición Parlett-Reid.
+
+		\item
+
+
+		      Encuentre la descomposición SVD de la matriz
+
+		      \begin{math}
+			      A=
+			      \begin{bNiceMatrix}
+				      0 & 1 & 0 & 0 \\
+				      0 & 0 & 2 & 0 \\
+				      0 & 0 & 0 & 3 \\
+				      0 & 0 & 0 & 0
+			      \end{bNiceMatrix}
 		      \end{math}.
 
-		\item
-
-		      Suponga que $A=UBV$ con $U$, $V$ ortogonales y $B$ no singular.
-		      Demuestre que $\kappa\left(A\right)=\kappa\left(B\right)$.
-
-		\item
-
-		      Determine el número de condición de la matriz dada a continuación
-		      \begin{equation*}
-			      A=
-			      \begin{bNiceMatrix}
-				      1      & 2 \\
-				      1,0001 & 2
-			      \end{bNiceMatrix}.
-		      \end{equation*}
-
-		\item
-
-		      Utilice la eliminación gaussiana con sustitución hacia
-		      atrás y aritmética de redondeo de dos dígitos para
-		      resolver los siguientes sistemas lineales.
-		      No reordene las ecuaciones.
-		      (La solución exacta de cada sistema es $x_{1}=-1$, $x_{2}=1$, $x_{3}=3$.)
-
-		      \begin{multicols}{2}
-			      \begin{enumerate}[a)]
-				      \item
-
-				            \begin{math}
-					            \systeme{
-					            -x_{1}+
-					            4x_{2}+
-					            x_{3}=
-					            8,
-					            \frac{5}{3}x_{1}+
-					            \frac{2}{3}x_{2}+
-					            \frac{2}{3}x_{3}=
-					            1,
-					            2x_{1}+
-					            x_{2}+
-					            4x_{3}=
-					            11
-					            }
-				            \end{math}.
-
-				      \item
-
-
-				            \begin{math}
-					            \systeme{
-					            4x_{1}+
-					            2x_{2}-
-					            x_{3}=
-					            -5,
-					            \frac{1}{9}x_{1}+
-					            \frac{1}{9}x_{2}-
-					            \frac{1}{3}x_{3}=
-					            -1,
-					            x_{1}+
-					            4x_{2}+
-					            2x_{3}=
-					            9
-					            }
-				            \end{math}.
-			      \end{enumerate}
-		      \end{multicols}
 		      \saveenum
 	\end{enumerate}
 \end{frame}
-
-\begin{frame}
-	\begin{enumerate}
-		\resume
-
-		\item
-
-		      Sean dos números tales que la suma de un tercio del primero
-		      más un quinto del segundo sea igual a 13 y que si se
-		      multiplica el primero por 5 y el segundo por 7 se obtiene
-		      247 como suma de los dos productos.
-		      Determine los números según el requerimiento siguiente.
-
-		      \begin{multicols}{2}
-			      \begin{enumerate}[a)]
-				      \item
-
-				            Modele el problema.
-
-				      \item
-
-				            Determine la norma matricial de $A$ y $A^{-1}$.
-
-
-				      \item
-
-				            Determine la solución usando los métodos de Gauss
-				            y Gauss-Jordan.
-			      \end{enumerate}
-		      \end{multicols}
-
-
-		\item
-
-		      El perímetro de un rectángulo es 64 cm y la diferencia entre
-		      las medidas de la base y la altura es 6 cm.
-		      Determine las dimensiones de dicho rectángulo según el
-		      requerimiento siguiente.
-
-		      \begin{multicols}{2}
-			      \begin{enumerate}[a)]
-				      \item
-
-				            Modele el problema.
-
-				      \item
-
-				            Determine la norma matricial de $A$ y $A^{-1}$.
-
-				      \item
-
-				            Determine la solución usando los métodos de Gauss y Gauss-Jordan.
-			      \end{enumerate}
-		      \end{multicols}
-
-		\item
-
-		      Dos kilos de plátanos y tres de peras cuestan 8,80 soles.
-		      Cinco kilos de plátanos y cuatro de peras cuestan 16,40 soles.
-		      Determine el costo de kilo del plátano y de la pera según el siguiente requerimiento
-
-		      \begin{multicols}{2}
-			      \begin{enumerate}[a)]
-				      \item
-
-				            Modele el problema.
-
-				      \item
-
-				            Determine la norma matricial de $A$ y $A^{-1}$.
-
-				      \item
-
-				            Determine la solución usando los métodos de Gauss y
-				            Gauss-Jordan.
-			      \end{enumerate}
-		      \end{multicols}
-
-		\item
-
-		      Se juntan 30 personas entre hombres, mujeres y niños.
-		      Se sabe que entre los hombres y las mujeres duplican al
-		      número de niños.
-		      También se sabe que entre los hombres y el triple de las
-		      mujeres exceden en 20 al doble de niños.
-
-		      \begin{multicols}{2}
-			      \begin{enumerate}[a)]
-				      \item
-
-				            Modele el problema.
-
-				      \item
-
-				            Determine la norma matricial de $A$ y $A^{-1}$.
-
-				      \item
-
-
-				            Determine la solución usando los métodos de Gauss y Gauss-Jordan.
-			      \end{enumerate}
-		      \end{multicols}
-		      \saveenum
-	\end{enumerate}
-\end{frame}
-
-\begin{frame}
-	\begin{enumerate}
-		\resume
-
-		\item
-
-		      Una editorial dispone de tres textos diferentes para
-		      matemáticas de $2^{\circ}$ de secundaria.
-		      El texto A se vende a 90 soles el ejemplar; el texto B a
-		      110 soles y el $\mathrm{C}$ a 130 soles.
-		      En la campaña correspondiente a un curso académico la
-		      editorial ingresó, en concepto de ventas de estos libros de
-		      matemáticas 84000 soles.
-
-		      \begin{multicols}{2}
-			      \begin{enumerate}[a)]
-				      \item
-				            Modele el problema.
-
-				      \item
-
-				            Determine la norma matricial de $A$ y $A^{-1}$.
-				      \item
-
-				            Determine la solución usando los métodos de Gauss y Gauss-Jordan.
-			      \end{enumerate}
-		      \end{multicols}
-		      \saveenum
-	\end{enumerate}
-\end{frame}
-
+% minerals game sprites
 \end{document}
