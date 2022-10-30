@@ -1,3 +1,9 @@
 [submodule "numerico1"]
 	path = numerico1
 	url = https://github.com/luisrocag/numerico1
+[submodule "GVL4"]
+	path = GVL4
+	url = https://github.com/woodknight/GVL4.git
+[submodule "Matrix-Computations"]
+	path = Matrix-Computations
+	url = https://github.com/Jiangtang/Matrix-Computations.git
