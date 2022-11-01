@@ -111,7 +111,7 @@
 
 \title{
 	\huge\sffamily
-	Tercera Práctica Dirigida\quad Grupo N$^{\circ}$~1
+	Tercera Práctica Dirigida\quad Grupo N$^{\circ}$~3
 }
 
 \subtitle{
@@ -177,17 +177,16 @@
 	$i\in\left\{1,\ldots,n\right\}$, haciendo así $L$ una matriz
 	triangular inferior unitaria.
 
-	\begin{theorem}
-		Si todos los $n$ menores principales líderes de una matriz $A$ de
-		orden $n\times n$ son no singulares, entonces $A$ tiene una
-		descomposición $LU$.
+	\begin{theorem}[Existencia de la descomposición $LU$]
+		Sea $A\in\mathbb{R}^{n\times n}$.
+		Si todas las matrices esquina de $A$ son no singulares, entonces
+		$A$ tiene una descomposición $LU$.
 	\end{theorem}
 \end{frame}
 
 \begin{frame}
 	\begin{proofs}
-		Recordemos que el $k$-ésimo menor principal líder de la matriz
-		$A$ es la matriz
+		Recordemos que la $k$-ésima matriz esquina de $A$ es la matriz
 		\begin{equation*}
 			A_{k}=
 			\begin{bNiceMatrix}
@@ -197,14 +196,15 @@
 				a_{k 1} & a_{k 2} & \cdots & a_{k k}
 			\end{bNiceMatrix}
 		\end{equation*}
-		Sean $A_{k}$, $L_{k}$, y $U_{k}$ el $k$-ésimo menor principal
-		líder de las matrices $A, L$, y $U$, respectivamente.
+		Sean $A_{k}$, $L_{k}$, y $U_{k}$ la $k$-ésima matriz esquina de
+		las matrices $A, L$, y $U$, respectivamente.
 		Nuestra hipótesis es que $A_{1},A_{2},\ldots,A_{n}$ son no
 		singulares.
 
-		A los efectos de una demostración inductiva, suponga que $L_{k-1}$
-		y $U_{k-1}$ se han obtenido.
-		Si $i,j\in\left\{1,\ldots,k-1\right\}$, entonces $s$ también está.
+		A los efectos de una demostración inductiva, suponga que
+		$L_{k-1}$ y $U_{k-1}$ se han obtenido.
+		Si $i,j\in\left\{1,\ldots,k-1\right\}$, entonces $s$ también
+		está.
 		Por eso,
 		\begin{equation*}
 			A_{k-1}=
@@ -233,16 +233,19 @@
 		\end{equation*}
 		para $\ell_{ks}$ con $s\in\left\{1,\ldots,k-1\right\}$.
 		Estos elementos caen en la $k$-ésima fila de $L$.
-		From the requirement
+		Del requerimiento
 		\begin{equation*}
 			a_{kk}=
 			\sum_{s=1}^{k}\ell_{ks}u_{s k}=
 			\sum_{s=1}^{k-1}
 			\ell_{k s}u_{s k}+\ell_{kk}u_{kk}
 		\end{equation*}
-		podemos obtener $u_{kk}$ dado que $\ell_{kk}$ ha sido considerado como unidad.
-		Thus, all the new elements necessary to form $L_k$ and $U_k$ have been defined.
-		The induction is completed by noting that $\ell_{11} u_{11}=a_{11}$ and, therefore, $\ell_{11}=1$ and $u_{11}=a_{11}$.
+		podemos obtener $u_{kk}$ dado que $\ell_{kk}$ ha sido considerado
+		como unidad.
+		Así, se han definido todos los nuevos elementos necesarios para
+		formar $L_{k}$ y $U_{k}$.
+		La inducción se completa observando que $\ell_{11}u_{11}=a_{11}$
+		y, por tanto, $\ell_{11}=1$ y $u_{11}=a_{11}$.
 	\end{proof}
 \end{frame}
 
@@ -281,20 +284,135 @@
 
 			\item
 
-			      La matriz $A$ no se puede factorizar por el método LU porque $\exists k_{0}=2\in\left\{1,2,3\right\}$ tal que
-			      $\det\left(A_{2}\right)=\begin{vNiceMatrix}
+			      Decimos que la matriz $A$
+			      \alert{no se puede factorizar por el método $LU$}
+			      porque $\exists k_{0}=2\in\left\{1,2,3\right\}$ tal que
+			      $A_{k_{0}}$ es singular, ya que
+			      \begin{math}
+				      \det\left(A_{2}\right)=
+				      \begin{vNiceMatrix}
 					      2 & 2 \\
 					      1 & 1 \\
-				      \end{vNiceMatrix}=0$.
+				      \end{vNiceMatrix}=
+				      0
+			      \end{math}.
 
-			\item Intercambiando la fila 2 con la fila 3 obtenemos $\widetilde{A}=\begin{bNiceMatrix}
+			\item
+
+			      Intercambiando la \alert{fila 2} con la \alert{fila 3}
+			      obtenemos
+			      \begin{math}
+				      \widetilde{A}=
+				      \begin{bNiceMatrix}
 					      2 & 2 & 1 \\
 					      3 & 2 & 1 \\
 					      1 & 1 & 1
-				      \end{bNiceMatrix}$
+				      \end{bNiceMatrix}
+			      \end{math}.
+			      Además, $\widetilde{A}$ tiene una descomposición $LU$
+			      porque
+			      \begin{math}
+				      \forall k\in\left\{1,\ldots,3\right\}:
+				      \widetilde{A}_{k}
+			      \end{math}
+			      es no singular.
+			      En efecto,
+			      \begin{math}
+				      \det\left(\widetilde{A_{1}}\right)=
+				      \begin{vNiceMatrix}
+					      2
+				      \end{vNiceMatrix}=2\neq0
+			      \end{math},
+			      \begin{math}
+				      \det\left(\widetilde{A_{2}}\right)=
+				      \begin{vNiceMatrix}
+					      2 & 2 \\
+					      3 & 2
+				      \end{vNiceMatrix}=-2\neq0
+			      \end{math}
+			      y
+			      \begin{math}
+				      \det\left(\widetilde{A_{3}}\right)=
+				      \begin{vNiceMatrix}
+					      2 & 2 & 1 \\
+					      3 & 2 & 1 \\
+					      1 & 1 & 1
+				      \end{vNiceMatrix}=-1\neq0
+			      \end{math}.
 
-			      .
+			      Por la existencia de la descomposición $LU$,
+			      $\exists L,U\in\mathbb{R}^{3\times 3}$ tal que
+			      \begin{equation*}
+				      \begin{bNiceMatrix}
+					      2 & 2 & 1 \\
+					      3 & 2 & 1 \\
+					      1 & 1 & 1
+				      \end{bNiceMatrix}=
+				      \begin{bNiceMatrix}
+					      \ell_{11} & 0         & 0         \\
+					      \ell_{21} & \ell_{22} & 0         \\
+					      \ell_{31} & \ell_{32} & \ell_{33}
+				      \end{bNiceMatrix}
+				      \begin{bNiceMatrix}
+					      u_{11} & u_{12} & u_{13} \\
+					      0      & u_{22} & u_{23} \\
+					      0      & 0      & u_{33}
+				      \end{bNiceMatrix}
+			      \end{equation*}
+			      con $l_{ii}=1$.
 		\end{enumerate}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		Operando por matrices elementales de modo que triangulicemos a
+		partir de la matriz $\widetilde{A}$.
+		\begin{align*}
+			\widetilde{A}
+			 & =
+			\begin{bNiceMatrix}
+				2 & 2 & 1 \\
+				3 & 2 & 1 \\
+				1 & 1 & 1
+			\end{bNiceMatrix}    \\
+			f_{21}\left(-\frac{3}{2}\right)\widetilde{A}
+			 & =
+			\begin{bNiceMatrix}
+				2 & 2  & 1            \\
+				0 & -1 & -\frac{1}{2} \\
+				1 & 1  & 1
+			\end{bNiceMatrix} \\
+			f_{31}\left(-\frac{1}{2}\right)
+			f_{21}\left(-\frac{3}{2}\right)\widetilde{A}
+			 & =
+			\begin{bNiceMatrix}
+				2         & 2         & 1            \\
+				\alert{0} & -1        & -\frac{1}{2} \\
+				\alert{0} & \alert{0} & \frac{1}{2}
+			\end{bNiceMatrix}=U.
+		\end{align*}
+		Por otro lado,
+		\begin{math}
+			L=
+			f_{31}\left(\frac{1}{2}\right)
+			f_{21}\left(\frac{3}{2}\right)=
+			\begin{bNiceMatrix}
+				1           & 0 & 0 \\
+				0           & 1 & 0 \\
+				\frac{1}{2} & 0 & 1
+			\end{bNiceMatrix}
+			\begin{bNiceMatrix}
+				1           & 0 & 0 \\
+				\frac{3}{2} & 1 & 0 \\
+				0           & 0 & 1
+			\end{bNiceMatrix}=
+			\begin{bNiceMatrix}
+				1           & 0 & 0 \\
+				\frac{3}{2} & 1 & 0 \\
+				\frac{1}{2} & 0 & 1
+			\end{bNiceMatrix}.
+		\end{math}
 	\end{solution}
 \end{frame}
 
@@ -308,7 +426,7 @@
 				lastline=20
 			]{python}{lualdo.py}
 			\inputminted[
-				fontsize=\footnotesize,
+				fontsize=\scriptsize,
 			]{text}{output.txt}
 		\end{listing}
 	\end{minipage}
@@ -333,9 +451,8 @@
 		      La primera mina puede producir 4 toneladas del mineral A, 3
 		      toneladas del mineral B, y 5 toneladas del mineral C; la
 		      segunda mina puede producir 1 tonelada de cada uno de los
-		      minerales y la tercera mina, 2 toneladas del A,
-		      4 toneladas del B y 3 toneladas del C, por cada hora de
-		      funcionamiento.
+		      minerales y la tercera mina, 2 toneladas del A, 4 toneladas
+		      del B y 3 toneladas del C, por cada hora de funcionamiento.
 		      Se desea satisfacer los tres pedidos siguientes
 		      \begin{table}[ht!]
 			      \centering
@@ -363,23 +480,383 @@
 
 				      \item
 
-				            Resolver usando los programas $LDL^{T}$ y Cholesky.
+				            Resolver usando los programas $LDL^{T}$ y
+				            Cholesky.
 			      \end{enumerate}
 		      \end{multicols}
 
 	\end{enumerate}
 
 	\begin{solution}
-		\begin{enumerate}[a)]
+		\begin{minipage}{0.65\textwidth}
+			\begin{enumerate}[a)]
 
-			\item
+				\item
 
-			      .
-		\end{enumerate}
+				      Supongamos que $x_{i}$ es el número de horas de
+				      funcionamiento de la $i$-ésima mina.
+
+				      En total, se requiere
+				      \alert{40 toneladas del mineral A},
+				      \alert{53 toneladas del mineral B} y
+				      \alert{51 toneladas del mineral C}.
+
+				      Escribiendo de manera apropiada, obtenemos el
+				      sistema lineal $AX=b$, donde
+				      \begin{math}
+					      A=
+					      \begin{bNiceMatrix}
+						      4 & 1 & 2 \\
+						      3 & 1 & 4 \\
+						      5 & 1 & 3
+					      \end{bNiceMatrix}
+				      \end{math},
+				      \begin{math}
+					      b=
+					      \begin{bNiceMatrix}
+						      40 \\
+						      53 \\
+						      51
+					      \end{bNiceMatrix}
+				      \end{math}
+				      y
+				      \begin{math}
+					      X=
+					      \begin{bNiceMatrix}
+						      x_{1} \\
+						      x_{2} \\
+						      x_{3}
+					      \end{bNiceMatrix}
+				      \end{math}.
+
+			\end{enumerate}
+		\end{minipage}
+		\begin{minipage}{0.25\textwidth}
+			\begin{figure}[ht!]
+				\centering
+				\includegraphics[width=.25\paperwidth]{minerals}
+				\caption{Minerales A, B y C, respectivamente.}
+			\end{figure}
+		\end{minipage}
 	\end{solution}
 \end{frame}
 
 \begin{frame}
+	\begin{solution}
+		La matriz $A$ no tienen todo sus autovalores positivo, o sea, $A$
+		no es definida positiva.
+		Por lo que multiplicamos por la izquierda por $A^{T}$, resultando
+		\begin{align*}
+			AX
+			 & =
+			b                  \\
+			A^{T}AX
+			 & =
+			A^{T}b             \\
+			{\begin{bNiceMatrix}
+				 4 & 1 & 2 \\
+				 3 & 1 & 4 \\
+				 5 & 1 & 3
+			 \end{bNiceMatrix}}^{T}
+			\begin{bNiceMatrix}
+				4 & 1 & 2 \\
+				3 & 1 & 4 \\
+				5 & 1 & 3
+			\end{bNiceMatrix}
+			\begin{bNiceMatrix}
+				x_{1} \\
+				x_{2} \\
+				x_{3}
+			\end{bNiceMatrix}
+			 & =
+			{\begin{bNiceMatrix}
+				 4 & 1 & 2 \\
+				 3 & 1 & 4 \\
+				 5 & 1 & 3
+			 \end{bNiceMatrix}}^{T}
+			\begin{bNiceMatrix}
+				40 \\
+				53 \\
+				51
+			\end{bNiceMatrix} \\
+			\begin{bNiceMatrix}
+				50 & 12 & 35 \\
+				12 & 3  & 9  \\
+				35 & 9  & 29
+			\end{bNiceMatrix}
+			\begin{bNiceMatrix}
+				x_{1} \\
+				x_{2} \\
+				x_{3}
+			\end{bNiceMatrix}
+			 & =
+			\begin{bNiceMatrix}
+				574 \\
+				144 \\
+				445
+			\end{bNiceMatrix} \\
+			\widetilde{A}X
+			 & =
+			\widetilde{b}
+		\end{align*}
+		Ahora, $\widetilde{A}$ es una matriz simétrica porque
+		$\widetilde{A}^{T}=\widetilde{A}$ y definida positiva porque
+		cada autovalor de $\widetilde{A}^{T}$: $\lambda_{1}\approx 79.001$,
+		$\lambda_{2}\approx 2.9600$, $\lambda_{3}\approx 0.038$ es
+		positivo.
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Factorización $LDL^{T}$}
+	\begin{solution}
+		La factorización $LDL^{T}$ tiene números 1 en la diagonal de la
+		matriz triangular inferior $L$ por lo que necesitamos tener
+		\begin{align*}
+			\widetilde{A}
+			 & =
+			LDL^{T}                    \\
+			\begin{bNiceMatrix}
+				a_{11} & a_{21} & a_{31} \\
+				a_{21} & a_{22} & a_{32} \\
+				a_{31} & a_{32} & a_{33}
+			\end{bNiceMatrix}
+			 & =
+			\begin{bNiceMatrix}
+				1         & 0         & 0 \\
+				\ell_{21} & 1         & 0 \\
+				\ell_{31} & \ell_{32} & 1
+			\end{bNiceMatrix}
+			\begin{bNiceMatrix}
+				d_{1} & 0     & 0     \\
+				0     & d_{2} & 0     \\
+				0     & 0     & d_{3}
+			\end{bNiceMatrix}
+			{\begin{bNiceMatrix}
+				 1         & 0         & 0 \\
+				 \ell_{21} & 1         & 0 \\
+				 \ell_{31} & \ell_{32} & 1
+			 \end{bNiceMatrix}}^{T} \\
+			\begin{bNiceMatrix}
+				50 & 12 & 35 \\
+				12 & 3  & 9  \\
+				35 & 9  & 29
+			\end{bNiceMatrix}
+			 & =
+			\begin{bNiceMatrix}
+				d_{1}          & d_{1}\ell_{21}                         & d_{1}\ell_{31}                              & \\
+				d_{1}\ell_{21} & d_{2}+d_{1}\ell_{21}^{2}               & d_{2}\ell_{32}+d_{1}\ell_{21}\ell_{31}      & \\
+				d_{1}\ell_{31} & d_{1}\ell_{21}\ell_{31}+d_{2}\ell_{32} & d_{1}\ell_{31}^{2}+d_{2}\ell_{32}^{2}+d_{3} &
+			\end{bNiceMatrix}
+		\end{align*}
+		Por lo tanto,
+		\begin{align*}
+			a_{11}:50=d_{1}                                                       & \implies\boxed{d_{1}=50}            &
+			a_{21}:12=\alert{d_{1}}\ell_{21}                                      & \implies\ell_{21}=\frac{12}{50}     & \\
+			a_{31}:35=\alert{d_{1}}\ell_{31}                                      & \implies\ell_{31}=\frac{35}{50}     &
+			a_{22}:3=d_{2}+\alert{d_{1}}\ell_{21}^{2}                             & \implies\boxed{d_{2}=\frac{6}{50}}  & \\
+			a_{32}:9=\alert{d_{1}}\ell_{21}\ell_{31}+\alert{d_{2}}\ell_{32}       & \implies\ell_{32}=5                 &
+			a_{33}:29=\alert{d_{1}}\ell_{31}^{2}+\alert{d_{2}}\ell_{32}^{2}+d_{3} & \implies\boxed{d_{3}=\frac{75}{50}} &
+		\end{align*}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		Así, obtenemos
+		\begin{align*}
+			\widetilde{A}
+			 & =
+			LDL^{T}                    \\
+			\begin{bNiceMatrix}
+				50 & 12 & 35 \\
+				12 & 3  & 9  \\
+				35 & 9  & 29
+			\end{bNiceMatrix}
+			 & =
+			\begin{bNiceMatrix}
+				1         & 0         & 0 \\
+				\ell_{21} & 1         & 0 \\
+				\ell_{31} & \ell_{32} & 1
+			\end{bNiceMatrix}
+			\begin{bNiceMatrix}
+				d_{1} & 0     & 0     \\
+				0     & d_{2} & 0     \\
+				0     & 0     & d_{3}
+			\end{bNiceMatrix}
+			{\begin{bNiceMatrix}
+				 1         & 0         & 0 \\
+				 \ell_{21} & 1         & 0 \\
+				 \ell_{31} & \ell_{32} & 1
+			 \end{bNiceMatrix}}^{T} \\
+			\begin{bNiceMatrix}
+				50 & 12 & 35 \\
+				12 & 3  & 9  \\
+				35 & 9  & 29
+			\end{bNiceMatrix}
+			 & =
+			\begin{bNiceMatrix}
+				1             & 0 & 0 \\
+				\frac{12}{50} & 1 & 0 \\
+				\frac{35}{50} & 5 & 1
+			\end{bNiceMatrix}
+			\begin{bNiceMatrix}
+				50 & 0            & 0             \\
+				0  & \frac{6}{50} & 0             \\
+				0  & 0            & \frac{75}{50}
+			\end{bNiceMatrix}
+			{\begin{bNiceMatrix}
+				 1             & 0 & 0 \\
+				 \frac{12}{50} & 1 & 0 \\
+				 \frac{35}{50} & 5 & 1
+			 \end{bNiceMatrix}}^{T}
+		\end{align*}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Factorización $LL^{T}$ de Choleski}
+	\begin{solution}
+		La factorización $LL^{T}$ no necesariamente tiene números 1 en la
+		diagonal de la matriz triangular inferior, por lo que necesitamos
+		tener
+		\begin{align*}
+			\widetilde{A}
+			 & =
+			LL^{T}                             \\
+			\begin{bNiceMatrix}
+				a_{11} & a_{21} & a_{31} \\
+				a_{21} & a_{22} & a_{32} \\
+				a_{31} & a_{32} & a_{33}
+			\end{bNiceMatrix}
+			 & =
+			\begin{bNiceMatrix}
+				\ell_{11} & 0         & 0         \\
+				\ell_{21} & \ell_{22} & 0         \\
+				\ell_{31} & \ell_{32} & \ell_{33}
+			\end{bNiceMatrix}
+			{\begin{bNiceMatrix}
+				 \ell_{11} & 0         & 0         \\
+				 \ell_{21} & \ell_{22} & 0         \\
+				 \ell_{31} & \ell_{32} & \ell_{33}
+			 \end{bNiceMatrix}}^{T} \\
+			\begin{bNiceMatrix}
+				50 & 12 & 35 \\
+				12 & 3  & 9  \\
+				35 & 9  & 29
+			\end{bNiceMatrix}
+			 & =
+			\begin{bNiceMatrix}
+				\ell_{11}^{2}      & \ell_{11}\ell_{21}                    & \ell_{11}\ell_{31}                        \\
+				\ell_{11}\ell_{21} & \ell_{21}^{2}+\ell_{22}^{2}           & \ell_{21}\ell_{31}+\ell_{22}\ell_{32}     \\
+				\ell_{11}\ell_{31} & \ell_{21}\ell_{31}+\ell_{22}\ell_{32} & \ell_{31}^{2}+\ell_{32}^{2}+\ell_{33}^{2}
+			\end{bNiceMatrix}
+		\end{align*}
+		Por lo tanto,
+
+		\begin{align*}
+			a_{11}:50=\ell_{11}^{2}                                             & \implies\ell_{11}=5\sqrt{2}                   &
+			a_{21}:12=\alert{\ell_{11}}\ell_{21}                                & \implies\ell_{21}=\frac{12}{5\sqrt{2}}        & \\
+			a_{31}:35=\alert{\ell_{11}}\ell_{31}                                & \implies\ell_{31}=\frac{35}{5\sqrt{2}}        &
+			a_{22}:3=\alert{\ell_{21}}^{2}+\ell_{22}^{2}                        & \implies\ell_{22}=\frac{\sqrt{6}}{5\sqrt{2}}  & \\
+			a_{32}:9=\alert{\ell_{21}}l_{31}+\alert{\ell_{22}}\ell_{32}         & \implies\ell_{32}=\frac{6}{\sqrt{12}}         &
+			a_{33}:29=\alert{\ell_{31}}^{2}+\alert{\ell_{32}}^{2}+\ell_{33}^{2} & \implies\ell_{33}=\frac{\sqrt{15}}{\sqrt{10}} &
+		\end{align*}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		Así, obtenemos
+		\begin{align*}
+			\widetilde{A}
+			 & =
+			LL^{T}                             \\
+			\begin{bNiceMatrix}
+				50 & 12 & 35 \\
+				12 & 3  & 9  \\
+				35 & 9  & 29
+			\end{bNiceMatrix}
+			 & =
+			\begin{bNiceMatrix}
+				\ell_{11} & 0         & 0         \\
+				\ell_{21} & \ell_{22} & 0         \\
+				\ell_{31} & \ell_{32} & \ell_{33}
+			\end{bNiceMatrix}
+			{\begin{bNiceMatrix}
+				 \ell_{11} & 0         & 0         \\
+				 \ell_{21} & \ell_{22} & 0         \\
+				 \ell_{31} & \ell_{32} & \ell_{33}
+			 \end{bNiceMatrix}}^{T} \\
+			\begin{bNiceMatrix}
+				50 & 12 & 35 \\
+				12 & 3  & 9  \\
+				35 & 9  & 29
+			\end{bNiceMatrix}
+			 & =
+			\begin{bNiceMatrix}
+				5\sqrt{2}            & 0                          & 0                           \\
+				\frac{12}{5\sqrt{2}} & \frac{\sqrt{6}}{5\sqrt{2}} & 0                           \\
+				\frac{35}{5\sqrt{2}} & \frac{6}{\sqrt{12}}        & \frac{\sqrt{15}}{\sqrt{10}}
+			\end{bNiceMatrix}
+			{\begin{bNiceMatrix}
+				 5\sqrt{2}            & 0                          & 0                           \\
+				 \frac{12}{5\sqrt{2}} & \frac{\sqrt{6}}{5\sqrt{2}} & 0                           \\
+				 \frac{35}{5\sqrt{2}} & \frac{6}{\sqrt{12}}        & \frac{\sqrt{15}}{\sqrt{10}}
+			 \end{bNiceMatrix}}^{T}
+		\end{align*}
+		Verificaciones de las factorizaciones $LDL^{T}$ y $LL^{T}$ de
+		Choleski.
+
+		\begin{minipage}{0.65\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=8,
+					lastline=23
+				]{python}{pregunta7.py}
+			\end{listing}
+		\end{minipage}
+		\begin{minipage}{0.25\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\scriptsize,
+					firstline=1,
+					lastline=12
+				]{text}{output_pregunta7.txt}
+			\end{listing}
+		\end{minipage}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Implementación en Python}
+	\begin{solution}
+		\begin{minipage}{0.45\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\tiny,
+					breaklines,
+					firstline=5,
+					lastline=38
+				]{python}{ldlt.py}
+			\end{listing}
+		\end{minipage}
+		\begin{minipage}{0.45\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\tiny,
+					breaklines,
+					firstline=4,
+					lastline=20
+				]{python}{choleskyllt.py}
+			\end{listing}
+		\end{minipage}
+	\end{solution}
+\end{frame}
+
+\begin{frame}[fragile]
 	\begin{enumerate}\setcounter{enumi}{15}
 		\item
 
@@ -396,29 +873,143 @@
 	\end{enumerate}
 
 	\begin{solution}
+		Notamos que la matriz simétrica $A$ tiene autovalores
+		$\lambda_{1}=3$, $\lambda_{2}=\lambda_{3}=0$.
+		Es decir, $A$ es una matriz semidefinida positiva.
+		Por el método de Parlett-Reid, se cumple $PAP^{t}=LTL^{t}$,
+		el primer paso es
+		\begin{equation*}
+			P_{1}=
+			\begin{bNiceMatrix}
+				e_{1} & e_{3} & e_{2}
+			\end{bNiceMatrix}=
+			\begin{bNiceMatrix}
+				1 & 0 & 0 \\
+				0 & 0 & 1 \\
+				0 & 1 & 0
+			\end{bNiceMatrix},\quad
+			P_1^{t}=
+			\begin{bNiceMatrix}
+				1 & 0 & 0 \\
+				0 & 0 & 1 \\
+				0 & 1 & 0
+			\end{bNiceMatrix},\quad
+			\alpha_{1}=
+			\begin{bNiceMatrix}
+				0 \\
+				0 \\
+				1
+			\end{bNiceMatrix},\quad
+			M_{1}^{t}=
+			\begin{bNiceMatrix}
+				1 & 0 & 0  \\
+				0 & 1 & -1 \\
+				0 & 0 & 1
+			\end{bNiceMatrix}.
+		\end{equation*}
 
-		Notamos que el $\det(A)=0$.
-		$A^{t}=A$, es decir, $A$ es simétrica.
-		Y además, $A$ es semidefinida positiva porque tenemos como autovalores a $\lambda_{1}=3$, $\lambda_{2}=\lambda_{3}=0$.
+		\begin{equation*}
+			M_{1}=
+			I_{3}-\alpha_{1}e_2^{t}=
+			\begin{bNiceMatrix}
+				1 & 0 & 0 \\
+				0 & 1 & 0 \\
+				0 & 0 & 1
+			\end{bNiceMatrix}-
+			\begin{bNiceMatrix}
+				0 \\
+				0 \\
+				1
+			\end{bNiceMatrix}
+			\begin{bNiceMatrix}
+				0 & 1 & 0
+			\end{bNiceMatrix}=
+			\begin{bNiceMatrix}
+				1 & 0 & 0 \\
+				0 & 1 & 0 \\
+				0 & 0 & 1
+			\end{bNiceMatrix}-
+			\begin{bNiceMatrix}
+				0 & 0 & 0 \\
+				0 & 0 & 0 \\
+				0 & 1 & 0
+			\end{bNiceMatrix}=
+			\begin{bNiceMatrix}
+				1 & 0  & 0 \\
+				0 & 1  & 0 \\
+				0 & -1 & 1
+			\end{bNiceMatrix}.
+		\end{equation*}
 
-		$\det(A_{1})=1$, $\det(A_{2})=0$, $\det(A_{3})=0$
-		% \begin{aligned}
-
-		% 	&P_1=\left[e_1, e_3, e_2\right]=\left[\begin{array}{lll}
-		% 	1 & 0 & 0 \\
-		% 	0 & 0 & 1 \\
-		% 	0 & 1 & 0
-		% 	\end{array}\right] \\
-		% 	&\alpha_1=\left[\begin{array}{l}
-		% 	0 \\
-		% 	0 \\
-		% 	1 / 1
-		% 	\end{array}\right]=\left[\begin{array}{l}
-		% 	0 \\
-		% 	0 \\
-		% 	1
-		% 	\end{array}\right]
-		% 	\end{aligned}
+		\begin{align*}
+			A^{(1)}=
+			M_{1}P_{1}AP_{1}^{t}M_{1}^{t}
+			 & =
+			\begin{bNiceMatrix}
+				1 & 0  & 0 \\
+				0 & 1  & 0 \\
+				0 & -1 & 1
+			\end{bNiceMatrix}
+			\begin{bNiceMatrix}
+				1 & 0 & 0 \\
+				0 & 0 & 1 \\
+				0 & 1 & 0
+			\end{bNiceMatrix}
+			\begin{bNiceMatrix}
+				1 & 1 & 1 \\
+				1 & 1 & 1 \\
+				1 & 1 & 1
+			\end{bNiceMatrix}
+			\begin{bNiceMatrix}
+				1 & 0 & 0 \\
+				0 & 0 & 1 \\
+				0 & 1 & 0
+			\end{bNiceMatrix}
+			\begin{bNiceMatrix}
+				1 & 0 & 0  \\
+				0 & 1 & -1 \\
+				0 & 0 & 1
+			\end{bNiceMatrix} \\
+			 & =
+			\begin{bNiceMatrix}
+				1 & 0 & 0  \\
+				0 & 0 & 1  \\
+				0 & 1 & -1
+			\end{bNiceMatrix}
+			\begin{bNiceMatrix}
+				1 & 1 & 1 \\
+				1 & 1 & 1 \\
+				1 & 1 & 1
+			\end{bNiceMatrix}
+			\begin{bNiceMatrix}
+				1 & 0 & 0  \\
+				0 & 0 & 1  \\
+				0 & 1 & -1
+			\end{bNiceMatrix} \\
+			 & =
+			\begin{bNiceMatrix}
+				1 & 1 & 1 \\
+				1 & 1 & 1 \\
+				0 & 0 & 0
+			\end{bNiceMatrix}
+			\begin{bNiceMatrix}
+				1 & 0 & 0  \\
+				0 & 0 & 1  \\
+				0 & 1 & -1
+			\end{bNiceMatrix}=
+			\begin{bNiceMatrix}
+				1 & 1 & 0 \\
+				1 & 1 & 0 \\
+				0 & 0 & 0
+			\end{bNiceMatrix}=T,\quad
+			P=P_{1},\quad
+			L={\left(M_{1}P_{1}P^{t}\right)}^{-1}=
+			\begin{bNiceMatrix}
+				1 & 0 & 0 \\
+				0 & 1 & 0 \\
+				0 & 1 & 1
+			\end{bNiceMatrix}.
+		\end{align*}
 	\end{solution}
 \end{frame}
 
@@ -441,9 +1032,11 @@
 				firstline=4,
 				lastline=27
 			]{python}{parlett-reid-edward.py}
-			% \inputminted[
-			% 	fontsize=\scriptsize,
-			% ]{text}{output_parlett.txt}
+			\inputminted[
+				fontsize=\scriptsize,
+				firstline=7,
+				lastline=22
+			]{text}{output_parlett.txt}
 		\end{listing}
 	\end{minipage}
 \end{frame}
@@ -466,6 +1059,227 @@
 	\end{enumerate}
 
 	\begin{solution}
+		Sea $A=U\Sigma V^{\ast}$.
+		\begin{math}
+			A^{t}=
+			\begin{bNiceMatrix}
+				0 & 0 & 0 & 0 \\
+				1 & 0 & 0 & 0 \\
+				0 & 2 & 0 & 0 \\
+				0 & 0 & 3 & 0
+			\end{bNiceMatrix}
+		\end{math}.
+		Así
+		\begin{math}
+			\overline{A}=AA^{t}=
+			\begin{bNiceMatrix}
+				1 & 0 & 0 & 0 \\
+				0 & 4 & 0 & 0 \\
+				0 & 0 & 9 & 0 \\
+				0 & 0 & 0 & 0
+			\end{bNiceMatrix}
+		\end{math}.
+
+		El polinomio característico de $\overline{A}$ es
+		\begin{equation*}
+			p_{\overline{A}}\left(\lambda\right)=
+			\det\left(\overline{A}-\lambda I\right)=
+			-\lambda\left(1-\lambda\right)
+			\left(4-\lambda\right)\left(9-\lambda\right),
+		\end{equation*}
+		cuyas raíces son 0, 1, 4 y 9.
+		Si $\sigma^{2}_{1}=1$, $\sigma^{2}_{2}=4$, $\sigma^{2}_{3}=9$,
+		entonces $\sigma_{1}=1$, $\sigma_{2}=2$, $\sigma_{3}=3$,
+		$\sigma_{4}=0$.
+
+		Luego,
+		\begin{math}
+			\Sigma=
+			\begin{bNiceMatrix}
+				\sigma_{1} & 0          & 0          & 0          \\
+				0          & \sigma_{2} & 0          & 0          \\
+				0          & 0          & \sigma_{3} & 0          \\
+				0          & 0          & 0          & \sigma_{4}
+			\end{bNiceMatrix}=
+			\begin{bNiceMatrix}
+				1 & 0 & 0 & 0 \\
+				0 & 2 & 0 & 0 \\
+				0 & 0 & 3 & 0 \\
+				0 & 0 & 0 & 0
+			\end{bNiceMatrix}
+		\end{math}.
+
+		Los autovectores de $\Sigma$ son
+		\begin{equation*}
+			u_{1}=
+			\begin{bNiceMatrix}
+				1 \\
+				0 \\
+				0 \\
+				0
+			\end{bNiceMatrix},\quad
+			u_{2}=
+			\begin{bNiceMatrix}
+				0 \\
+				1 \\
+				0 \\
+				0
+			\end{bNiceMatrix},\quad
+			u_{3}=
+			\begin{bNiceMatrix}
+				0 \\
+				0 \\
+				1 \\
+				0
+			\end{bNiceMatrix},\quad
+			u_{4}=
+			\begin{bNiceMatrix}
+				0 \\
+				0 \\
+				0 \\
+				1
+			\end{bNiceMatrix},\quad
+			U=
+			\begin{bNiceMatrix}
+				u_{1} & u_{2} & u_{3} & u_{4}
+			\end{bNiceMatrix}=
+			\begin{bNiceMatrix}
+				1 & 0 & 0 & 0 \\
+				0 & 1 & 0 & 0 \\
+				0 & 0 & 1 & 0 \\
+				0 & 0 & 0 & 1
+			\end{bNiceMatrix}.
+		\end{equation*}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		\begin{itemize}
+			\item
+			      \begin{math}
+				      v_{1}=\frac{1}{\sigma_{1}}A^{t}u_{1}=
+				      \frac{1}{1}\begin{bNiceMatrix}
+					      0 & 0 & 0 & 0 \\
+					      1 & 0 & 0 & 0 \\
+					      0 & 2 & 0 & 0 \\
+					      0 & 0 & 3 & 0
+				      \end{bNiceMatrix}
+				      \begin{bNiceMatrix}
+					      1 \\
+					      0 \\
+					      0 \\
+					      0
+				      \end{bNiceMatrix}=
+				      \begin{bNiceMatrix}
+					      0 \\
+					      1 \\
+					      0 \\
+					      0
+				      \end{bNiceMatrix}
+			      \end{math}.
+
+			\item
+
+			      \begin{math}
+				      v_{2}=\frac{1}{\sigma_{2}}A^{t}u_{2}=
+				      \frac{1}{2}
+				      \begin{bNiceMatrix}
+					      0 & 0 & 0 & 0 \\
+					      1 & 0 & 0 & 0 \\
+					      0 & 2 & 0 & 0 \\
+					      0 & 0 & 0 & 3
+				      \end{bNiceMatrix}
+				      \begin{bNiceMatrix}
+					      0 \\
+					      1 \\
+					      0 \\
+					      0
+				      \end{bNiceMatrix}=
+				      \begin{bNiceMatrix}
+					      0 \\
+					      0 \\
+					      1 \\
+					      0
+				      \end{bNiceMatrix}
+			      \end{math}.
+
+			\item
+
+			      \begin{math}
+				      v_{3}=\frac{1}{\sigma_{3}}A^{t}u_{3}=
+				      \frac{1}{3}
+				      \begin{bNiceMatrix}
+					      0 & 0 & 0 & 0 \\
+					      1 & 0 & 0 & 0 \\
+					      0 & 2 & 0 & 0 \\
+					      0 & 0 & 3 & 0
+				      \end{bNiceMatrix}
+				      \begin{bNiceMatrix}
+					      0 \\
+					      0 \\
+					      1 \\
+					      0
+				      \end{bNiceMatrix}=
+				      \begin{bNiceMatrix}
+					      0 \\
+					      0 \\
+					      0 \\
+					      1
+				      \end{bNiceMatrix}
+			      \end{math}.
+
+			\item
+
+			      \begin{math}
+				      v_{4}=
+				      \begin{bNiceMatrix}
+					      1 \\
+					      0 \\
+					      0 \\
+					      0
+				      \end{bNiceMatrix}
+			      \end{math}.
+			\item
+
+			      \begin{math}
+				      V^{\ast}=
+				      \begin{bNiceMatrix}
+					      0 & 0 & 0 & 1 \\
+					      1 & 0 & 0 & 0 \\
+					      0 & 1 & 0 & 0 \\
+					      0 & 0 & 1 & 0
+				      \end{bNiceMatrix}
+			      \end{math}.
+		\end{itemize}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		\begin{minipage}{0.45\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=2,
+					lastline=12
+				]{python}{svd_alexandra.py}
+				\inputminted[
+					fontsize=\footnotesize,
+				]{text}{svd_alexandra.txt}
+			\end{listing}
+		\end{minipage}
+		\begin{minipage}{0.45\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=6,
+					lastline=31
+				]{python}{SVD.py}
+			\end{listing}
+		\end{minipage}
 	\end{solution}
 \end{frame}
 

@@ -27,7 +27,7 @@ def crear_P_k(n, k1, k2):
     return P
 
 
-def parlet_raid(A):
+def parlett_raid(A):
     n = len(A)
     P = np.identity(n)
     L_1 = np.identity(n)
@@ -74,4 +74,4 @@ A = np.array(
 )
 
 B = np.array([[0, 1, 2, 3], [1, 2, 2, 2], [2, 2, 3, 3], [3, 2, 3, 4]], dtype=np.float64)
-parlet_raid(B)
+parlett_raid(B)
