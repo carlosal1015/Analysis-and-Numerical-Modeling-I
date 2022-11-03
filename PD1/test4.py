@@ -1,4 +1,5 @@
 from sympy import Function, symbols, simplify, rsolve, latex, Rational
+# -*- coding: utf-8 -*-
 
 u = Function("u")  # declares the name of the sequence
 n = symbols("n", integer=True)  # declares the variable

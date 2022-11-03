@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 
 def suma_finita(N: int = 20, /, debug: bool = False):

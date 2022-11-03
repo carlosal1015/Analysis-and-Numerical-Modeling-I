@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 from sympy import var, simplify, solve, Function, symbols, rsolve, latex
 
