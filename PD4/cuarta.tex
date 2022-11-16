@@ -1,0 +1,507 @@
+%! Aldo Luna, Alexandra Mazzetti, Carlos Aznarán, Edward Canales
+%! Universidad Nacional de Ingeniería
+%! Facultad de Ciencias
+%! Lima, Perú
+%! Uso:
+%! $ sudo pacman -Syu texlive-most zathura # instalar las dependencias y un visor
+%! $ arara cuarta
+%! $ zathura cuarta.pdf
+%! Ver https://wiki.archlinux.org/title/TeX_Live
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['aux','log','nav',
+% arara: --> 'out','snm','toc','pdf']
+% arara: --> }
+% arara: lualatex: {
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: lualatex: {
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['aux','log','nav',
+% arara: --> 'out','snm','toc']
+% arara: --> }
+\PassOptionsToPackage{svgnames}{xcolor}
+\documentclass[
+	spanish,
+	8pt,
+	utf8,
+	xcolor=table,
+	handout,
+	aspectratio=169,
+	professionalfonts,
+	notheorems,
+	mathserif,
+	% t
+]{beamer}
+\setbeamersize{text margin left=0pt,text margin right=0pt}
+\usepackage[spanish,es-sloppy]{babel}
+\spanishdatedel\decimalpoint
+\usepackage{mathtools}
+\usepackage{nicematrix}
+\usepackage{systeme}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage[linesnumbered,ruled,boxed,vlined,spanish]{algorithm2e}
+\usepackage{algorithmicx}
+
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+
+\newcounter{savedenum}
+\newcommand*{\saveenum}{\setcounter{savedenum}{\theenumi}}
+\newcommand*{\resume}{\setcounter{enumi}{\thesavedenum}}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+
+\begin{document}
+
+\begin{frame}
+	\begin{enumerate}
+		\item
+
+		      Un fabricante de bombillas gana $0.3$ dólares por cada
+		      bombilla que sale de la fábrica, pero pierde $0.4$ dólare
+		      por cada una que sale defectuosa.
+		      Un día en el que fabricó 2100 bombillas obtuvo un beneficio
+		      de $484.4$ dólares.
+		      Determine el número de bombillas buenas y defectuosa según
+		      el siguiente requerimiento.
+
+		      \begin{multicols}{2}
+			      \begin{enumerate}[a)]
+
+				      \item
+
+				            Modele el problema.
+
+
+				      \item
+
+				            Resolver usando el método de Richardson y Jacobi.
+
+			      \end{enumerate}
+		      \end{multicols}
+
+		\item
+
+		      Sean dos números tales que la suma de un tercio del primero
+		      más un quinto del segundo sea igual a $13$ y que si se
+		      multiplica el primero por $5$ y el segundo por $7$ se
+		      obtiene $247$ como suma de los dos productos.
+		      Determine los números según el requerimiento siguiente.
+
+		      \begin{enumerate}[a)]
+
+			      \item
+
+			            Modele el problema.
+
+			      \item
+
+			            Resolver usando el método de Richardson y Jacobi.
+		      \end{enumerate}
+
+		\item
+
+		      Dos kilos de plátanos y tres de peras cuestan $8.80$ soles.
+		      Cinco kilos de plátanos y cuatro de peras cuestan $16.40$
+		      soles.
+		      Determine el costo de kilo del plátano y de la pera según
+		      el siguiente requerimiento.
+
+		      \begin{multicols}{2}
+			      \begin{enumerate}[a)]
+				      \item
+
+				            Modele el problema.
+
+				      \item
+
+				            Resolver usando el método de Richardson y Jacobi.
+			      \end{enumerate}
+		      \end{multicols}
+
+		\item
+
+		      La edad de Manuel es el doble de la edad de su hija Ana.
+		      Hace diez años, la suma de las edades de ambos era igual a
+		      la edad actual de Manuel.
+		      Determine la edad de ambos según el requerimiento siguiente.
+
+
+		      \begin{multicols}{2}
+			      \begin{enumerate}[a)]
+				      \item
+
+				            Modele el problema.
+
+				      \item
+
+				            Resolver usando el método de Richardson y Jacobi.
+			      \end{enumerate}
+		      \end{multicols}
+		      \saveenum
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}
+		\resume
+
+		\item
+
+		      José dice a Eva:
+		      Mi colección de discos compactos es mejor que la tuya ya
+		      que si te cedo 10 tendríamos la misma cantidad.
+		      Eva le responde:
+		      Reconozco que tienes razón.
+		      Solo te faltan 10 para doblarme en número.
+		      Determine la cantidad de discos que tiene cada uno según el
+		      requerimiento siguiente.
+
+		      \begin{multicols}{2}
+			      \begin{enumerate}[a)]
+				      \item
+
+				            Modele el problema.
+
+				      \item
+
+				            Resolver usando el método de Richardson y Jacobi.
+			      \end{enumerate}
+		      \end{multicols}
+
+		\item
+
+		      Un cliente de un supermercado ha pagado un total de S/$156$
+		      por 24 litros de leche, 6 kilogramos de jamón serrano y 12
+		      litros de aceite de oliva.
+		      Determine el precio de cada artículo, sabiendo que 1 litro
+		      de aceite cuesta el triple que 1 litro de leche y que 1
+		      kilogramo de jamón cuesta igual que 4 litros de aceite más
+		      4 litros de leche.
+		      Usando los programas desarrollados de Jacobi y Gauss-Seidel.
+
+		\item
+
+		      Un video club está especializado en tres tipos de
+		      películas: Infantiles, Oeste y Terror.
+		      Donde el $60$\% de las películas Infantiles más el
+		      $50$\% de las del Oeste representan el $30$\% del total de
+		      las películas.
+		      Además el $20$\% de las Infantiles más el $60$\% de las del
+		      Oeste más del $60$\% de las de Terror representan la mitad
+		      del total de las películas.
+		      Hay 100 películas más del Oeste que de Infantiles.
+		      Determine el número de películas de cada tipo usando los
+		      programas desarrollados de Jacobi y Gauss-Seidel.
+
+		\item
+
+		      Una familia consta de una madre, un padre y un hijo.
+		      La suma de las edades actuales de los tres es de $80$ años.
+		      Dentro de 22 años, la edad del hijo será la mitad que la
+		      madre.
+		      Si el padre es un año mayor que la madre.
+		      Determine la edad actual de cada miembro de la familia
+		      usando los programas desarrollados de Jacobi y
+		      Gauss-Seidel, con
+		      \begin{math}
+			      \overline{x}_{0}=
+			      {\left(1,2,0\right)}^{T}
+		      \end{math}.
+
+		\item
+
+		      Una empresa de transportes gestiona una flota de $60$
+		      camiones de tres modelos diferentes.
+		      Los mayores transportan una media diaria de $15000$
+		      kilogramos y recorren diariamente una media de $400$
+		      kilómetros.
+		      Los medianos transportan diariamente una media de $10000$
+		      kilogramos y recorren $300$ kilómetros.
+		      Los pequeños transportan diariamente $5000$ kilogramos y
+		      recorren $100$ kilómetros de media.
+		      Diariamente los camiones de la empresa transportan un total
+		      de $475$ toneladas y recorren $12500$ kilómetros entre todos.
+		      Determine el número de camiones que gestiona la empresa de
+		      cada modelo, usando los programas desarrollados de Jacobi y
+		      Gauss-Seidel.
+		      \saveenum
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}
+		\resume
+		\item
+
+		      Un carpintero fabrica sillas, mesas redondas y mesas
+		      cuadradas.
+		      Cada silla requiere un minuto de lija, 3 minutos de pintura
+		      y un minuto de barniz.
+		      Cada mesa redonda requiere 2 minutos de lija, 1 minuto de
+		      pintura y un minuto de barniz.
+		      Cada mesa cuadrada requiere un minuto de lija, 1 minuto de
+		      pintura y 3 minutos de barniz.
+		      Las máquinas de lijar, pintar y barnizar están disponibles
+		      $6$, $6$ y $5$ horas por día respectivamente.
+		      Determine el número de muebles que puede fabricar el
+		      carpintero si las máquinas se usan a toda capacidad, usando
+		      los programas desarrollados de Jacobi y Gauss-Seidel.
+
+		\item
+
+		      Resuelva el siguiente sistema lineal
+		      \begin{math}
+			      \systeme{
+			      4x_{1}-
+			      x_{2}-
+			      x_{4}=
+			      0,
+			      -x_{1}+
+			      4x_{2}-
+			      x_{3}-
+			      x_{5}=
+			      5,
+			      -x_{2}+
+			      4x_{3}-
+			      x_{6}=
+			      0,
+			      -x_{1}+
+			      4x_{4}-
+			      x_{5}=
+			      6,
+			      -x_{2}-
+			      x_{4}+
+			      4x_{5}-
+			      x_{6}=
+			      -2,
+			      -x_{3}-
+			      x_{5}+
+			      4x_{6}=
+			      6
+			      }
+		      \end{math}
+		      tiene solución ${\left(1,-1,1\right)}^{T}$.
+
+		      Resuelva el sistema lineal mediante los métodos de SOR y
+		      del descenso más rápido con una aritmética de redondeo a
+		      tres dígitos.
+		      \saveenum
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}
+		\resume
+
+		\item
+
+		      Use los métodos de SOR y del descenso más rápido para
+		      encontrar la solución de sistema $Ax=b$ con una precisión
+		      de $10^{-5}$ en la norma ${\left\|\cdot\right\|}_{\infty}$.
+		      % \setcounter{MaxMatrixCols}{30}
+		      \begin{equation*}
+			      a_{ij}=
+			      \begin{cases}
+				      4,  & \text {si }j=1\text { e }i=1,\ldots,16,      \\
+				      -1, & \text {si }
+				      \begin{cases}
+					      j=i+1 \text { e } i=1,2,3,5,6,7,9,10,11,13,14,15,  \\
+					      j=i-1 \text { e } i=2,3,4,6,7,8,10,11,12,14,15,16, \\
+					      j=i+4 \text { e } i=1,\ldots, 12,                  \\
+					      j=i-4 \text { e } i=5,\ldots, 16,
+				      \end{cases} \\
+				      0,  & \text {en otro caso}.
+			      \end{cases}\quad
+			      \text{y}\quad
+			      b=
+			      \begin{bNiceMatrix}
+				      1.902207  \\
+				      1.051143  \\
+				      1.175689  \\
+				      3.480083  \\
+				      0.819600  \\
+				      -0.264419 \\
+				      -0.412789 \\
+				      1.175689  \\
+				      0.913337  \\
+				      -0.150209 \\
+				      -0.264419 \\
+				      1.051143  \\
+				      1.966694  \\
+				      0.913337  \\
+				      0.819600  \\
+				      1.902207
+			      \end{bNiceMatrix}
+		      \end{equation*}
+		      \saveenum
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}
+		\resume
+
+		\item
+
+		      Use los métodos de SOR y del descenso más rápido para
+		      encontrar la solución de sistema $Ax=b$ con una precisión
+		      de $10^{-5}$ en la norma ${\left\|\cdot\right\|}_{\infty}$.
+
+		      \begin{equation*}
+			      a_{ij}=
+			      \begin{cases}
+				      4,  & \text {si }j=1\text { e }i=1,\ldots,25,                             \\
+				      -1, & \text {si }
+				      \begin{cases}
+					      j=i+1 \text { e } i=1,2,3,4,6,7,8,9,11,12,13,14,16,17,18,19,21,22,23,24,  \\
+					      j=i-1 \text { e } i=2,3,4,5,7,8,9,10,12,13,14,15,17,18,19,20,22,23,24,25, \\
+					      j=i+5 \text { e } i=1,\ldots, 20,                                         \\
+					      j=i-5 \text { e } i=6,\ldots, 25,
+				      \end{cases} \\
+				      0,  & \text {en otro caso}.
+			      \end{cases}\quad
+			      \text{y}\quad
+			      b=
+			      \begin{bNiceMatrix}
+				      1  \\
+				      0  \\
+				      -1 \\
+				      0  \\
+				      2  \\
+				      1  \\
+				      0  \\
+				      -1 \\
+				      0  \\
+				      2  \\
+				      1  \\
+				      0  \\
+				      -1 \\
+				      0  \\
+				      2  \\
+				      1  \\
+				      0  \\
+				      -1 \\
+				      0  \\
+				      2  \\
+				      1  \\
+				      0  \\
+				      -1 \\
+				      0  \\
+				      2  \\
+			      \end{bNiceMatrix}
+		      \end{equation*}
+
+		\item
+
+		      Use los métodos de SOR y del descenso más rápido para
+		      encontrar la solución de sistema $Ax=b$ con una precisión
+		      de $10^{-5}$ es la norma ${\left\|\cdot\right\|}_{\infty}$.
+
+
+		      \begin{equation*}
+			      a_{ij}=
+			      \begin{cases}
+				      2i, & \text {si }j=1\text { e }i=1,\ldots,40, \\
+				      -1, & \text {si }
+				      \begin{cases}
+					      j=i+1 \text { e } i=1,\ldots,39 \\
+					      j=i-1 \text { e } i=2,\ldots,40
+				      \end{cases}               \\
+				      0,  & \text {en otro caso}.
+			      \end{cases}\quad
+			      \text{y}\quad
+			      b_{i}=
+			      \begin{bNiceMatrix}
+				      1.5i-6
+			      \end{bNiceMatrix}
+			      \forall i\in\left\{1,\ldots,40\right\}.
+		      \end{equation*}
+
+		\item
+
+		      Demuestre que un conjunto $A$ ortogonal de vectores no
+		      nulos asociados con una matriz definida positiva es
+		      linealmente independiente.
+
+		\item
+
+
+		      Una heladería, reabrirá sus puertas luego de $6$ meses de
+		      confinamiento debido al covid-19; para ello, realizará una
+		      campaña virtual mostrando sus instalaciones en las cuales
+		      brinda todas las medidas de seguridad a sus cliente y
+		      ofrece los siguientes combos.
+		      Combo 1, un helado, 2 zumos y 4 batidos por el módico
+		      precio de S/$41.80$.
+		      Combo 2 compuesto, por 4 helados, 4 zumos y un batido por
+		      un valor de S/$38.00$.
+		      Combo 3, 2 helados, 3 zumos y 4 batidos por S/$49.40$.
+		      Determine el precio de cada producto usando el programa
+		      desarrollado del gradiente conjugado.
+
+		\item
+
+		      Se venden 3 especies de cereales trigo, cebada y mijo.
+		      El trigo se vende cada saco por S/$253.50$.
+		      La cebada se vende S/$126.75$.
+		      El miro se vende cada saco a S/$31.75$.
+		      Si se venden 100 sacos y se obtiene por la venta
+		      S/$1014$.
+		      Determine la cantidad de cada cereal se vendió, usando el
+		      programa desarrollado del gradiente conjugado.
+
+		\item
+
+
+		      Un fabricante de autos ha lanzado al mercado tres nuevos
+		      modelos $A, B$ y $C$.
+		      El precio de venta de cada modelo es de $15000$, $20000$ y
+		      $30000$ soles, respectivamente, ascendiendo el importe
+		      total de los autos vendidos durante el primer mes a
+		      $250000$.
+		      Donde los costes de fabricación son de S/$10000$ para el
+		      modelo $A$, S/$15000$ para el modelo $B$ y S/$20000$ para
+		      el modelo $C$, siendo el coste total de fabricación de los
+		      autos en el mes de S/$175000$ y el número total de autos
+		      vendidos es de $140$.
+		      Determine el número de autos vendidos de cada modelo en el
+		      mes, usando el programa desarrollado del gradiente conjugado.
+
+		\item
+
+		      La ciudad de Huánuco compra $540000$ barriles de petróleo
+		      tres suministradores diferentes que lo venden a $27$, $28$
+		      y $31$ dólares el barril, respectivamente.
+		      La factura total asciende a $15999000$ dólares.
+		      Si del primer suministrador recibe el $30$\% del total de
+		      petróleo comprado.
+		      Determine la cantidad comprada a cada suministrador, usando
+		      el programa desarrollado del gradiente conjugado.
+
+		\item
+
+		      Las edades de tres hermanos tales que el quíntuplo de la
+		      edad del primero, más el cuádruplo de la edad del segundo,
+		      más el triple de la edad del tercero, es igual a $60$.
+		      El cuádruplo de la edad del primero, más el triple de la
+		      edad del segundo, más el quíntuplo de la edad del tercero,
+		      es igual a $50$.
+		      Y el triple de la edad del primero, más el quíntuplo de la
+		      edad del segundo, más el cuádruplo de la edad del tercero,
+		      es igual a $46$.
+		      Determine la edad de los tres hermanos usando el programa
+		      desarrollado del gradiente conjugado.
+
+		      \saveenum
+	\end{enumerate}
+\end{frame}
+
+\end{document}
