@@ -1,0 +1,16 @@
+Matriz A es
+[[ 4 11 14]
+ [ 8  7 -2]] de tamaño (2, 3)
+
+Matriz U es
+[[ 4 11 14]
+ [ 8  7 -2]] de tamaño (2, 2)
+
+Matriz S es
+[[18.97366596  0.        ]
+ [ 0.          9.48683298]] de tamaño (2, 2)
+
+Matriz V es
+[[18.97366596  0.        ]
+ [ 0.          9.48683298]] de tamaño (3, 3)
+

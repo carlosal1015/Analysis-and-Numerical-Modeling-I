@@ -1,0 +1,393 @@
+%! Aldo Luna, Alexandra Mazzetti, Carlos Aznarán, Edward Canales
+%! Universidad Nacional de Ingeniería
+%! Facultad de Ciencias
+%! Lima, Perú
+%! Uso:
+%! $ sudo pacman -Syu texlive-most zathura # dependencias, visor
+%! $ arara solution_cuarta
+%! $ zathura solution_cuarta.pdf
+%! Ver https://wiki.archlinux.org/title/TeX_Live
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['aux','log','nav',
+% arara: --> 'out','snm','toc','pytxcode','pdf']
+% arara: --> }
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> draft: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: biber
+%! arara: pythontex
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> draft: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> synctex: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['aux','log','nav',
+% arara: --> 'out','snm','toc','pytxcode']
+% arara: --> }
+\PassOptionsToPackage{svgnames}{xcolor}
+\documentclass[
+	spanish,
+	8pt,
+	utf8,
+	xcolor=table,
+	handout,
+	aspectratio=169,
+	professionalfonts,
+	% notheorems,
+	mathserif,
+	leqno,
+	% t
+]{beamer}
+\setbeamersize{text margin left=5pt,text margin right=5pt}
+\usepackage[spanish,es-sloppy]{babel}
+\spanishdatedel\decimalpoint
+\usepackage{mathtools}
+\usepackage{nicematrix}
+\usepackage{systeme}
+\usepackage{minted}
+\usepackage{enumerate}
+\usepackage{multicol}
+% \usepackage{pythontex}
+\usepackage[
+	citestyle=numeric,
+	style=apa,
+	backend=biber,
+	defernumbers=true,
+	sorting=ynt,
+	maxcitenames=4
+]{biblatex}
+\addbibresource{references.bib}
+
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+
+\newcounter{savedenum}
+\newcommand*{\saveenum}{\setcounter{savedenum}{\theenumi}}
+\newcommand*{\resume}{\setcounter{enumi}{\thesavedenum}}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+
+% https://tex.stackexchange.com/questions/68080/beamer-bibliography-icon
+\setbeamertemplate{bibliography item}{%
+	\ifboolexpr{ test {\ifentrytype{book}} or test {\ifentrytype{mvbook}}
+		or test {\ifentrytype{collection}} or test {\ifentrytype{mvcollection}}
+		or test {\ifentrytype{reference}} or test {\ifentrytype{mvreference}} }
+	{\setbeamertemplate{bibliography item}[book]}
+	{\ifentrytype{online}
+		{\setbeamertemplate{bibliography item}[online]}
+		{\setbeamertemplate{bibliography item}[article]}}%
+	\usebeamertemplate{bibliography item}}
+
+\defbibenvironment{bibliography}
+{\list{}
+	{\settowidth{\labelwidth}{\usebeamertemplate{bibliography item}}%
+		\setlength{\leftmargin}{\labelwidth}%
+		\setlength{\labelsep}{\biblabelsep}%
+		\addtolength{\leftmargin}{\labelsep}%
+		\setlength{\itemsep}{\bibitemsep}%
+		\setlength{\parsep}{\bibparsep}}}
+{\endlist}
+{\item}
+
+\makeatletter
+\newenvironment<>{proofs}[1][\proofname]{%
+    \par
+    \def\insertproofname{#1\@addpunct{.}}%
+    \usebeamertemplate{proof begin}#2}
+  {\usebeamertemplate{proof end}}
+\makeatother
+
+
+\title{
+	\huge\sffamily
+	Cuarta Práctica Dirigida\quad Grupo N$^{\circ}$~3
+}
+
+\subtitle{
+	\large\scshape
+	Análisis y Modelamiento Numérico I\quad CM4F1 B\\[.5\baselineskip]
+		\normalsize\normalfont
+		Profesor Jonathan Munguia La Cotera
+}
+
+\author{
+	Aldo Luna Bueno\quad\and\quad
+	Alexandra Gutierrez Mazzetti\quad\and\quad
+	Carlos Aznarán Laos\quad\and\quad
+	Edward Canales Yarin
+}
+
+\institute{\large
+	Facultad de Ciencias \and
+	Universidad Nacional de Ingeniería
+}
+\date{16 de noviembre del 2022}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+	Para estudiar la convergencia de técnicas de iteración general, necesitamos analizar la fórmula
+	\begin{equation*}
+		\boxed{
+			\forall k\in\mathbb{N}:
+			x^{\left(k\right)}=
+			Tx^{\left(k-1\right)}+c.
+		}
+	\end{equation*}
+
+	\begin{theorem}[]
+		Para cualquier $x^{\left(0\right)}\in\mathbb{R}^{n}$, la sucesión
+		\begin{math}
+			{\left\{x^{\left(k\right)}\right\}}_{k\in\mathbb{N}}
+		\end{math}
+		definida por
+		\begin{equation*}
+			x^{\left(k\right)}=
+			Tx^{\left(k-1\right)}+
+			c.
+		\end{equation*}
+		converge a la \alert{solución única} de $x=Tx+c$ sii
+		$\rho\left(T\right)<1$.
+
+		\begin{proof}
+			\begin{itemize}
+				\item[$\left(\Rightarrow\right)$]
+
+					Primero suponga que $\rho\left(T\right)<1$.
+					Entonces,
+					\begin{align*}
+						x^{\left(k\right)}                       & =
+						T\alert{x^{\left(k-1\right)}}+c                                                                       \\
+						                                         & =
+						T\left(T x^{\left(k-2\right)}+c\right)+c                                                              \\
+						                                         & =T^{2}x^{\left(k-2\right)}+\left(T+I\right)c               \\
+						                                         & \vdotswithin{=}                                            \\
+						                                         & =T^{k}x^{\left(0\right)}+\left(T^{k-1}+\cdots+T+I\right)c.
+						\shortintertext{Puesto que $\rho\left(T\right)<1$, implica que $T$ es convergente y}
+						\lim_{k\to\infty}T^{k}x^{\left(0\right)} & =0.
+					\end{align*}
+			\end{itemize}
+		\end{proof}
+	\end{theorem}
+\end{frame}
+
+\begin{frame}
+	\begin{proof}
+		\begin{equation*}
+			\lim_{k\to\infty}
+			x^{\left(k\right)}=
+			\lim_{k\to\infty}
+			T^{k}x^{\left(0\right)}+
+			\left(\sum_{j=0}^{\infty}T^{j}\right)c=
+			0+{\left(I-T\right)}^{-1}c=
+				{\left(I-T\right)}^{-1}c
+		\end{equation*}
+		Por lo tanto, la sucesión $\left\{\mathbf{x}^{(k)}\right\}$ converge al vector $\mathbf{x} \equiv(I-T)^{-1} \mathbf{c}$ y $\mathbf{x}=T \mathbf{x}+\mathbf{c}$.
+		Para probar lo contrario, mostraremos que para cualquier $\mathbf{z} \in \mathbb{R}^n$, tenemos $\operatorname{lím}_{k \rightarrow \infty}$ $T^k \mathbf{z}=\mathbf{0}$. Con el teorema 7.17, esto es equivalente a $\rho(T)<1$.
+
+		Sea $\mathbf{z}$ un vector arbitrario y $x$ la única solución para $\mathbf{x}=T \mathbf{x}+\mathbf{c}$. Defina $\mathbf{x}^{(0)}=\mathbf{x}-\mathbf{z}$, y, para $k \geq 1, \mathbf{x}^{(k)}=T \mathbf{x}^{(k-1)}+\mathbf{c}$. Entonces $\left\{\mathbf{x}^{(k)}\right\}$ converge a $\mathbf{x}$. También,
+		$$
+			\mathbf{x}-\mathbf{x}^{(k)}=(T \mathbf{x}+\mathbf{c})-\left(T \mathbf{x}^{(k-1)}+\mathbf{c}\right)=T\left(\mathbf{x}-\mathbf{x}^{(k-1)}\right),
+		$$
+		por lo que
+		$$
+			\mathbf{x}-\mathbf{x}^{(k)}=T\left(\mathbf{x}-\mathbf{x}^{(k-1)}\right)=T^2\left(\mathbf{x}-\mathbf{x}^{(k-2)}\right)=\cdots=T^k\left(\mathbf{x}-\mathbf{x}^{(0)}\right)=T^k \mathbf{z}
+		$$
+		Por lo tanto, $\operatorname{lím}_{k \rightarrow \infty} T^k \mathbf{z}=\operatorname{lím}_{k \rightarrow \infty} T^k\left(\mathbf{x}-\mathbf{x}^{(0)}\right)=\operatorname{lím}_{k \rightarrow \infty}\left(\mathbf{x}-\mathbf{x}^{(k)}\right)=\mathbf{0}$. Pero $\mathbf{z} \in \mathbb{R}^n$ era arbitrario, por lo que mediante el teorema 7.17, $T$ es convergente y $\rho(T)<1$
+
+		\begin{enumerate}
+			\item[$\left(\Leftarrow\right)$]
+
+				Sea $z$ un vector arbitrario y $x$ la única solución para $x=Tx+c$.
+				Defina $x^{0}=x-z$, y, para $k\geq1$, $x^{k}=Tx^{\left(k-1\right)}+c$
+		\end{enumerate}
+	\end{proof}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Método de Sobrerrelajación sucesiva (SOR)}
+	El \alert{método SOR} se puede escribir de la forma
+	\begin{math}
+		x^{\left(k\right)}=
+		T_{\omega}x^{\left(k-1\right)}+
+		c_{\omega}
+	\end{math}
+	al dividir $A$ en sus partes diagonal o fuera de la diagonal.
+	Para observar esto, permite que $D$ sea la \alert{matriz diagonal}
+	cuyas entradas diagonales sean las de $A$, $-L$ es la parte
+	\alert{estrictamente triangular inferior} de $A$ y $-U$ es la parte
+	\alert{estrictamente triangular superior} de $A$.
+	Con esta notación,
+	\begin{equation*}
+		\underbrace{
+			\begin{bNiceMatrix}
+				a_{11}  & a_{12}  & \cdots & a_{1 n} \\
+				a_{21}  & a_{22}  & \cdots & a_{2 n} \\
+				\vdots  & \vdots  &        & \vdots  \\
+				a_{n 1} & a_{n 2} & \cdots & a_{n n}
+			\end{bNiceMatrix}
+		}_{A}=
+		\underbrace{
+			\begin{bNiceMatrix}
+				a_{11} & 0      & \Cdots & 0      \\
+				0      & a_{22} & \Ddots & \Vdots \\
+				\Vdots & \Ddots & \Ddots & 0      \\
+				0      & \Cdots & 0      & a_{nn}
+			\end{bNiceMatrix}
+		}_{D}
+		-
+		\underbrace{
+			\begin{bNiceMatrix}
+				0       & \Cdots &            & 0      \\
+				-a_{21} & \Ddots &            & \Vdots \\
+				\Vdots  & \Ddots &            &        \\
+				-a_{n1} & \Cdots & -a_{n,n-1} & 0
+			\end{bNiceMatrix}
+		}_{L}
+		-
+		\underbrace{
+			\begin{bNiceMatrix}
+				0      & -a_{12} & \Cdots & a_{1n}     \\
+				\Vdots & \Ddots  & \Ddots & \Vdots     \\
+				       &         &        & -a_{n-1,n} \\
+				0      & \Cdots  &        & 0
+			\end{bNiceMatrix}
+		}_{U}
+	\end{equation*}
+	Entonces, el sistema de ecuaciones lineales $Ax=b$, o $\left(D-L-U\right)x=b$, puede reescribirse como
+	\begin{equation*}
+		Dx=\left(L+U\right)x+b.
+	\end{equation*}
+	para un parámetro
+	\begin{math}
+		\omega\in\mathbb{C}
+		\setminus\left\{0\right\}
+	\end{math}
+	llamado \alert{factor de relajación}.
+	\begin{align*}
+		A=\left(\frac{1}{w}D - L\right)+
+		\left(\frac{w-1}{w}\right)
+	\end{align*}
+\end{frame}
+
+\begin{frame}
+	Para derivar los métodos iterativos clásicos uno escribe $A=D-L-U$, con
+	$D=\operatorname{diag}\left(A\right)$, asumiendo que el $\det\left(D\right)\neq0$,
+	$L$ y $U$ son matrices estrictamente inferior y estrictamente superior, respectivamente.
+
+	\begin{theorem}[Kahan]
+		Una condición necesaria para que el método SOR converja es $\left|\omega-1\right|<1$.
+		(Para $\omega\in\mathbb{R}$ esta condición resulta $\omega\in\left(0,2\right)$.)
+	\end{theorem}
+
+	\begin{definition}
+		Una matriz $A\in\mathbb{C}^{n\times n}$ se dice que es Hermitiana sii
+		$A^{\ast}=A$, donde el superíndice $\ast$ denota la transpuesta conjugada compleja.
+		(Una matriz Hermitiana real es una matriz simétrica real y que cumple $A^{T}=A$, donde $T$ denota la transpuesta)
+	\end{definition}
+
+	\begin{definition}
+		Una matriz Hermitiana $A\in\mathbb{C}^{n\times n}$ se dice que
+		es definida positiva sii $\forall x^{\ast}Ax>0$,
+		$\forall x\in\mathbb{C}^{n}\setminus\left\{0\right\}$.
+		(Para $A$ real simétrica, la condición resulta $\forall x^{T}Ax>0$,
+		$\forall x\in\mathbb{R}^{n}\setminus\left\{0\right\}$)
+	\end{definition}
+
+	\begin{theorem}[Reich - Ostrowski - Varga]
+		Sea $A=D-E-E^{\ast}\in\mathbb{C}^{n\times n}$ Hermitiana,
+		$D$ es Hermitiana y definida positiva, y $\det\left(D-\omega E\right)\neq0$,
+		$\forall\omega\left(0,2\right)$.
+		Entonces, $\rho\left(T_{\omega}\right)<1$ sii $A$ es definida positiva y $\omega\in\left(0,2\right)$.
+	\end{theorem}
+\end{frame}
+
+\begin{frame}
+
+	\begin{enumerate}\setcounter{enumi}{10}
+		\item
+
+		      Resuelva el siguiente sistema lineal
+		      \begin{math}
+			      \systeme{
+			      4x_{1}-
+			      x_{2}-
+			      x_{4}=
+			      0,
+			      -x_{1}+
+			      4x_{2}-
+			      x_{3}-
+			      x_{5}=
+			      5,
+			      -x_{2}+
+			      4x_{3}-
+			      x_{6}=
+			      0,
+			      -x_{1}+
+			      4x_{4}-
+			      x_{5}=
+			      6,
+			      -x_{2}-
+			      x_{4}+
+			      4x_{5}-
+			      x_{6}=
+			      -2,
+			      -x_{3}-
+			      x_{5}+
+			      4x_{6}=
+			      6
+			      }
+		      \end{math}
+		      tiene solución ${\left(1,-1,1\right)}^{T}$.
+
+		      Resuelva el sistema lineal mediante los métodos de SOR y
+		      del descenso más rápido con una aritmética de redondeo a
+		      tres dígitos.
+
+	\end{enumerate}
+
+	\begin{solution}
+		.
+	\end{solution}
+\end{frame}
+
+\begin{frame}\transblindsvertical
+	\frametitle{Referencias}
+	%------------------------------------------------------------ 1
+	\only<1>{
+		\begin{itemize}
+			\item Libros
+			      \nocite{*}
+			      \printbibliography[heading=none,keyword=book]
+		\end{itemize}
+	}
+	%------------------------------------------------------------ 2
+	\only<2>{
+		\begin{itemize}
+			\item Artículos científicos
+			      \printbibliography[heading=none,keyword=paper]
+		\end{itemize}
+	}
+	%------------------------------------------------------------ 3
+	\only<3>{
+		\begin{itemize}
+			\item Sitios web
+			      \printbibliography[heading=none,keyword=online]
+		\end{itemize}
+	}
+\end{frame}
+
+\end{document}

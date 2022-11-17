@@ -1,0 +1,259 @@
+%! Aldo Luna, Alexandra Mazzetti, Carlos Aznarán, Edward Canales
+%! Universidad Nacional de Ingeniería
+%! Facultad de Ciencias
+%! Lima, Perú
+%! Uso:
+%! $ sudo pacman -Syu texlive-most zathura # dependencias, visor
+%! $ arara solution_tercera
+%! $ zathura solution_tercera.pdf
+%! Ver https://wiki.archlinux.org/title/TeX_Live
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['aux','log','nav',
+% arara: --> 'out','snm','toc','pytxcode','pdf']
+% arara: --> }
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> draft: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+%! arara: biber
+%! arara: pythontex
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> draft: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> synctex: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['aux','log','nav',
+% arara: --> 'out','snm','toc','pytxcode']
+% arara: --> }
+\PassOptionsToPackage{svgnames}{xcolor}
+\documentclass[
+	spanish,
+	8pt,
+	utf8,
+	xcolor=table,
+	handout,
+	aspectratio=169,
+	professionalfonts,
+	% notheorems,
+	mathserif,
+	leqno,
+	% t
+]{beamer}
+\setbeamersize{text margin left=5pt,text margin right=5pt}
+\usepackage[spanish,es-sloppy]{babel}
+\spanishdatedel\decimalpoint
+\usepackage{mathtools}
+\usepackage{nicematrix}
+\usepackage{systeme}
+\usepackage{minted}
+\usepackage{enumerate}
+\usepackage{multicol}
+% \usepackage{pythontex}
+\usepackage[
+	citestyle=numeric,
+	style=apa,
+	backend=biber,
+	defernumbers=true,
+	sorting=ynt,
+	maxcitenames=4
+]{biblatex}
+\addbibresource{references.bib}
+
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+
+\newcounter{savedenum}
+\newcommand*{\saveenum}{\setcounter{savedenum}{\theenumi}}
+\newcommand*{\resume}{\setcounter{enumi}{\thesavedenum}}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+
+% https://tex.stackexchange.com/questions/68080/beamer-bibliography-icon
+\setbeamertemplate{bibliography item}{%
+	\ifboolexpr{ test {\ifentrytype{book}} or test {\ifentrytype{mvbook}}
+		or test {\ifentrytype{collection}} or test {\ifentrytype{mvcollection}}
+		or test {\ifentrytype{reference}} or test {\ifentrytype{mvreference}} }
+	{\setbeamertemplate{bibliography item}[book]}
+	{\ifentrytype{online}
+		{\setbeamertemplate{bibliography item}[online]}
+		{\setbeamertemplate{bibliography item}[article]}}%
+	\usebeamertemplate{bibliography item}}
+
+\defbibenvironment{bibliography}
+{\list{}
+	{\settowidth{\labelwidth}{\usebeamertemplate{bibliography item}}%
+		\setlength{\leftmargin}{\labelwidth}%
+		\setlength{\labelsep}{\biblabelsep}%
+		\addtolength{\leftmargin}{\labelsep}%
+		\setlength{\itemsep}{\bibitemsep}%
+		\setlength{\parsep}{\bibparsep}}}
+{\endlist}
+{\item}
+
+\makeatletter
+\newenvironment<>{proofs}[1][\proofname]{%
+    \par
+    \def\insertproofname{#1\@addpunct{.}}%
+    \usebeamertemplate{proof begin}#2}
+  {\usebeamertemplate{proof end}}
+\makeatother
+
+
+\title{
+	\huge\sffamily
+	Práctica Dirigida
+}
+
+\subtitle{
+	\large\scshape
+	Análisis y Modelamiento Numérico I\quad CM4F1 B\\[.5\baselineskip]
+		\normalsize\normalfont
+		Profesor Ángel Enrique Ramírez Gutiérrez.
+}
+
+\author{
+	Carlos A. Aznarán Laos
+}
+
+\institute{\large
+	Facultad de Ciencias \and
+	Universidad Nacional de Ingeniería
+}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}
+
+	\begin{enumerate}\setcounter{enumi}{0}
+		\item
+
+		      Muestre que el número de condición $\kappa$ para el producto
+		      $Ax$ (con respecto a la perturbación $x$) es
+		      \begin{equation*}
+			      \kappa\left(x\right)=
+			      \left\|A\right\|
+			      \frac{
+				      \left\|x\right\|
+			      }{
+				      \left\|Ax\right\|
+			      }.
+		      \end{equation*}
+
+	\end{enumerate}
+
+	\begin{solution}
+		Sean $A\in\mathbb{R}^{m\times n}$ y $x\in\mathbb{R}^{n\times 1}$.
+		El \alert{número de condición relativo} $\kappa\left(x\right)$
+		del producto $Ax$ es
+		\begin{align*}
+			\kappa\left(x\right)
+			 & \coloneqq
+			\lim\limits_{\delta\to0}\sup\limits_{h<\delta}
+			\left\|
+			\frac{\frac{A\left(x+h\right)-A\left(x\right)}{Ax}}{\frac{h}{x}}
+			\right\|.                                                                                                                \\
+			\kappa\left(x\right)
+			 & =
+			\sup_{h\neq0}
+			\frac{
+				\frac{\left\|A\left(x+h\right)-Ax\right\|}{\alert{\left\|Ax\right\|}}
+			}{
+				\frac{\left\|h\right\|}{\alert{\left\|x\right\|}}
+			}.
+			\shortintertext{Como $\left\|Ax\right\|$ y $\left\|x\right\|$ no dependen de $h$, podemos factorizar}
+			\kappa\left(x\right)
+			 & =
+			\frac{\alert{\left\|x\right\|}}{\alert{\left\|Ax\right\|}}\sup_{h\neq0}\frac{\left\|Ax+Ah-Ax\right\|}{\left\|h\right\|}. \\
+			\kappa\left(x\right)
+			 & =
+			\alert{\sup_{h\neq0}\frac{\left\|Ah\right\|}{\left\|h\right\|}}\frac{\left\|x\right\|}{\left\|Ax\right\|}.               \\
+			\shortintertext{Un factor es la \alert{norma matricial de $A$}}
+			\kappa\left(x\right)
+			 & =
+			\alert{\left\|A\right\|}\frac{\left\|x\right\|}{\left\|Ax\right\|}.
+		\end{align*}
+	\end{solution}
+\end{frame}
+
+\end{document}
+
+
+2. Let $U=\left(u_{i j}\right)$ be a nonsingular upper triangular matrix. Then show that:
+$$
+	K_{\infty}(U) \geq \frac{\max \left(\left|u_{i i}\right|\right)}{\min \left(\left|u_{i i}\right|\right)} .
+$$
+3. Resuelva los siguientes sistemas. Use eliminación Gaussiana con pivoteo parcial mediante la factorización $P A=L U$.
+a) $\left.\left(\begin{array}{ccc}-1 & 1 & -4 \\ 2 & 2 & 0 \\ 3 & 3 & 2\end{array}\right)\left(\begin{array}{l}x_1 \\ x_2 \\ x_3\end{array}\right)=\left(\begin{array}{c}0 \\ 1 \\ \frac{1}{2}\end{array}\right) . \quad c\right)\left(\begin{array}{lll}1 & 6 & 0 \\ 2 & 1 & 0 \\ 0 & 2 & 1\end{array}\right)\left(\begin{array}{l}x_1 \\ x_2 \\ x_3\end{array}\right)=\left(\begin{array}{l}3 \\ 1 \\ 1\end{array}\right)$
+4. Find a singular value decomposition for $A=\left(\begin{array}{ccc}1 & 0 & 1 \\ -1 & 1 & 0\end{array}\right)$.
+5. Find a singular value decomposition for $A=\left(\begin{array}{ccc}3 & 2 & 2 \\ 2 & 3 & -2\end{array}\right)$.
+6. Prove that if $A$ has this property (unit row diagonally dominant):
+$$
+	a_{i i}=1>\sum_{j=1, j \neq i}^n\left|a_{i j}\right| \quad(1 \leq i \leq n)
+$$
+then the Richardson method is successful.
+7. Sea $\|\cdot\|$ una norma matricial inducida ysea $S$ una matriz no singular. Defina:
+$$
+	\|A\|^{\prime}=\left\|S A S^{-1}\right\| .
+$$
+Demuestre que $\|A\|^{\prime}$ es una norma matricial inducida.
+8. Sea $A$ una matriz definida positiva $\mathrm{y}$ defina la función:
+
+$$
+	q(x)=\langle x, A x\rangle-2\langle x, b\rangle
+$$
+Demuestre que en el método de máximo descenso se cumple:
+$$
+	q\left(x^{(k+1)}\right)=q\left(x^{(k)}\right)-\frac{\left\|r^{(k)}\right\|^4}{\left\langle r^{(k)}, A r^{(k)}\right.},
+$$
+donde $r^{(k)}=b-A x^{(k)}$.
+9. Considere el sistema lineal:
+$$
+	\left(\begin{array}{ccc}
+			2  & 0   & -1 \\
+			-2 & -10 & 0  \\
+			-1 & -1  & 4
+		\end{array}\right)\left(\begin{array}{l}
+			x_1 \\
+			x_2 \\
+			x_3
+		\end{array}\right)=\left(\begin{array}{c}
+			1   \\
+			-12 \\
+			2
+		\end{array}\right)
+$$
+Realice dos iteraciones del método de Jacobi, Gauss-Seidel y Gradiente Conjugado iniciando en $x^{(0)}=$ $(0,0,0)^T$.
+10. Let $A$ be symmetric, positive definite and of order $n$. Let $\left\{v_1, \ldots, v_n\right\}$ be an $A$-orthogonal set in $\mathbb{R}^n$, with all $v_i \neq 0$. Define:
+$$
+	Q_j=\frac{v_j v_j^T A}{v_j^T A v_j} \quad j=1, \ldots, n
+$$
+Prove the following properties for $Q_j$ :
+a) $Q_j v_i=0$ if $i \neq j$ and $Q_j v_j=v_j$.
+b) $Q_j^2=Q_j$.
+c) $\left\langle x, Q_j y\right\rangle_A=\left\langle Q_j x, y\right\rangle_A$, forall $x, y \in \mathbb{R}^n$.
+d) $\left\langle Q_j x,\left(I-Q_j\right) y\right\rangle_A=0$, for all $x, y \in \mathbb{R}^n$.
+e) $\|x\|_A^2=\left\|Q_j x\right\|_A^2+\left\|\left(I-Q_j\right) x\right\|_A^2$, for all $x \in \mathbb{R}^n$.
+
+11. El sistema lineal:
+$$
+	\begin{aligned}
+		x_1+\frac{1}{2} x_2             & =\frac{5}{21}  \\
+		\frac{1}{2} x_1+\frac{1}{3} x_2 & =\frac{11}{84}
+	\end{aligned}
+$$
+tiene solución $\left(x_1, x_2\right)=(1 / 6,1 / 7)^T$.
+a) Resuelva el sistema lineal usando eliminación Gaussiana con dos dígitos y redondeo.
+b) Resuelva el sistema lineal usando el método del gradiente conjugado con dos dígitos.
+c) ¿Cuál método da una mejor respuesta?

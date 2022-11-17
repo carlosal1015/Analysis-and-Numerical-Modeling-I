@@ -139,16 +139,31 @@ def sor(A, b, x0, w, ERROR=1e-5, NUM_ITERATIONS=1000):
         return x0
 
 
-#A = np.array([[9, 3, 1], [16, 4, 1], [25, 5, 1]], float)
-A = np.array([[4, 3, 0], [3, 4, -1], [0, -1, 4]], float)
-#b = np.array([[0], [2], [5]], float)
-b = np.array([[24], [30], [-24]], float)
-
-#x0 = np.array([[1], [0], [0]], float)
-x0 = np.array([[1], [1], [1]], float)
+# A = np.array([[9, 3, 1], [16, 4, 1], [25, 5, 1]], float)
+A_burden = np.array([[4, 3, 0], [3, 4, -1], [0, -1, 4]], float)
+A_11 = np.array(
+    [
+        [4, -1, 0, -1, 0, 0],
+        [-1, 4, -1, 0, -1, 0],
+        [0, -1, 4, 0, 0, -1],
+        [-1, 0, 0, 4, -1, 0],
+        [0, -1, 0, -1, 4, -1],
+        [0, 0, -1, 0, -1, 4],
+    ],
+    float,
+)
+# b = np.array([[0], [2], [5]], float)
+b_burden = np.array([[24], [30], [-24]], float)
+b_11 = np.array([[0], [5], [0], [6], [-2], [6]], float)
+# x0 = np.array([[1], [0], [0]], float)
+# x0_burden = np.array([[1], [1], [1]], float)
+x0_11 = np.array([[0], [0], [0], [0], [0], [0]], float)
 # w < 1 o w >1    condicion necesaria de convergencia   0<w<2
-x = sor(A, b, x0, 1.24, 0.001, 100)
-print(x)
-#test = ispositive(A)
-#test = [x for x in test]
-#print(test)
+# x_burden = sor(A_burden, b_burden, x0_burden, 1.25, 0.001, 100)
+x_11 = sor(A_11, b_11, x0_11, 1, 0.001, 100)
+# print(x_burden)
+print(x_11)
+# test = ispositive(A)
+# test = [x for x in test]
+# print(test)
+# checkear si es

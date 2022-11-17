@@ -24,3 +24,10 @@ pregunta3c_gauss_jordan.txt
 pregunta3c_gaussian_elimination.png
 pregunta3c_gaussian_elimination.txt
 .ipynb_checkpoints
+*.aux
+*.toc
+*.snm
+*.nav
+*.log
+*.nav
+*.out
