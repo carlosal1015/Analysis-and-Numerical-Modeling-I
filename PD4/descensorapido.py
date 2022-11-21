@@ -35,14 +35,13 @@ def maximo_descenso(A, b, x0, error, iteracciones):
         Adk = np.dot(A, dk)
         pk = np.dot(dkt, dk) / np.dot(dkt, Adk)
         xk1 = xk + pk * dk
-        comp = sl.norm(xk1 - xk) / sl.norm(xk1)
+        comp = sl.norm(xk1 - xk, ord=np.inf) / sl.norm(xk1, ord=np.inf)
         tabla["x"].append(xk.flatten())
         tabla["error"].append(comp)
         tabla["p"].append(dk.flatten())
         if comp < error:
             df = pd.DataFrame(tabla)
             print(tabulate(df, headers="keys", tablefmt="psql"))
-            print("Holaaaaaaaaaaaaaaaaa")
             return xk1
         xk = xk1
     df = pd.DataFrame(tabla)
@@ -50,12 +49,25 @@ def maximo_descenso(A, b, x0, error, iteracciones):
     return xk
 
 
-A = np.array([[4, 1, 2], [3, 1, 4], [5, 1, 3]], float)
-b = np.array([[40], [53], [51]], float)
-x0 = np.array([[0], [0], [0]], float)
+A = np.array(
+    object=[
+        [4, -1, 0, -1, 0, 0],
+        [-1, 4, -1, 0, -1, 0],
+        [0, -1, 4, 0, 0, -1],
+        [-1, 0, 0, 4, -1, 0],
+        [0, -1, 0, -1, 4, -1],
+        [0, 0, -1, 0, -1, 4],
+    ],
+    dtype=np.float64,
+)
+b = np.array(object=[0, 5, 0, 6, -2, 6], dtype=np.float64).T
+x0 = np.zeros(6, dtype=np.float64)
+# A = np.array([[4, 1, 2], [3, 1, 4], [5, 1, 3]], float)
+# b = np.array([[40], [53], [51]], float)
+# x0 = np.array([[0], [0], [0]], float)
 
 xk = maximo_descenso(A, b, x0, 0.0001, 2000)
 
-#print(xk)
+# print(xk)
 print("Comprobación")
 print(f"{A @ xk} = {b}")

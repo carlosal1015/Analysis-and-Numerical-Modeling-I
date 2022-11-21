@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from tabulate import tabulate
 
+np.set_printoptions(suppress=True, formatter={"float_kind": "{:f}".format})
+
 resultados = {"alphak": [], "rk": [], "betak": [], "pk": [], "xk": []}
 
 
@@ -46,22 +48,36 @@ def gradienteConjugada(A, b, x0, iteraciones):
     resultados["betak"].append("----")
 
 
-A = np.array([[4, 3, 0], [3, 4, -1], [0, -1, 4]], float)
-# A = np.array([
-#    [0.3,0.2],
-#    [0.2,99]
-# ],float)
-# b = np.array([
-#    [0.5],
-#    [99.2]
-# ], float)
-b = np.array([[24], [30], [-24]], float)
-# x0 = np.array([
-#    [0],
-#    [0]
-# ], float)
+# A = np.array([[4, 3, 0], [3, 4, -1], [0, -1, 4]], float)
+
+
+# # A = np.array([
+# #    [0.3,0.2],
+# #    [0.2,99]
+# # ],float)
+# # b = np.array([
+# #    [0.5],
+# #    [99.2]
+# # ], float)
+
+
+# b = np.array([[24], [30], [-24]], float)
+# # x0 = np.array([
+# #    [0],
+# #    [0]
+# # ], float)
+
+
+# x0 = np.array([[0], [0], [0]], float)
+# #iteraciones = 3
+
+# iteraciones = 4
+# gradienteConjugada(A, b, x0, iteraciones)
+# imprimirResultados(resultados)
+
+A = np.array([[3, 4, 6], [2, 3, 4], [1, 1, 1]])
+b = np.array([[50, 35, 140]])
+iteraciones = 100
 x0 = np.array([[0], [0], [0]], float)
-#iteraciones = 3
-iteraciones = 4
 gradienteConjugada(A, b, x0, iteraciones)
 imprimirResultados(resultados)

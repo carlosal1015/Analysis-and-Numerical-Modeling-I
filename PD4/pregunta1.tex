@@ -1,0 +1,476 @@
+%! Carlos Aznarán
+%! Universidad Nacional de Ingeniería
+%! Facultad de Ciencias
+%! Lima, Perú
+%! Uso:
+%! $ sudo pacman -Syu texlive-most zathura # dependencias, visor
+%! $ arara pregunta2
+%! $ zathura pregunta2.pdf
+%! Ver https://wiki.archlinux.org/title/TeX_Live
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['aux','log','nav',
+% arara: --> 'out','snm','toc','pytxcode','pdf']
+% arara: --> }
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> draft: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+%! arara: biber
+%! arara: pythontex
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> draft: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> synctex: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['aux','log','nav',
+% arara: --> 'out','snm','toc','pytxcode']
+% arara: --> }
+\PassOptionsToPackage{svgnames}{xcolor}
+\documentclass[
+	spanish,
+	8pt,
+	utf8,
+	xcolor=table,
+	handout,
+	aspectratio=169,
+	professionalfonts,
+	% notheorems,
+	mathserif,
+	leqno,
+	% t
+]{beamer}
+\setbeamersize{text margin left=5pt,text margin right=5pt}
+\usepackage[spanish,es-sloppy]{babel}
+\spanishdatedel\decimalpoint
+\usepackage{mathtools}
+\usepackage{nicematrix}
+\usepackage{systeme}
+\usepackage{minted}
+\usepackage{enumerate}
+\usepackage{multicol}
+% \usepackage{pythontex}
+\usepackage[
+	citestyle=numeric,
+	style=apa,
+	backend=biber,
+	defernumbers=true,
+	sorting=ynt,
+	maxcitenames=4
+]{biblatex}
+\addbibresource{references.bib}
+
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+
+\newcounter{savedenum}
+\newcommand*{\saveenum}{\setcounter{savedenum}{\theenumi}}
+\newcommand*{\resume}{\setcounter{enumi}{\thesavedenum}}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+
+% https://tex.stackexchange.com/questions/68080/beamer-bibliography-icon
+\setbeamertemplate{bibliography item}{%
+	\ifboolexpr{ test {\ifentrytype{book}} or test {\ifentrytype{mvbook}}
+		or test {\ifentrytype{collection}} or test {\ifentrytype{mvcollection}}
+		or test {\ifentrytype{reference}} or test {\ifentrytype{mvreference}} }
+	{\setbeamertemplate{bibliography item}[book]}
+	{\ifentrytype{online}
+		{\setbeamertemplate{bibliography item}[online]}
+		{\setbeamertemplate{bibliography item}[article]}}%
+	\usebeamertemplate{bibliography item}}
+
+\defbibenvironment{bibliography}
+{\list{}
+	{\settowidth{\labelwidth}{\usebeamertemplate{bibliography item}}%
+		\setlength{\leftmargin}{\labelwidth}%
+		\setlength{\labelsep}{\biblabelsep}%
+		\addtolength{\leftmargin}{\labelsep}%
+		\setlength{\itemsep}{\bibitemsep}%
+		\setlength{\parsep}{\bibparsep}}}
+{\endlist}
+{\item}
+
+\makeatletter
+\newenvironment<>{proofs}[1][\proofname]{%
+    \par
+    \def\insertproofname{#1\@addpunct{.}}%
+    \usebeamertemplate{proof begin}#2}
+  {\usebeamertemplate{proof end}}
+\makeatother
+
+
+\title{
+	\huge\sffamily
+	Lista N$^{\circ}1$
+}
+
+\subtitle{
+	\large\scshape
+	Análisis y Modelamiento Numérico I\quad CM4F1 B\\[.5\baselineskip]
+		\normalsize\normalfont
+		Profesor Ángel Enrique Ramírez Gutiérrez.
+}
+
+\author{
+	Carlos A. Aznarán Laos
+}
+
+\institute{\large
+	Facultad de Ciencias \and
+	Universidad Nacional de Ingeniería
+}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+	\begin{enumerate}\setcounter{enumi}{0}
+
+		\item
+
+		      Para
+		      \begin{math}
+			      A=
+			      \begin{bNiceMatrix}
+				      3 & -2 \\
+				      0 & 3  \\
+				      4 & 4
+			      \end{bNiceMatrix}
+			      \in\mathbb{R}^{3\times 2}
+		      \end{math}
+		      y
+		      \begin{math}
+			      b=
+			      \begin{bNiceMatrix}
+				      3 \\
+				      5 \\
+				      4
+			      \end{bNiceMatrix}
+			      \in\mathbb{R}^{3}
+		      \end{math}.
+		      Encuentre el
+		      \begin{math}
+			      \operatorname{
+				      \operatornamewithlimits{argmin}
+			      }_{x\in\mathbb{R}^{n}}
+			      \left\|b-Ax\right\|
+		      \end{math}.
+	\end{enumerate}
+
+	\begin{solution}
+		Como $3>2$, y el  $\operatorname{rango}\left(A\right)=2$ porque
+		es el número máximo de vectores linealmente independientes
+		respecto al espacio columnas de $A$.
+		Calculemos la factorización $QR$ de la matriz $A$ vía el proceso de Gram-Schmidt:
+
+		Sean
+		\begin{math}
+			v_{1}=
+			\begin{bNiceMatrix}
+				3 \\
+				0 \\
+				4
+			\end{bNiceMatrix}
+		\end{math}
+		y
+		\begin{math}
+			v_{2}=
+			\begin{bNiceMatrix}
+				-2 \\
+				3  \\
+				4
+			\end{bNiceMatrix}
+		\end{math}.
+		Entonces,
+		\begin{align*}
+			u_{1} & =
+			v_{1}=
+			\begin{bNiceMatrix}
+				3 \\
+				0 \\
+				4
+			\end{bNiceMatrix}.
+			      & \implies q_{1}=\frac{u_{1}}{\left\|u_{1}\right\|}=
+			\begin{bNiceMatrix}
+				0.6 \\
+				0   \\
+				0.8
+			\end{bNiceMatrix}.                                         \\
+			u_{2} & =
+			v_{2}-
+			\left\langle q_{1},v_{2}\right\rangle q_{1}=
+			\begin{bNiceMatrix}
+				-2 \\
+				3  \\
+				4
+			\end{bNiceMatrix}-
+			\left\langle
+			\begin{bNiceMatrix}
+				0.6 \\
+				0   \\
+				0.8
+			\end{bNiceMatrix},
+			\begin{bNiceMatrix}
+				-2 \\
+				3  \\
+				4
+			\end{bNiceMatrix}
+			\right\rangle \begin{bNiceMatrix}
+				              0.6 \\
+				              0   \\
+				              0.8
+			              \end{bNiceMatrix}.
+			\\
+			u_{2}
+			      & =
+			\begin{bNiceMatrix}
+				-2 \\
+				3  \\
+				4
+			\end{bNiceMatrix}-
+			2
+			\begin{bNiceMatrix}
+				0.6 \\
+				0   \\
+				0.8
+			\end{bNiceMatrix}=
+			\begin{bNiceMatrix}
+				-3.2 \\
+				3    \\
+				2.4
+			\end{bNiceMatrix}.
+			      & \implies q_{2}=\frac{u_{2}}{\left\|u_{2}\right\|}=
+			\begin{bNiceMatrix}
+				-0.64 \\
+				0.6   \\
+				0.48
+			\end{bNiceMatrix}.
+		\end{align*}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		Entonces, por el método de factorización $QR$ obtenemos las
+		matrices
+		\begin{equation*}
+			Q =
+			\begin{bNiceMatrix}
+				q_{1} & q_{2}
+			\end{bNiceMatrix}=
+			\begin{bNiceMatrix}
+				0.6 & -0.64 \\
+				0   & 0.6   \\
+				0.8 & 0.48
+			\end{bNiceMatrix}
+			\text{ y }
+			R =
+			Q^{T}A=
+			\begin{bNiceMatrix}
+				0.6 & -0.64 \\
+				0   & 0.6   \\
+				0.8 & 0.48
+			\end{bNiceMatrix}^{T}
+			\begin{bNiceMatrix}
+				3 & -2 \\
+				0 & 3  \\
+				4 & 4
+			\end{bNiceMatrix}=
+			\begin{bNiceMatrix}
+				5 & 2 \\
+				0 & 5
+			\end{bNiceMatrix}.
+		\end{equation*}
+	\end{solution}
+	Por otro lado, obtenemos estos productos:
+	\begin{equation*}
+		QA = R =
+		\begin{bNiceMatrix}
+			R_{1} \\
+			0
+		\end{bNiceMatrix}=
+		\begin{bNiceMatrix}
+			5 & 2 \\
+			0 & 5
+		\end{bNiceMatrix}=
+		R_{1}
+		\text{ y }
+		Qb =
+		\begin{bNiceMatrix}
+			c \\
+			d
+		\end{bNiceMatrix}=
+		\begin{bNiceMatrix}
+			5 \\
+			3
+		\end{bNiceMatrix}=
+		c.
+	\end{equation*}
+	Además, encontremos el mínimo valor de
+	\begin{math}
+		\left\|Ax-b\right\|=
+		\left\|QAx-Qb\right\|=
+		\left\|\begin{bNiceMatrix}
+			R_{1}x-c \\
+			d
+		\end{bNiceMatrix}\right\|=
+		\sqrt{
+		{\left\|R_{1}x-c\right\|}^{2}+
+		{\left\|d\right\|}^{2}}
+	\end{math}, $\forall x\in\mathbb{R}^{n}$.
+
+	Esto ocurre cuando ${\left\|R_{1}x-c\right\|}^{2}$ sea mínimo, por
+	ello, basta resolver el sistema lineal $R_{1}x=c$.
+
+	Finalmente, resolvemos este último sistema por sustitución regresiva:
+	\begin{equation*}
+		\begin{bNiceMatrix}
+			5 & 2 \\
+			0 & 5
+		\end{bNiceMatrix}
+		\begin{bNiceMatrix}
+			x_{1} \\
+			x_{2}
+		\end{bNiceMatrix}=
+		\begin{bNiceMatrix}
+			5 \\
+			3
+		\end{bNiceMatrix}
+	\end{equation*}
+	obteniendo como resultado
+	\begin{math}
+		\overline{x}=
+		\begin{bNiceMatrix}
+			x_{1} \\
+			x_{2}
+		\end{bNiceMatrix}=
+		\begin{bNiceMatrix}
+			0.76 \\
+			0.6
+		\end{bNiceMatrix}
+	\end{math}.
+	Así, el mínimo es
+	\begin{math}
+		\left\|A\overline{x}-b\right\|=
+		\left\|
+		\begin{bNiceMatrix}
+			3 & -2 \\
+			0 & 3  \\
+			4 & 4
+		\end{bNiceMatrix}
+		\begin{bNiceMatrix}
+			0.76 \\
+			0.6
+		\end{bNiceMatrix}-
+		\begin{bNiceMatrix}
+			3 \\
+			5 \\
+			4
+		\end{bNiceMatrix}
+		\right\|
+		\approx 6.9457.
+	\end{math}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{minipage}{0.45\textwidth}
+		\inputminted[
+			fontsize=\scriptsize,
+		]{text}{resultado_pregunta1.txt}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+		\begin{listing}[H]
+			\inputminted[
+				fontsize=\scriptsize,
+				breaklines,
+			]{python}{pregunta1.py}
+		\end{listing}
+	\end{minipage}
+\end{frame}
+% \begin{frame}
+% 	\begin{enumerate}\setcounter{enumi}{1}
+% 		\item
+
+% 		      Use transformaciones de Householder para triangulizar la matriz:
+% 		      \begin{equation*}
+% 			      A=
+% 			      \begin{bNiceMatrix}
+% 				      2 & 2 & 4  & 18 \\
+% 				      1 & 3 & -2 & 1  \\
+% 				      3 & 1 & 3  & 14
+% 			      \end{bNiceMatrix}.
+% 		      \end{equation*}
+% 	\end{enumerate}
+
+% 	\begin{solution}
+% 		Sea $A_{1}=A$.
+% 		Entonces,
+% 		\begin{equation*}
+% 			v_{1}
+% 			=
+% 			a_{1}+
+% 			\operatorname{signo}\left(a_{11}\right)
+% 			\left\|a_{1}\right\|
+% 			e_{1}              \\
+% 			v_{1}
+% 			=
+% 			\begin{bNiceMatrix}
+% 				2 \\
+% 				1 \\
+% 				3
+% 			\end{bNiceMatrix}+
+% 			\operatorname{signo}\left(2\right)
+% 			\left\|
+% 			\begin{bNiceMatrix}
+% 				2 \\
+% 				1 \\
+% 				3
+% 			\end{bNiceMatrix}
+% 			\right\|
+% 			\begin{bNiceMatrix}
+% 				1 \\
+% 				0 \\
+% 				0
+% 			\end{bNiceMatrix}
+% 			=
+% 			\begin{bNiceMatrix}
+% 				2 \\
+% 				1 \\
+% 				3
+% 			\end{bNiceMatrix}+
+% 			\sqrt{2^{2}+1^{2}+3^{2}}
+% 			\begin{bNiceMatrix}
+% 				1 \\
+% 				0 \\
+% 				0
+% 			\end{bNiceMatrix}=
+% 			\begin{bNiceMatrix}
+% 				5.74165739 \\
+% 				1          \\
+% 				3
+% 			\end{bNiceMatrix}.
+% 		\end{equation*}
+% 		Recordemos,
+% 		\begin{definition}[Transformación de Householder]
+% 			Sea $w\in\mathbb{R}^{n}$ con $w^{t}w=1$.
+% 			Entonces la matriz $n\times n$
+% 			\begin{equation*}
+% 				P = I -2 ww^{t}
+% 			\end{equation*}
+% 			recibe el nombre de \alert{transformación de Householder}.
+% 		\end{definition}
+% 	\end{solution}
+% \end{frame}
+\end{document}
