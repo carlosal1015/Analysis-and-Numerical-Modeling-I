@@ -35,24 +35,30 @@ np.set_printoptions(suppress=True)
 #     dtype=np.float64,
 # ).T
 
-A = np.array([[3, 4, 6], [2, 3, 4], [1, 1, 1]])
-b = np.array([[50, 35, 140]])
-print(f"A = \n{A}")
-print(f"b = \n{b}")
-x = np.linalg.solve(A, b.T)
-print(x)
-
-# A_tilde = A.T @ A
-# b_tilde = A.T @ b.T
-# print(f"A_tilde = \n{A_tilde}")
-# print(f"b_tilde = \n{b_tilde}")
-# x = np.linalg.solve(A_tilde, b_tilde)
-# print(x)
-
 
 def is_pos_def(A):
     """Retorna verdadero si la matriz A es definida positiva"""
     return np.all(np.linalg.eigvals(A) > 0)
+
+
+A = np.array([[3, 4, 6], [2, 3, 4], [1, 1, 1]])
+b = np.array([[50, 35, 140]])
+
+# print(is_pos_def(A))
+# print(A.T - A)
+# print(f"A = \n{A}")
+# print(f"b = \n{b}")
+# x = np.linalg.solve(A, b.T)
+# print(f"x = \n{x}")
+
+A_tilde = A.T @ A
+b_tilde = A.T @ b.T
+print(is_pos_def(A_tilde))
+print(A_tilde.T - A_tilde)
+print(f"A_tilde = \n{A_tilde}")
+print(f"b_tilde = \n{b_tilde}")
+# x = np.linalg.solve(A_tilde, b_tilde)
+# print(x)
 
 
 # print(is_pos_def(A_tilde))
@@ -73,3 +79,9 @@ def is_pos_def(A):
 # x, exit_code = cg(A, b.T, maxiter=1000000)
 # print(x)
 # print(exit_code)
+from scipy.sparse.linalg import cg
+
+# x, exit_code = cg(A, b.T)
+x, exit_code = cg(A_tilde, b_tilde)
+print(x)
+print(exit_code)

@@ -4,8 +4,8 @@ import numpy as np
 def fill_matrix():
     A = np.zeros((16, 16))
 
-    for i in range(A.shape[0]):
-        for j in range(A.shape[1]):
+    for i in range(len(A)):
+        for j in range(len(A)):
             if j == 0:
                 A[:, j] = 4
             if j == (i + 1) and ((i) % 4 != 3):

@@ -3,6 +3,7 @@ import numpy as np
 A = np.array(
     object=[[15000, 20000, 30000], [10000, 15000, 20000], [1, 1, 1]], dtype=np.float64
 )
+A_tilde = A.T @ A
 
 
 def gradienteConjugado(A, b, x0, gtol, maxiter):
@@ -26,5 +27,7 @@ def gradienteConjugado(A, b, x0, gtol, maxiter):
 
 if __name__ == "__main__":
     b = np.array([250000, 175000, 140], float)
+    b_tilde = A.T @ b.T
     x0 = np.array([0, 0, 0], float)
-    gradienteConjugado(A, b, x0, 1e-5, maxiter=100)
+    # gradienteConjugado(A, b, x0, 1e-5, maxiter=100)
+    gradienteConjugado(A_tilde, b_tilde, x0, 1e-5, maxiter=100)

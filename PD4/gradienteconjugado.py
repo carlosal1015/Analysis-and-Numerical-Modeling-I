@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from tabulate import tabulate
 
-np.set_printoptions(suppress=True, formatter={"float_kind": "{:f}".format})
+np.set_printoptions(suppress=True, formatter={"float_kind": "{:.2f}".format})
 
 resultados = {"alphak": [], "rk": [], "betak": [], "pk": [], "xk": []}
 
@@ -76,8 +76,11 @@ def gradienteConjugada(A, b, x0, iteraciones):
 # imprimirResultados(resultados)
 
 A = np.array([[3, 4, 6], [2, 3, 4], [1, 1, 1]])
+A_tilde = A.T @ A
 b = np.array([[50, 35, 140]])
+b_tilde = A.T @ b.T
 iteraciones = 100
 x0 = np.array([[0], [0], [0]], float)
-gradienteConjugada(A, b, x0, iteraciones)
+# gradienteConjugada(A, b, x0, iteraciones)
+gradienteConjugada(A_tilde, b_tilde, x0, iteraciones)
 imprimirResultados(resultados)

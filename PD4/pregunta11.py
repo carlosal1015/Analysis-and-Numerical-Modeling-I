@@ -19,7 +19,7 @@ def diagonal(A):
 def lower_inferior(A):
     """Retorna la matriz estrictamente triangular inferior de -A."""
     E = np.zeros_like(A)
-    n = np.shape(A)[0]
+    n = len(A)
     for k in range(n):
         E[k, :k] = -A[k, :k]
     return E
@@ -78,13 +78,13 @@ def sor_right_sum(A, x_old, i):
     # Calcula $\operatorname{Right}\coloneqq\sum\limits_{j=i+1}^{n}a_{ij}x_{j}^{\left(k\right)}$
     n = len(x_old)
     result = 0
-    for j in range(i + 1, n):
+    for j in range(i, n):
         result += A[i][j] * x_old[j]
 
     return result
 
 
-def jacobi(A, f, epsilon=1e-5, max_iterations=1000):
+def sor(A, b, omega, epsilon=1e-5, max_iterations=1000):
     # Calcula $x_{i}^{\left(k+1\right)}=\frac{w}{a_{ii}}\left(b_{i}-\operatorname{Left}-\operatorname{Right}\right)+\left(1-w\right)x_{i}^{\left(k\right)}$
     size = len(A)
     x_old = np.zeros(size)
@@ -93,7 +93,9 @@ def jacobi(A, f, epsilon=1e-5, max_iterations=1000):
         x_old = x_new.copy()
 
         for i in range(size):
-            x_new[i] = (1.0 / A[i][i]) * (f[i] - jacobi_sum(A, x_old, i))
+            x_new[i] = (omega / A[i][i]) * (
+                b[i] - sor_left_sum(A, x_new, i) - sor_right_sum(A, x_old, i)
+            ) + (1 - omega) * x_old[i]
 
         if np.sqrt(np.dot(x_old - x_new, x_old - x_new)) < epsilon:
             print("Converged after ", k, " steps")
@@ -102,36 +104,44 @@ def jacobi(A, f, epsilon=1e-5, max_iterations=1000):
     return x_new
 
 
-w = 1.25
-T_w = np.linalg.inv(D - w * L) * ((1 - w) * D + w * U)
-# print(T_w)
-c_w = w * np.linalg.inv(D - w * L) @ b
-# print(c_w)
-# print(np.linalg.eigvals(T_w)) # \rho(T_w) menor que 1
-
+omega = 1.25
+T_w = np.linalg.inv(D - omega * L) @ ((1 - omega) * D + omega * U)
+print(f"T_w = \n{T_w}\n")
+c_w = omega * np.linalg.inv(D - omega * L) @ b
+print(f"c_w = \n{c_w}\n")
+print(
+    f"El radio espectral de T_w es menor que 1: {np.all(np.absolute(np.linalg.eigvals(T_w)) < 1)}"
+)  # \rho(T_w) menor que 1
 # from descensorapido import maximo_descenso
 
-x0 = np.zeros(6)
-# print(x0)
+x_0 = np.ones(6)
+print(f"x_0 = \n{x_0}\n")
+for w in np.linspace(0 + 0.1, 2 - 0.1, 20):
+    x = sor(A=A, b=b, omega=w)
+    print(x)
+# print(x)
 # xk = maximo_descenso(A, b, x0.T, 1e-5, 200)
+# x = np.linalg.solve(A, b)
+# print(x)
+# print(f"Verificacion: A x = \n{A @ x}")
+# print(f"Verificacion: b = \n{b}")
+# print(f"La solución es \n{np.linalg.solve(A, b)}")
+# r_0 = b - A @ x0
+# print(f"b - A * x0= \n{r_0}")
+# alpha_0 = np.round(np.dot(r_0.T, r_0) / (r_0.T @ A @ r_0), 3)
+# print(alpha_0)
 
-print(f"La solución es \n{np.linalg.solve(A, b)}")
-r_0 = b - A @ x0
-print(f"b - A * x0= \n{r_0}")
-alpha_0 = np.round(np.dot(r_0.T, r_0) / (r_0.T @ A @ r_0), 3)
-print(alpha_0)
-
-x_1 = x0 + alpha_0 * r_0
-print(x_1)
-
-
-def plot_sor_error():
-    import matplotlib.pyplot as plt
-
-    x = np.linspace(start=1, stop=20)
-    y = np.sin(x)
-    plt.plot(x, y)
-    plt.savefig("sor_error.png")
+# x_1 = x0 + alpha_0 * r_0
+# print(x_1)
 
 
-plot_sor_error()
+# def plot_sor_error():
+#     import matplotlib.pyplot as plt
+
+#     x = np.linspace(start=1, stop=20)
+#     y = np.sin(x)
+#     plt.plot(x, y)
+#     plt.savefig("sor_error.png")
+
+
+# plot_sor_error()
