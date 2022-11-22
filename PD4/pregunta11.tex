@@ -1,0 +1,563 @@
+\begin{frame}
+	Para estudiar la convergencia de técnicas de iteración general,
+	necesitamos analizar la fórmula
+	\begin{equation*}
+		\boxed{
+			\forall k\geq0:
+			x^{\left(k+1\right)}=
+			Tx^{\left(k\right)}+c.
+		}
+	\end{equation*}
+
+	\begin{definition}[Radio espectral]
+		Sea $A\in\mathbb{C}^{n\times n}$ con autovalores $\lambda_{i}$,
+		$1\leq i\leq n$.
+		Entonces,
+		\begin{equation*}
+			\rho\left(A\right)\coloneqq
+			\max_{1\leq i\leq n}\left|\lambda\right|.
+		\end{equation*}
+		Geométricamente, si todos los autovalores $\lambda_{i}$ de $A$
+		son ubicados en el $z$-plano complejo, entonces
+		$\rho\left(A\right)$ es el radio del menor disco
+		$\left|z\right|\leq R$, con centro en el origen, que incluye
+		todos los autovalores de la matriz $A$.
+	\end{definition}
+
+	\begin{theorem}
+		Para cualquier $x^{\left(0\right)}\in\mathbb{R}^{n}$, la sucesión
+		\begin{math}
+			{\left\{x^{\left(k\right)}\right\}}_{k\in\mathbb{N}}
+		\end{math}
+		definida por
+		\begin{math}
+			x^{\left(k+1\right)}=
+			Tx^{\left(k\right)}+
+			c
+		\end{math}
+		converge a la \alert{solución única} de $x=Tx+c$ sii
+		$\rho\left(T\right)<1$.
+
+		\begin{definition}[Matriz convergente]
+			Sea $A\in\mathbb{C}^{n\times n}$.
+			$A$ es \alert{convergente}
+			(\alert{a cero}) sii la sucesión
+			\begin{math}
+				{\left\{A^{\left(k\right)}\right\}}_{k\in\mathbb{N}}
+			\end{math}
+			converge a la matriz nula $O\in\mathbb{C}^{n\times n}$, y de lo
+			contrario es divergente.
+		\end{definition}
+
+		\begin{theorem}[Criterio de convergencia]
+			Si $A\in\mathbb{C}^{n\times n}$, entonces $A$ es convergente sii
+			$\rho\left(A\right)<1$.
+		\end{theorem}
+		% \begin{proof}
+		% 	\begin{itemize}
+		% 		\item[$\left(\Rightarrow\right)$]
+
+		% 			Primero suponga que $\rho\left(T\right)<1$.
+		% 			Entonces,
+		% 			\begin{align*}
+		% 				x^{\left(k\right)}                       & =
+		% 				T\alert{x^{\left(k-1\right)}}+c                                                                       \\
+		% 				                                         & =
+		% 				T\left(T x^{\left(k-2\right)}+c\right)+c                                                              \\
+		% 				                                         & =T^{2}x^{\left(k-2\right)}+\left(T+I\right)c               \\
+		% 				                                         & \vdotswithin{=}                                            \\
+		% 				                                         & =T^{k}x^{\left(0\right)}+\left(T^{k-1}+\cdots+T+I\right)c.
+		% 				\shortintertext{Puesto que $\rho\left(T\right)<1$, implica que $T$ es convergente y}
+		% 				\lim_{k\to\infty}T^{k}x^{\left(0\right)} & =0.
+		% 			\end{align*}
+		% 	\end{itemize}
+		% \end{proof}
+	\end{theorem}
+\end{frame}
+
+% \begin{frame}
+% 	\begin{proof}
+% 		\begin{equation*}
+% 			\lim_{k\to\infty}
+% 			x^{\left(k\right)}=
+% 			\lim_{k\to\infty}
+% 			T^{k}x^{\left(0\right)}+
+% 			\left(\sum_{j=0}^{\infty}T^{j}\right)c=
+% 			0+{\left(I-T\right)}^{-1}c=
+% 				{\left(I-T\right)}^{-1}c
+% 		\end{equation*}
+% 		Por lo tanto, la sucesión $\left\{\mathbf{x}^{(k)}\right\}$ converge al vector $\mathbf{x} \equiv(I-T)^{-1} \mathbf{c}$ y $\mathbf{x}=T \mathbf{x}+\mathbf{c}$.
+% 		Para probar lo contrario, mostraremos que para cualquier $\mathbf{z} \in \mathbb{R}^n$, tenemos $\operatorname{lím}_{k \rightarrow \infty}$ $T^k \mathbf{z}=\mathbf{0}$. Con el teorema 7.17, esto es equivalente a $\rho(T)<1$.
+
+% 		Sea $\mathbf{z}$ un vector arbitrario y $x$ la única solución para $\mathbf{x}=T \mathbf{x}+\mathbf{c}$. Defina $\mathbf{x}^{(0)}=\mathbf{x}-\mathbf{z}$, y, para $k \geq 1, \mathbf{x}^{(k)}=T \mathbf{x}^{(k-1)}+\mathbf{c}$. Entonces $\left\{\mathbf{x}^{(k)}\right\}$ converge a $\mathbf{x}$. También,
+% 		$$
+% 			\mathbf{x}-\mathbf{x}^{(k)}=(T \mathbf{x}+\mathbf{c})-\left(T \mathbf{x}^{(k-1)}+\mathbf{c}\right)=T\left(\mathbf{x}-\mathbf{x}^{(k-1)}\right),
+% 		$$
+% 		por lo que
+% 		$$
+% 			\mathbf{x}-\mathbf{x}^{(k)}=T\left(\mathbf{x}-\mathbf{x}^{(k-1)}\right)=T^2\left(\mathbf{x}-\mathbf{x}^{(k-2)}\right)=\cdots=T^k\left(\mathbf{x}-\mathbf{x}^{(0)}\right)=T^k \mathbf{z}
+% 		$$
+% 		Por lo tanto, $\operatorname{lím}_{k \rightarrow \infty} T^k \mathbf{z}=\operatorname{lím}_{k \rightarrow \infty} T^k\left(\mathbf{x}-\mathbf{x}^{(0)}\right)=\operatorname{lím}_{k \rightarrow \infty}\left(\mathbf{x}-\mathbf{x}^{(k)}\right)=\mathbf{0}$. Pero $\mathbf{z} \in \mathbb{R}^n$ era arbitrario, por lo que mediante el teorema 7.17, $T$ es convergente y $\rho(T)<1$
+
+% 		\begin{enumerate}
+% 			\item[$\left(\Leftarrow\right)$]
+
+% 				Sea $z$ un vector arbitrario y $x$ la única solución para $x=Tx+c$.
+% 				Defina $x^{0}=x-z$, y, para $k\geq1$, $x^{k}=Tx^{\left(k-1\right)}+c$
+% 		\end{enumerate}
+% 	\end{proof}
+% \end{frame}
+
+\begin{frame}
+	\frametitle{Formulación matemática del método de Sobrerrelajación sucesiva (SOR)}
+	Sean $A\in\mathbb{C}^{n\times n}$ y $b$ un vector columna dado en
+	$\mathbb{C}^{n}$.
+	Busquemos la solución del sistema de ecuaciones lineales
+	\begin{math}
+		Ax=b.
+	\end{math}
+
+	El vector solución $x$ existe en $\mathbb{C}^{n}$ y es único sii
+	$A$ es no singular, y viene dado por
+	\begin{math}
+		x=A^{-1}b.
+	\end{math}
+
+	Supongamos que $A$ es no singular, y además que sus entradas
+	diagonales $a_{ii}$ son todos números complejos distintos de cero.
+
+	Podemos expresar la matriz $A$ en sus partes diagonal o fuera de la
+	diagonal, permita que $D$ sea la \alert{matriz diagonal} cuyas
+	entradas diagonales sean las de $A$, $-L$ es la parte
+	\alert{estrictamente triangular inferior} de $A$ y $-U$ es la parte
+	\alert{estrictamente triangular superior} de $A$.
+	\begin{equation*}
+		\underbrace{
+			\begin{bNiceMatrix}
+				a_{11}  & a_{12}  & \cdots & a_{1 n} \\
+				a_{21}  & a_{22}  & \cdots & a_{2 n} \\
+				\vdots  & \vdots  &        & \vdots  \\
+				a_{n 1} & a_{n 2} & \cdots & a_{n n}
+			\end{bNiceMatrix}
+		}_{A}=
+		\underbrace{
+			\begin{bNiceMatrix}
+				a_{11} & 0      & \Cdots & 0      \\
+				0      & a_{22} & \Ddots & \Vdots \\
+				\Vdots & \Ddots & \Ddots & 0      \\
+				0      & \Cdots & 0      & a_{nn}
+			\end{bNiceMatrix}
+		}_{D}
+		-
+		\underbrace{
+			\begin{bNiceMatrix}
+				0       & \Cdots &            & 0      \\
+				-a_{21} & \Ddots &            & \Vdots \\
+				\Vdots  & \Ddots &            &        \\
+				-a_{n1} & \Cdots & -a_{n,n-1} & 0
+			\end{bNiceMatrix}
+		}_{L}
+		-
+		\underbrace{
+			\begin{bNiceMatrix}
+				0      & -a_{12} & \Cdots & a_{1n}     \\
+				\Vdots & \Ddots  & \Ddots & \Vdots     \\
+				       &         &        & -a_{n-1,n} \\
+				0      & \Cdots  &        & 0
+			\end{bNiceMatrix}
+		}_{U}.
+	\end{equation*}
+	% donde $D=\operatorname{diag}\left\{a_{11},\ldots,a_{nn}\right\}$, y
+	% Para derivar los métodos iterativos clásicos ,asumiendo que el $\det\left(D\right)\neq0$,
+	% $L$ y $U$ son matrices $n\times n$, respectivamente, estrictamente triangular
+	% inferior y estrictamente triangular superior, cuyas entradas son las entradas negativas de $A$,
+	% respectivamente, arriba y abajo de la diagonal principal de $A$.
+	Con esta notación y un parámetro
+	\begin{math}
+		\omega\in\mathbb{C}
+		\setminus\left\{0\right\}
+	\end{math}
+	llamado \alert{factor de relajación}, $A$ puede reescribirse como
+	% el sistema de ecuaciones lineales $Ax=b$
+	% , o $\left(D-L-U\right)x=b$,
+	% \begin{equation*}
+	% 	Dx=\left(L+U\right)x+b.
+	% \end{equation*}
+	\begin{align*}
+		A  & =
+		D-L-U=
+		\left(\frac{\alert{1}+\alert{\omega-1}}{\alert{\omega}}\right)D-L-U=
+		\boxed{
+			\left(\frac{\alert{1}}{\alert{\omega}}D - L\right)+
+			\left(\frac{\alert{\omega-1}}{\alert{\omega}}D-U\right)
+		},
+		\shortintertext{y así}
+		Ax & =
+		\left[
+			\left(\frac{\alert{1}}{\alert{\omega}}D - L\right)+
+			\left(\frac{\alert{\omega-1}}{\alert{\omega}}D-U\right)
+			\right]x=
+		\left(\frac{\alert{1}}{\alert{\omega}}D-L\right)x+
+		\left(\frac{\alert{\omega-1}}{\alert{\omega}}D-U\right)x
+		= b.
+	\end{align*}
+\end{frame}
+
+\begin{frame}
+	En consecuencia, el sistema de ecuaciones lineales $Ax=b$ se convierte en
+	\begin{align*}
+		\left(\frac{\alert{1}}{\alert{\omega}}D-L\right)x
+		 & = -\left(\frac{\alert{\omega-1}}{\alert{\omega}}D-U\right)x + b. \\
+		x
+		 & ={\left(\frac{\alert{1}}{\alert{\omega}}D-L\right)}^{-1}
+		\left[
+			-\left(\frac{\alert{\omega-1}}{\alert{\omega}}D-U\right)x+
+			b
+		\right].                                                            \\
+		x
+		 & =
+		-{\left(\frac{\alert{1}}{\alert{\omega}}D-L\right)}^{-1}
+		\left(\frac{\alert{\omega-1}}{\alert{\omega}}D-U\right)x+
+		{\left(\frac{\alert{1}}{\alert{\omega}}D-L\right)}^{-1}
+		b.                                                                  \\
+		% x
+		%  & =
+		% -{\left(\frac{\alert{1}}{\alert{\omega}}D - L\right)}^{-1}
+		% \left(\frac{\alert{\omega-1}}{\alert{\omega}}D-U\right)x+
+		% {\left(\frac{\alert{1}}{\alert{\omega}}D - L\right)}^{-1}
+		% b.                                                                  \\
+		x
+		 & =
+		-{\left(\frac{D-\alert{\omega}L}{\alert{\omega}}\right)}^{-1}
+		\left(\frac{\left(\alert{\omega-1}\right)D-\alert{\omega}U}{\alert{\omega}}\right)x+
+		{\left(\frac{D-\alert{\omega}L}{\alert{\omega}}\right)}^{-1}
+		b.                                                                  \\
+		x
+		 & =
+		-{\left(\frac{1}{\alert{\omega}}\right)}^{-1}{\left(D-\alert{\omega}L\right)}^{-1}
+		\left(\frac{1}{\alert{\omega}}\right)\left(\left(\alert{\omega-1}\right)D-\alert{\omega}U\right)x+
+		{\left(\frac{1}{\alert{\omega}}\right)}^{-1}{\left(D-\alert{\omega}L\right)}^{-1}
+		b.                                                                  \\
+		\Aboxed{
+		x
+		 & =
+		\underbrace{
+			{\left(D-\alert{\omega}L\right)}^{-1}
+			\left(\left(\alert{1-\omega}\right)D+\alert{\omega}U\right)
+		}_{T_{\omega}}x+
+		\underbrace{
+			\alert{\omega}{\left(D-\alert{\omega}L\right)}^{-1}b
+		}_{c_{\omega}}.
+		}
+	\end{align*}
+
+	En notación de un esquema iterativo resulta el \alert{método de SOR}
+	\begin{equation*}
+		\boxed{
+		\forall k\geq0\colon
+		x^{\left(k+1\right)}=
+		T_{\omega}x^{\left(k\right)}+
+		c_{\omega}.
+		}\quad\text{o}\quad
+		\boxed{
+		\forall k\geq0\colon
+		x_{i}^{\left(k+1\right)}=
+		\frac{w}{a_{ii}}
+		\left(
+		b_{i}-
+		\sum_{j=1}^{i-1}a_{ij}x_j^{\left(k+1\right)}-
+		\sum_{j=i+1}^{n}a_{ij}x_{j}^{\left(k\right)}\right)+
+		\left(1-w\right)x_{i}^{\left(k\right)}.
+		}
+	\end{equation*}
+\end{frame}
+
+\begin{frame}
+
+	Para cada método iterativo, podemos asociar el vector error
+	\begin{math}
+		\epsilon^{\left(k\right)}\coloneqq
+		x^{\left(k\right)}-x
+	\end{math},
+	donde $x$ es el único vector solución y podemos expresar los
+	vectores error $\epsilon^{\left(k\right)}$ como
+	\begin{equation*}
+		\forall k\geq0:
+		\epsilon^{\left(k\right)}=
+		T\epsilon^{\left(k-1\right)}=
+		\cdots=
+		T^{\left(k\right)}\epsilon^{\left(0\right)}.
+	\end{equation*}
+	y por el \alert{criterio de convergencia}, los vectores error
+	$\epsilon^{\left(k\right)}$ tienden al vector cero para todas las
+	elecciones de $\epsilon^{\left(0\right)}$ sii el radio espectral
+	$\rho\left(T\right)$ de la matriz del método es menor que uno.
+
+	\begin{theorem}[Kahan]
+		Una condición necesaria para que el \alert{método de SOR} converja
+		es $\left|\omega-1\right|<1$.
+		(Para $\omega\in\mathbb{R}$ esta condición resulta
+		$\omega\in\left(0,2\right)$.)
+	\end{theorem}
+
+	\begin{definition}
+		Una matriz $A\in\mathbb{C}^{n\times n}$ se dice que es Hermitiana
+		sii $A^{\ast}=A$, donde el superíndice $\ast$ denota la
+		transpuesta conjugada compleja.
+		(Una matriz Hermitiana real es una matriz simétrica real y que
+		cumple $A^{T}=A$, donde $T$ denota la transpuesta)
+	\end{definition}
+
+	\begin{definition}
+		Una matriz Hermitiana $A\in\mathbb{C}^{n\times n}$ se dice que
+		es definida positiva sii $\forall x^{\ast}Ax>0$,
+		$\forall x\in\mathbb{C}^{n}\setminus\left\{0\right\}$.
+		(Para $A$ real simétrica, la condición resulta
+		$\forall x^{T}Ax>0$,
+		$\forall x\in\mathbb{R}^{n}\setminus\left\{0\right\}$)
+	\end{definition}
+
+	\begin{theorem}[Reich - Ostrowski - Varga]
+		Sea $A=D-E-E^{\ast}\in\mathbb{C}^{n\times n}$ Hermitiana,
+		$D$ es Hermitiana y definida positiva, y
+		$\det\left(D-\omega E\right)\neq0$,
+		$\forall\omega\left(0,2\right)$.
+		Entonces, $\rho\left(T_{\omega}\right)<1$ sii $A$ es definida
+		positiva y $\omega\in\left(0,2\right)$.
+		Más aún, esta convergencia es monótona con respecto a la norma
+		${\left\|\cdot\right\|}_{A}$.
+		Finalmente, si $A$ es estrictamente diagonalmente dominante por
+		filas, entonces el \alert{método de SOR} converge si
+		$0<\omega\leq1$.
+	\end{theorem}
+\end{frame}
+
+\begin{frame}
+	\begin{algorithm}[H]
+		$A\leftarrow 1.0$\;
+		$B\leftarrow 1.0$\;
+		$p\leftarrow 0$\;
+		\Mientras{\normalfont $\left(\left(A+1\right)-A\right)-1=0$}{
+			$A\leftarrow 2\ast A$\;
+			$p\leftarrow p+1$\;
+			\Mientras{\normalfont $\left(\left(A+B\right)-A\right)-B\neq0$}{
+				$B\leftarrow B+1$\;
+			}
+		}
+	\end{algorithm}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Formulación matemática del método del descenso más rápido}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}\setcounter{enumi}{10}
+		\item
+
+		      Resuelva el siguiente sistema lineal
+		      \begin{math}
+			      \systeme{
+			      4x_{1}-
+			      x_{2}-
+			      x_{4}=
+			      0,
+			      -x_{1}+
+			      4x_{2}-
+			      x_{3}-
+			      x_{5}=
+			      5,
+			      -x_{2}+
+			      4x_{3}-
+			      x_{6}=
+			      0,
+			      -x_{1}+
+			      4x_{4}-
+			      x_{5}=
+			      6,
+			      -x_{2}-
+			      x_{4}+
+			      4x_{5}-
+			      x_{6}=
+			      -2,
+			      -x_{3}-
+			      x_{5}+
+			      4x_{6}=
+			      6
+			      }
+		      \end{math}
+		      tiene solución
+		      \begin{math}
+			      \begin{pNiceMatrix}
+				      1 \\
+				      2 \\
+				      1 \\
+				      2 \\
+				      1 \\
+				      2
+			      \end{pNiceMatrix}
+		      \end{math}.
+
+		      Resuelva el sistema lineal mediante los
+		      \alert{métodos de SOR} y del \alert{descenso más rápido}
+		      con una aritmética de redondeo a tres dígitos.
+	\end{enumerate}
+	\begin{solution}
+		Sea $Ax=b$ el sistema lineal, donde
+		\begin{equation*}
+			A=
+			\begin{bNiceMatrix}
+				4  & -1 & 0  & -1 & 0  & 0  \\
+				-1 & 4  & -1 & 0  & -1 & 0  \\
+				0  & -1 & 4  & 0  & 0  & -1 \\
+				-1 & 0  & 0  & 4  & -1 & 0  \\
+				0  & -1 & 0  & -1 & 4  & -1 \\
+				0  & 0  & -1 & 0  & -1 & 4
+			\end{bNiceMatrix},\quad
+			x=
+			\begin{bNiceMatrix}
+				x_{1} \\
+				x_{2} \\
+				x_{3} \\
+				x_{4} \\
+				x_{5} \\
+				x_{6}
+			\end{bNiceMatrix}\text{ y }
+			b=
+			\begin{bNiceMatrix}
+				0  \\
+				5  \\
+				0  \\
+				6  \\
+				-2 \\
+				6
+			\end{bNiceMatrix}.
+		\end{equation*}
+	\end{solution}
+\end{frame}
+% highlightlines={18-19,23,25},
+\begin{frame}
+	\begin{solution}
+		\begin{minipage}{0.45\textwidth}
+			Por el \alert{método de SOR}.
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=1,
+					lastline=35
+				]{text}{resultado_pregunta11.txt}
+			\end{listing}
+		\end{minipage}
+		\begin{minipage}{0.45\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=13,
+					lastline=16
+				]{python}{pregunta11.py}
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=19,
+					lastline=25
+				]{python}{pregunta11.py}
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=28,
+					lastline=30
+				]{python}{pregunta11.py}
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=33,
+					lastline=35
+				]{python}{pregunta11.py}
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=38,
+					lastline=40
+				]{python}{pregunta11.py}
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=43,
+					lastline=57
+				]{python}{pregunta11.py}
+			\end{listing}
+		\end{minipage}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		\begin{minipage}{0.45\textwidth}
+			Por el \alert{método de SOR}.
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=36,
+					lastline=37
+				]{text}{resultado_pregunta11.txt}
+			\end{listing}
+		\end{minipage}
+		\begin{minipage}{0.45\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\scriptsize,
+					escapeinside=||,
+					mathescape=true,
+					breaklines,
+					firstline=68,
+					lastline=74
+				]{python}{pregunta11.py}
+				\inputminted[
+					fontsize=\scriptsize,
+					escapeinside=||,
+					mathescape=true,
+					breaklines,
+					firstline=77,
+					lastline=84
+				]{python}{pregunta11.py}
+				\inputminted[
+					fontsize=\scriptsize,
+					escapeinside=||,
+					mathescape=true,
+					breaklines,
+					firstline=87,
+					lastline=102
+				]{python}{pregunta11.py}
+			\end{listing}
+		\end{minipage}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		\begin{minipage}{0.45\textwidth}
+			Por el \alert{método del descenso más rápido}.
+			% \begin{listing}[H]
+			% 	\inputminted[
+			% 		fontsize=\scriptsize,
+			% 		breaklines,
+			% 		firstline=36,
+			% 		lastline=37
+			% 	]{text}{resultado_descensorapido.txt}
+			% \end{listing}
+		\end{minipage}
+		\begin{minipage}{0.45\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\tiny,
+					breaklines,
+					firstline=16,
+					lastline=50
+				]{python}{descensorapido.py}
+			\end{listing}
+		\end{minipage}
+	\end{solution}
+\end{frame}

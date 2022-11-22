@@ -28,3 +28,37 @@ print(np.linalg.solve(R, Q.T @ b.T))
 #     F (float): matriz triangular superior sin contar la diagonal de A.
 
 A = np.empty(shape=(16, 16), dtype=np.float64)
+
+
+def diagonal(A):
+    """Retorna la matriz diagonal de A."""
+    D = np.diag(np.diag(A))
+    return D
+
+
+def lower_inferior(A):
+    """Retorna la matriz estrictamente triangular inferior de -A."""
+    E = np.zeros_like(A)
+    n = len(A)
+    for k in range(n):
+        E[k, :k] = -A[k, :k]
+    return E
+
+
+def upper_superior(A):
+    """Retorna la matriz estrictamente triangular superior de -A."""
+    return diagonal(A) - lower_inferior(A) - A
+
+
+def is_positive_definite(A):
+    """Retorna verdadero si la matriz A es definida positiva."""
+    return np.all(np.linalg.eigvals(A) > 0)
+
+
+def is_symmetric(A, rtol=1e-5, atol=1e-8):
+    """Retorna verdadero si la matriz A es simétrica."""
+    return np.allclose(A, A.T, rtol=rtol, atol=atol)
+
+
+# print(f"Triangular superior:\n{-np.triu(A, 1)}\n")
+# print(f"Triangular inferior:\n{-np.tril(A, -1)}\n")

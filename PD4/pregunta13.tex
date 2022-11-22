@@ -1,0 +1,89 @@
+\begin{frame}
+	\begin{enumerate}\setcounter{enumi}{12}
+		\item
+
+
+		      Use los métodos de SOR y del descenso más rápido para
+		      encontrar la solución de sistema $Ax=b$ con una precisión
+		      de $10^{-5}$ en la norma ${\left\|\cdot\right\|}_{\infty}$.
+
+		      \begin{equation*}
+			      a_{ij}=
+			      \begin{cases}
+				      4,  & \text {si }j=1\text { e }i=1,\ldots,25,                             \\
+				      -1, & \text {si }
+				      \begin{cases}
+					      j=i+1 \text { e } i=1,2,3,4,6,7,8,9,11,12,13,14,16,17,18,19,21,22,23,24,  \\
+					      j=i-1 \text { e } i=2,3,4,5,7,8,9,10,12,13,14,15,17,18,19,20,22,23,24,25, \\
+					      j=i+5 \text { e } i=1,\ldots, 20,                                         \\
+					      j=i-5 \text { e } i=6,\ldots, 25,
+				      \end{cases} \\
+				      0,  & \text {en otro caso}.
+			      \end{cases}\quad
+			      \text{y}\quad
+			      b=
+			      \tiny
+			      \begin{bNiceMatrix}
+				      1  \\
+				      0  \\
+				      -1 \\
+				      0  \\
+				      2  \\
+				      1  \\
+				      0  \\
+				      -1 \\
+				      0  \\
+				      2  \\
+				      1  \\
+				      0  \\
+				      -1 \\
+				      0  \\
+				      2  \\
+				      1  \\
+				      0  \\
+				      -1 \\
+				      0  \\
+				      2  \\
+				      1  \\
+				      0  \\
+				      -1 \\
+				      0  \\
+				      2  \\
+			      \end{bNiceMatrix}
+		      \end{equation*}
+	\end{enumerate}
+	\begin{solution}
+		.
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		\begin{minipage}{0.45\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=1,
+					lastline=32
+				]{text}{resultado_pregunta12.txt}
+			\end{listing}
+		\end{minipage}
+		\begin{minipage}{0.45\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=4,
+					lastline=20
+				]{python}{pregunta12.py}
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=23,
+					lastline=44
+				]{python}{pregunta12.py}
+			\end{listing}
+		\end{minipage}
+	\end{solution}
+\end{frame}
