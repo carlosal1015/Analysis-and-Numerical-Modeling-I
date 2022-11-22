@@ -26,3 +26,5 @@ print(np.linalg.solve(R, Q.T @ b.T))
 
 # Returns:
 #     F (float): matriz triangular superior sin contar la diagonal de A.
+
+A = np.empty(shape=(16, 16), dtype=np.float64)

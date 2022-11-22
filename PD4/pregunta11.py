@@ -51,6 +51,8 @@ A = np.array(
     ],
     dtype=np.float64,
 )
+# print(f"Triangular superior:\n{-np.triu(A, 1)}\n")
+# print(f"Triangular inferior:\n{-np.tril(A, -1)}\n")
 b = np.array(object=[0, 5, 0, 6, -2, 6], dtype=np.float64).T
 D = diagonal(A)
 L = lower_inferior(A)
