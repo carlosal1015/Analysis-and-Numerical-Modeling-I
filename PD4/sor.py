@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """SOR.ipynb
 
@@ -152,20 +153,20 @@ A_11 = np.array(
     ],
     float,
 )
-print(f"A_11 = \n{A_11}\n")
+# print(f"A_11 = \n{A_11}\n")
 # b = np.array([[0], [2], [5]], float)
 # b_burden = np.array([[24], [30], [-24]], float)
 b_11 = np.array([[0, 5, 0, 6, -2, 6]], float).T
-print(f"b_11 = \n{b_11}\n")
+# print(f"b_11 = \n{b_11}\n")
 # x0 = np.array([[1], [0], [0]], float)
 # x0_burden = np.array([[1], [1], [1]], float)
 x_0_11 = np.array([[0, 0, 0, 0, 0, 0]], float).T
-print(f"x_0_11 = \n{x_0_11}\n")
+# print(f"x_0_11 = \n{x_0_11}\n")
 # w < 1 o w >1    condicion necesaria de convergencia   0<w<2
 # x_burden = sor(A_burden, b_burden, x0_burden, 1.25, 1e-9, 100)
-x_11 = sor(A_11, b_11, x_0_11, 1, 0.001, 100)
+x_11 = sor(A_11, b_11, x_0_11, 1.3, 0.00001, 100)
 # print(x_burden)
-print(x_11)
+# print(x_11)
 # test = ispositive(A)
 # test = [x for x in test]
 # print(test)

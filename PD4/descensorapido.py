@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """DescensoRapido.ipynb
 
@@ -20,6 +21,8 @@ from tabulate import tabulate
 
 tabla = {"x": [], "p": [], "error": []}
 
+np.set_printoptions(precision=5, suppress=False)
+
 
 def maximo_descenso(A, b, x0, error, iteracciones):
 
@@ -41,11 +44,11 @@ def maximo_descenso(A, b, x0, error, iteracciones):
         tabla["p"].append(dk.flatten())
         if comp < error:
             df = pd.DataFrame(tabla)
-            print(tabulate(df, headers="keys", tablefmt="psql"))
+            print(tabulate(df, headers="keys", tablefmt="psql"))  # floatfmt=".2f"
             return xk1
         xk = xk1
     df = pd.DataFrame(tabla)
-    print(tabulate(df, headers="keys", tablefmt="psql"))
+    print(tabulate(df, headers="keys", tablefmt="psql"))  # floatfmt=".2f"
     return xk
 
 
@@ -69,5 +72,5 @@ x0 = np.zeros(6, dtype=np.float64)
 xk = maximo_descenso(A, b, x0, 0.0001, 2000)
 
 # print(xk)
-print("Comprobación")
-print(f"{A @ xk} = {b}")
+# print("Comprobación")
+# print(f"{A @ xk} = {b}")

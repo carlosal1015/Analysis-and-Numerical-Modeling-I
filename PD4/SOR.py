@@ -55,4 +55,4 @@ def SOR(A, b, w, tol):
 # probelma 1
 A = np.array([[1, 1], [5, -3]])
 b = np.transpose(np.array([16, 32]))
-SOR(A, b, 0.5, 1e-4)
+SOR(A, b, 1.3, 1e-5)

@@ -1,4 +1,53 @@
 \begin{frame}
+	\frametitle{Formulación matemática del método del gradiente conjugado}
+	El \alert{método del gradiente conjugado} puede ser descrito como
+	sigue:
+
+	Dado un $x^{\left(0\right)}$,
+	$r^{\left(0\right)}=b-Ax^{\left(0\right)}$,
+	$p^{\left(0\right)}=r^{\left(0\right)}$ y $\forall k\geq0$ hasta
+	convergencia calcule
+	\begin{align*}
+		\alpha_{k}
+		 & =
+		\frac{
+			{p^{\left(k\right)}}^{T}
+			r^{\left(k\right)}
+		}{
+			{p^{\left(k\right)}}^{T}
+		Ap^{\left(k\right)}}, \\
+		x^{\left(k+1\right)}
+		 & =
+		x^{\left(k\right)}+
+		\alpha_{k}
+		p^{\left(k\right)},   \\
+		r^{\left(k+1\right)}
+		 & =
+		r^{\left(k\right)}-
+		\alpha_{k}
+		Ap^{\left(k\right)},  \\
+		\beta_{k}
+		 & =
+		\frac{
+			{\left(Ap^{\left(k\right)}\right)}^{T}
+			r^{\left(k+1\right)}
+		}{
+			{\left(Ap^{\left(k\right)}\right)}^{T}
+		p^{\left(k\right)}},  \\
+		p^{\left(k+1\right)}
+		 & =
+		r^{\left(k+1\right)}-
+		\beta_{k}p^{\left(k\right)}.
+	\end{align*}
+
+	\begin{theorem}
+		Sea $A$ una matriz simétrica y definida positiva.
+		El método del gradiente conjugado para resolver $Ax=b$ converge
+		después de un máximo de $n$ pasos.
+	\end{theorem}
+\end{frame}
+
+\begin{frame}
 	\begin{enumerate}\setcounter{enumi}{17}
 		\item
 

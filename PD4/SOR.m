@@ -1,4 +1,4 @@
-function [x, iter] = SOR_HW(a, b, x0, nmax, toll, omega)
+function [x, iter] = SOR(a, b, x0, nmax, toll, omega)
     format long;
     n = length(a);
     iter = 0;
@@ -31,7 +31,7 @@ function [x, iter] = SOR_HW(a, b, x0, nmax, toll, omega)
         x = x';
         xold = x;
         r = b - a .* x;
-        err = norm(r) / r0
+        err = norm(r) / r0;
     end
 
 end

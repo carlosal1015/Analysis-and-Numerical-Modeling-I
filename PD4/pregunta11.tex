@@ -333,22 +333,47 @@
 \end{frame}
 
 \begin{frame}
-	\begin{algorithm}[H]
-		$A\leftarrow 1.0$\;
-		$B\leftarrow 1.0$\;
-		$p\leftarrow 0$\;
-		\Mientras{\normalfont $\left(\left(A+1\right)-A\right)-1=0$}{
-			$A\leftarrow 2\ast A$\;
-			$p\leftarrow p+1$\;
-			\Mientras{\normalfont $\left(\left(A+B\right)-A\right)-B\neq0$}{
-				$B\leftarrow B+1$\;
-			}
-		}
-	\end{algorithm}
-\end{frame}
-
-\begin{frame}
 	\frametitle{Formulación matemática del método del descenso más rápido}
+	Resolver el sistema lineal $Ax=b$ es equivalente a encontrar el
+	\begin{math}
+		\operatornamewithlimits{argmin}\limits_{x\in\mathbb{R}^{n}}
+		\left\langle x,A,x\right\rangle-
+		2\left\langle x,b\right\rangle
+	\end{math}.
+	Dado un $x^{\left(0\right)}\in\mathbb{R}^{n}$, la
+	\alert{dirección óptima}, que une el punto $x^{\left(0\right)}$ con
+	la solución $x$ es desconocida.
+	Por lo tanto, debemos dar un paso desde $x^{\left(0\right)}$ a lo
+	largo de una dirección dada $p^{\left(0\right)}$, y luego fijar a
+	lo largo de este último un nuevo punto $x^{\left(1\right)}$ desde
+	el cual iterar el proceso.
+	Así, el \alert{método del descenso más rápido} puede ser descrito
+	como sigue:
+
+	Dado un $x^{\left(0\right)}$,
+	$r^{\left(0\right)}=b-Ax^{\left(0\right)}$ y $\forall k\geq0$ hasta
+	convergencia calcule
+	\begin{align*}
+		\alpha_{k}
+		                     & =
+		\frac{
+		{r^{\left(k\right)}}^{T}r^{\left(k\right)}
+		}{
+		{r^{\left(k\right)}}^{T}Ar^{\left(k\right)}
+		},                            \\
+		x^{\left(k+1\right)} & =
+		x^{\left(k\right)}+
+		\alpha_{k}r^{\left(k\right)}, \\
+		r^{\left(k+1\right)} & =
+		r^{\left(k\right)}-
+		\alpha_{k}Ar^{\left(k\right)}.
+	\end{align*}
+
+	\begin{theorem}[Convergencia del método del descenso más rápido]
+		Sea $A$ una matriz simétrica y definida positiva, entonces el
+		\alert{método del descenso más rápido} es convergente para
+		cualquier dato inicial $x^{\left(0\right)}$.
+	\end{theorem}
 \end{frame}
 
 \begin{frame}
@@ -403,8 +428,8 @@
 		      con una aritmética de redondeo a tres dígitos.
 	\end{enumerate}
 	\begin{solution}
-		Sea $Ax=b$ el sistema lineal, donde
-		\begin{equation*}
+		Sean %$Ax=b$ el sistema lineal, donde
+		\begin{math}
 			A=
 			\begin{bNiceMatrix}
 				4  & -1 & 0  & -1 & 0  & 0  \\
@@ -413,33 +438,83 @@
 				-1 & 0  & 0  & 4  & -1 & 0  \\
 				0  & -1 & 0  & -1 & 4  & -1 \\
 				0  & 0  & -1 & 0  & -1 & 4
-			\end{bNiceMatrix},\quad
-			x=
-			\begin{bNiceMatrix}
-				x_{1} \\
-				x_{2} \\
-				x_{3} \\
-				x_{4} \\
-				x_{5} \\
-				x_{6}
-			\end{bNiceMatrix}\text{ y }
-			b=
-			\begin{bNiceMatrix}
-				0  \\
-				5  \\
-				0  \\
-				6  \\
-				-2 \\
-				6
-			\end{bNiceMatrix}.
+			\end{bNiceMatrix}
+			% ,\quad
+			% x=
+			% \begin{bNiceMatrix}
+			% 	x_{1} \\
+			% 	x_{2} \\
+			% 	x_{3} \\
+			% 	x_{4} \\
+			% 	x_{5} \\
+			% 	x_{6}
+			% \end{bNiceMatrix}\text{ y }
+			% b=
+			% \begin{bNiceMatrix}
+			% 	0  \\
+			% 	5  \\
+			% 	0  \\
+			% 	6  \\
+			% 	-2 \\
+			% 	6
+			% \end{bNiceMatrix}.
+		\end{math}
+		y
+		\begin{math}
+			\sigma\left(A\right)=
+			\left\{
+			\lambda\in\mathbb{C}\colon \det\left(A-\lambda I\right)=0
+			\right\}
+		\end{math}
+		el conjunto de sus valores propios.
+
+		Como $A$ es simétrica, $\sigma\left(A\right)\subset\mathbb{R}$.
+		Y calculando,
+		\begin{equation*}
+			\sigma\left(A\right)=
+			\left\{
+			6.41421356,
+			1.58578644,
+			5,
+			4.41421356,
+			3,
+			3.58578644
+			\right\}
 		\end{equation*}
+
+		Además, $A$ es \alert{definida positiva} porque
+		todos sus autovalores son positivos.
+		% porque para cualquier $x\in\mathbb{R}^{6}$ se tiene que
+		% \begin{align*}
+		%   x^{T}Ax             & >0 \\
+		%   \begin{bNiceMatrix}
+		%     x_{1} & x_{2} & x_{3} & x_{4} & x_{5} & x_{6}
+		%   \end{bNiceMatrix}
+		%   \begin{bNiceMatrix}
+		%     4  & -1 & 0  & -1 & 0  & 0  \\
+		%     -1 & 4  & -1 & 0  & -1 & 0  \\
+		%     0  & -1 & 4  & 0  & 0  & -1 \\
+		%     -1 & 0  & 0  & 4  & -1 & 0  \\
+		%     0  & -1 & 0  & -1 & 4  & -1 \\
+		%     0  & 0  & -1 & 0  & -1 & 4
+		%   \end{bNiceMatrix}
+		%   \begin{bNiceMatrix}
+		%     x_{1} \\
+		%     x_{2} \\
+		%     x_{3} \\
+		%     x_{4} \\
+		%     x_{5} \\
+		%     x_{6}
+		%   \end{bNiceMatrix} & >0   \\
+		% \end{align*}
+		La matriz $A$ es \alert{simétrica} porque $A=A^{T}$.
 	\end{solution}
 \end{frame}
+
 % highlightlines={18-19,23,25},
 \begin{frame}
 	\begin{solution}
 		\begin{minipage}{0.45\textwidth}
-			Por el \alert{método de SOR}.
 			\begin{listing}[H]
 				\inputminted[
 					fontsize=\scriptsize,
@@ -454,38 +529,26 @@
 				\inputminted[
 					fontsize=\scriptsize,
 					breaklines,
-					firstline=13,
+					firstline=10,
+					lastline=12
+				]{python}{pregunta11.py}
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=14,
 					lastline=16
 				]{python}{pregunta11.py}
 				\inputminted[
 					fontsize=\scriptsize,
 					breaklines,
-					firstline=19,
-					lastline=25
+					firstline=18,
+					lastline=32
 				]{python}{pregunta11.py}
 				\inputminted[
 					fontsize=\scriptsize,
 					breaklines,
-					firstline=28,
-					lastline=30
-				]{python}{pregunta11.py}
-				\inputminted[
-					fontsize=\scriptsize,
-					breaklines,
-					firstline=33,
-					lastline=35
-				]{python}{pregunta11.py}
-				\inputminted[
-					fontsize=\scriptsize,
-					breaklines,
-					firstline=38,
-					lastline=40
-				]{python}{pregunta11.py}
-				\inputminted[
-					fontsize=\scriptsize,
-					breaklines,
-					firstline=43,
-					lastline=57
+					firstline=84,
+					lastline=86
 				]{python}{pregunta11.py}
 			\end{listing}
 		\end{minipage}
@@ -494,14 +557,18 @@
 
 \begin{frame}
 	\begin{solution}
+
+		Con $\omega=1.3$, $x^{\left(0\right)}=0\in\mathbb{R}^{6}$ obtenemos la matriz
+		del \alert{método de SOR} $T_{\omega}$ y $c_{\omega}$.
+		Y $\rho\left(T_{\omega}\right)<1$ por lo que el
+		método converge.
 		\begin{minipage}{0.45\textwidth}
-			Por el \alert{método de SOR}.
 			\begin{listing}[H]
 				\inputminted[
 					fontsize=\scriptsize,
 					breaklines,
-					firstline=36,
-					lastline=37
+					firstline=37,
+					lastline=48
 				]{text}{resultado_pregunta11.txt}
 			\end{listing}
 		\end{minipage}
@@ -512,42 +579,45 @@
 					escapeinside=||,
 					mathescape=true,
 					breaklines,
-					firstline=68,
-					lastline=74
-				]{python}{pregunta11.py}
-				\inputminted[
-					fontsize=\scriptsize,
-					escapeinside=||,
-					mathescape=true,
-					breaklines,
-					firstline=77,
-					lastline=84
-				]{python}{pregunta11.py}
-				\inputminted[
-					fontsize=\scriptsize,
-					escapeinside=||,
-					mathescape=true,
-					breaklines,
-					firstline=87,
-					lastline=102
-				]{python}{pregunta11.py}
+					firstline=80,
+					lastline=111
+				]{python}{sor.py}
 			\end{listing}
 		\end{minipage}
 	\end{solution}
 \end{frame}
 
+\begin{frame}[c]
+	\begin{listing}[H]
+		\inputminted[
+			breaklines,
+			firstline=1,
+			lastline=17
+		]{text}{sor_pregunta11.txt}
+	\end{listing}
+	Notamos que converge después de $12$ iteraciones
+	a la solución exacta
+	\begin{math}
+		\begin{pNiceMatrix}
+			1 \\
+			2 \\
+			1 \\
+			2 \\
+			1 \\
+			2
+		\end{pNiceMatrix}\in
+		\mathbb{R}^{6}
+	\end{math}.
+\end{frame}
+
 \begin{frame}
 	\begin{solution}
 		\begin{minipage}{0.45\textwidth}
-			Por el \alert{método del descenso más rápido}.
-			% \begin{listing}[H]
-			% 	\inputminted[
-			% 		fontsize=\scriptsize,
-			% 		breaklines,
-			% 		firstline=36,
-			% 		lastline=37
-			% 	]{text}{resultado_descensorapido.txt}
-			% \end{listing}
+			Ahora veremos con el \alert{método del descenso más rápido}.
+
+			Como $A$ es simétrica y definida positiva, converge con este método.
+
+			Tomando $x^{\left(0\right)}=0\in\mathbb{R}^{6}$.
 		\end{minipage}
 		\begin{minipage}{0.45\textwidth}
 			\begin{listing}[H]
@@ -560,4 +630,28 @@
 			\end{listing}
 		\end{minipage}
 	\end{solution}
+\end{frame}
+
+\begin{frame}[c]
+	\begin{listing}[H]
+		\inputminted[
+			fontsize=\tiny,
+			breaklines,
+			firstline=1,
+			lastline=26
+		]{text}{descensorapido_pregunta11.txt}
+	\end{listing}
+	Notamos que converge después de $19$ iteraciones
+	a la solución exacta
+	\begin{math}
+		\begin{pNiceMatrix}
+			1 \\
+			2 \\
+			1 \\
+			2 \\
+			1 \\
+			2
+		\end{pNiceMatrix}\in
+		\mathbb{R}^{6}
+	\end{math}.
 \end{frame}

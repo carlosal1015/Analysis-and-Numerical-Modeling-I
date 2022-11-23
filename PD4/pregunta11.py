@@ -81,10 +81,10 @@ def sor(A, b, omega, epsilon=1e-5, max_iterations=100):
     return x_new
 
 
-omega = 1.25
+omega = 1.3
 T_w = np.linalg.inv(D - omega * L) @ ((1 - omega) * D + omega * U)
-print(f"T_w = \n{T_w}\n")
 c_w = omega * np.linalg.inv(D - omega * L) @ b.T
+print(f"T_w = \n{T_w}\n")
 print(f"c_w = \n{c_w}\n")
 print(f"¿El radio espectral de T_w es menor que 1? {is_spectral_radius_less_1(T_w)}.\n")
 # from descensorapido import maximo_descenso
