@@ -40,7 +40,7 @@
 		\beta_{k}p^{\left(k\right)}.
 	\end{align*}
 
-	\begin{theorem}
+	\begin{theorem}[Convergencia del método del gradiente conjugado]
 		Sea $A$ una matriz simétrica y definida positiva.
 		El método del gradiente conjugado para resolver $Ax=b$ converge
 		después de un máximo de $n$ pasos.
@@ -92,6 +92,27 @@
 				x+y+z=140
 			}
 		\end{minipage}
+
+		\
+
+		Sea
+		\begin{math}
+			A=
+			\begin{bNiceMatrix}
+				15000 & 20000 & 30000 \\
+				10000 & 15000 & 20000 \\
+				1     & 1     & 1
+			\end{bNiceMatrix}
+		\end{math}
+		pero \alert{no es simétrica} y \alert{no es definida positiva}.
+
+		Por lo que vamos a multplicar por $A^{T}$ al sistema $Ax=b$, resultando
+		\begin{align*}
+			Ax             & =b             \\
+			A^{T}Ax        & =A^{T}b        \\
+			\widetilde{A}x & =\widetilde{b}
+		\end{align*}
+
 	\end{solution}
 \end{frame}
 

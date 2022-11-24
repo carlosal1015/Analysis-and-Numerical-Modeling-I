@@ -3,7 +3,7 @@ import numpy as np
 A = np.array(
     object=[[15000, 20000, 30000], [10000, 15000, 20000], [1, 1, 1]], dtype=np.float64
 )
-A_tilde = A.T @ A
+b = np.array([250000, 175000, 140], float)
 
 
 def gradienteConjugado(A, b, x0, gtol, maxiter):
@@ -11,7 +11,7 @@ def gradienteConjugado(A, b, x0, gtol, maxiter):
     pk = rk
     xk = x0
     print(0, "   :", xk, rk)
-    for i in range(0, maxiter):
+    for i in range(maxiter):
         rkt = np.transpose(rk)
         pkt = np.transpose(pk)
         Apk = np.dot(A, pk)
@@ -26,8 +26,8 @@ def gradienteConjugado(A, b, x0, gtol, maxiter):
 
 
 if __name__ == "__main__":
-    b = np.array([250000, 175000, 140], float)
-    b_tilde = A.T @ b.T
-    x0 = np.array([0, 0, 0], float)
+    A_tilde = np.dot(np.transpose(A), A)
+    b_tilde = np.dot(np.transpose(A), b)
+    x_0 = np.zeros(3)
     # gradienteConjugado(A, b, x0, 1e-5, maxiter=100)
-    gradienteConjugado(A_tilde, b_tilde, x0, 1e-5, maxiter=100)
+    gradienteConjugado(A=A_tilde, b=b_tilde, x0=x_0, gtol=1e-5, maxiter=100)

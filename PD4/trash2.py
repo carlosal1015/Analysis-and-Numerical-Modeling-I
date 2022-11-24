@@ -65,3 +65,22 @@ def is_symmetric(A, rtol=1e-5, atol=1e-8):
 
 (i, j) = (5, 1)
 print(f"a{i}{j} = ", A[i - 1][j - 1])
+
+# A = np.array([[3, 4, 6], [2, 3, 4], [1, 1, 1]])
+# b = np.array([[50, 35, 140]])
+# print(A.T - A)
+# print(f"A = \n{A}")
+# print(f"b = \n{b}")
+# print(f"x = \n{x}")
+# from gradienteconjugado import gradienteConjugada, imprimirResultados
+# import pandas as pd
+# from tabulate import tabulate
+# x0 = np.zeros(3)
+# iteraciones = 10
+# gradienteConjugada(A, b.T, x0, iteraciones)
+# resultados = {"alphak": [], "rk": [], "betak": [], "pk": [], "xk": []}
+# imprimirResultados(resultados)
+# x, exit_code = cg(A, b.T, maxiter=1000000)
+
+# print(f"¿A es definida positiva? {is_positive_definite(A)}.\n")
+# print(f"¿A es simétrica? {is_symmetric(A)}.\n")

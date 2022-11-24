@@ -66,6 +66,7 @@ if __name__ == "__main__":
     from descensorapido import maximo_descenso
 
     xk = maximo_descenso(A_tilde, b_tilde, x0, 0.0001, 2000)
-    # print(np.linalg.solve(A_tilde, b_tilde))
+    print(np.linalg.solve(A_tilde, b_tilde))
+    print(f"Verificación: {A_tilde @ np.linalg.solve(A_tilde, b_tilde) - b_tilde}")
 # https://stackoverflow.com/a/24900335
 # https://stackoverflow.com/a/16964006
