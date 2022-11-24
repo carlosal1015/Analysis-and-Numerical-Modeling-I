@@ -1,4 +1,5 @@
 \begin{frame}
+
 	Para estudiar la convergencia de técnicas de iteración general,
 	necesitamos analizar la fórmula
 	\begin{equation*}
@@ -10,13 +11,17 @@
 	\end{equation*}
 
 	\begin{definition}[Radio espectral]
-		Sea $A\in\mathbb{C}^{n\times n}$ con autovalores $\lambda_{i}$,
-		$1\leq i\leq n$.
-		Entonces,
+		Sea $A\in\mathbb{C}^{n\times n}$, su \alert{radio espectral} es
+		definido por
 		\begin{equation*}
 			\rho\left(A\right)\coloneqq
-			\max_{1\leq i\leq n}\left|\lambda\right|.
+			\max
+			\left\{
+			\left|\lambda\right|\colon
+			\lambda\text{ es un autovalor de }A.
+			\right\}
 		\end{equation*}
+
 		Geométricamente, si todos los autovalores $\lambda_{i}$ de $A$
 		son ubicados en el $z$-plano complejo, entonces
 		$\rho\left(A\right)$ es el radio del menor disco
@@ -36,46 +41,72 @@
 			c
 		\end{math}
 		converge a la \alert{solución única} de $x=Tx+c$ sii
-		$\rho\left(T\right)<1$.
-
-		\begin{definition}[Matriz convergente]
-			Sea $A\in\mathbb{C}^{n\times n}$.
-			$A$ es \alert{convergente}
-			(\alert{a cero}) sii la sucesión
-			\begin{math}
-				{\left\{A^{\left(k\right)}\right\}}_{k\in\mathbb{N}}
-			\end{math}
-			converge a la matriz nula $O\in\mathbb{C}^{n\times n}$, y de lo
-			contrario es divergente.
-		\end{definition}
-
-		\begin{theorem}[Criterio de convergencia]
-			Si $A\in\mathbb{C}^{n\times n}$, entonces $A$ es convergente sii
-			$\rho\left(A\right)<1$.
-		\end{theorem}
-		% \begin{proof}
-		% 	\begin{itemize}
-		% 		\item[$\left(\Rightarrow\right)$]
-
-		% 			Primero suponga que $\rho\left(T\right)<1$.
-		% 			Entonces,
-		% 			\begin{align*}
-		% 				x^{\left(k\right)}                       & =
-		% 				T\alert{x^{\left(k-1\right)}}+c                                                                       \\
-		% 				                                         & =
-		% 				T\left(T x^{\left(k-2\right)}+c\right)+c                                                              \\
-		% 				                                         & =T^{2}x^{\left(k-2\right)}+\left(T+I\right)c               \\
-		% 				                                         & \vdotswithin{=}                                            \\
-		% 				                                         & =T^{k}x^{\left(0\right)}+\left(T^{k-1}+\cdots+T+I\right)c.
-		% 				\shortintertext{Puesto que $\rho\left(T\right)<1$, implica que $T$ es convergente y}
-		% 				\lim_{k\to\infty}T^{k}x^{\left(0\right)} & =0.
-		% 			\end{align*}
-		% 	\end{itemize}
-		% \end{proof}
+		\begin{math}
+			\alert{
+				\rho\left(T\right)<
+				1
+			}
+		\end{math}.
 	\end{theorem}
+
+	\begin{definition}[Matriz convergente]
+		Sea $A\in\mathbb{C}^{n\times n}$.
+		$A$ es \alert{convergente}
+		(\alert{a cero}) sii la sucesión
+		\begin{math}
+			{\left\{A^{\left(k\right)}\right\}}_{k\in\mathbb{N}}
+		\end{math}
+		converge a la matriz nula $0\in\mathbb{C}^{n\times n}$, y de lo
+		contrario es divergente.
+	\end{definition}
+
+	\begin{theorem}[Criterio de convergencia]
+		Si $A\in\mathbb{C}^{n\times n}$, entonces $A$ es
+		\alert{convergente} sii
+		\begin{math}
+			\alert{
+				\rho\left(A\right)<
+				1
+			}
+		\end{math}.
+	\end{theorem}
+
+	% \begin{proof}
+	% 	\begin{itemize}
+	% 		\item[$\left(\Rightarrow\right)$]
+
+	% 			Primero suponga que $\rho\left(T\right)<1$.
+	% 			Entonces,
+	% 			\begin{align*}
+	% 				x^{\left(k\right)}
+	% 				                                         & =
+	% 				T\alert{x^{\left(k-1\right)}}+
+	% 				c                                                          \\
+
+	% 				                                         & =
+	% 				T\left(T x^{\left(k-2\right)}+c\right)+
+	% 				c                                                          \\
+
+	% 				                                         & =
+	% 				T^{2}x^{\left(k-2\right)}+
+	% 				\left(T+I\right)c                                          \\
+
+	% 				                                         & \vdotswithin{=} \\
+
+	% 				                                         & =
+	% 				T^{k}x^{\left(0\right)}+
+	% 				\left(T^{k-1}+\cdots+T+I\right)c.
+	% 				\shortintertext{
+	% 					Puesto que $\rho\left(T\right)<1$, implica que $T$ es
+	% 					convergente y}
+	% 				\lim_{k\to\infty}T^{k}x^{\left(0\right)} & =0.
+	% 			\end{align*}
+	% 	\end{itemize}
+	% \end{proof}
 \end{frame}
 
 % \begin{frame}
+
 % 	\begin{proof}
 % 		\begin{equation*}
 % 			\lim_{k\to\infty}
@@ -86,29 +117,58 @@
 % 			0+{\left(I-T\right)}^{-1}c=
 % 				{\left(I-T\right)}^{-1}c
 % 		\end{equation*}
-% 		Por lo tanto, la sucesión $\left\{\mathbf{x}^{(k)}\right\}$ converge al vector $\mathbf{x} \equiv(I-T)^{-1} \mathbf{c}$ y $\mathbf{x}=T \mathbf{x}+\mathbf{c}$.
-% 		Para probar lo contrario, mostraremos que para cualquier $\mathbf{z} \in \mathbb{R}^n$, tenemos $\operatorname{lím}_{k \rightarrow \infty}$ $T^k \mathbf{z}=\mathbf{0}$. Con el teorema 7.17, esto es equivalente a $\rho(T)<1$.
+% 		Por lo tanto, la sucesión $\left\{x^{\left(k\right)}\right\}$
+% 		converge al vector $x={\left(I-T\right)}^{-1}c$ y $x=Tx+c$.
+% 		Para probar lo contrario, mostraremos que para cualquier
+% 		$z\in\mathbb{R}^{n}$, tenemos $\lim\limits_{k\to\infty}T^{k}z=0$.
+% 		Con el teorema 7.17, esto es equivalente a
+% 		$\rho\left(T\right)<1$.
 
-% 		Sea $\mathbf{z}$ un vector arbitrario y $x$ la única solución para $\mathbf{x}=T \mathbf{x}+\mathbf{c}$. Defina $\mathbf{x}^{(0)}=\mathbf{x}-\mathbf{z}$, y, para $k \geq 1, \mathbf{x}^{(k)}=T \mathbf{x}^{(k-1)}+\mathbf{c}$. Entonces $\left\{\mathbf{x}^{(k)}\right\}$ converge a $\mathbf{x}$. También,
-% 		$$
-% 			\mathbf{x}-\mathbf{x}^{(k)}=(T \mathbf{x}+\mathbf{c})-\left(T \mathbf{x}^{(k-1)}+\mathbf{c}\right)=T\left(\mathbf{x}-\mathbf{x}^{(k-1)}\right),
-% 		$$
+% 		Sea $z$ un vector arbitrario y $x$ la única solución para
+% 		$x=Tx+c$.
+% 		Defina $x^{\left(0\right)}=x-z$, y, para
+% 		$k\geq 1,x^{\left(k\right)}=Tx^{\left(k-1\right)}+c$.
+% 		Entonces $\left\{x^{\left(k\right)}\right\}$ converge a $x$.
+% 		También,
+% 		\begin{equation*}
+% 			x-
+% 			x^{\left(k\right)}=
+% 			\left(Tx+c\right)-
+% 			\left(Tx^{\left(k-1\right)}+c\right)=
+% 			T\left(x-x^{\left(k-1\right)}\right),
+% 		\end{equation*}
 % 		por lo que
-% 		$$
-% 			\mathbf{x}-\mathbf{x}^{(k)}=T\left(\mathbf{x}-\mathbf{x}^{(k-1)}\right)=T^2\left(\mathbf{x}-\mathbf{x}^{(k-2)}\right)=\cdots=T^k\left(\mathbf{x}-\mathbf{x}^{(0)}\right)=T^k \mathbf{z}
-% 		$$
-% 		Por lo tanto, $\operatorname{lím}_{k \rightarrow \infty} T^k \mathbf{z}=\operatorname{lím}_{k \rightarrow \infty} T^k\left(\mathbf{x}-\mathbf{x}^{(0)}\right)=\operatorname{lím}_{k \rightarrow \infty}\left(\mathbf{x}-\mathbf{x}^{(k)}\right)=\mathbf{0}$. Pero $\mathbf{z} \in \mathbb{R}^n$ era arbitrario, por lo que mediante el teorema 7.17, $T$ es convergente y $\rho(T)<1$
+% 		\begin{equation*}
+% 			x-
+% 			x^{\left(k\right)}=
+% 			T\left(x-x^{\left(k-1\right)}\right)=
+% 			T^{2}\left(x-x^{\left(k-2\right)}\right)=
+% 			\cdots=
+% 			T^{k}\left(x-x^{\left(0\right)}\right)=
+% 			T^{k}z
+% 		\end{equation*}
+% 		Por lo tanto,
+% 		$\lim\limits_{k\to\infty}T^{k}z=\lim\limits_{k\to\infty}
+% 			T^{k}
+% 			\left(x-x^{\left(0\right)}\right)=
+% 			\lim\limits_{k\to\infty}
+% 			\left(x-x^{\left(k\right)}\right)=0$.
+% 		Pero $z\in\mathbb{R}^{n}$ era arbitrario, por lo que mediante el
+% 		teorema 7.17, $T$ es convergente y $\rho\left(T\right)<1$.
 
 % 		\begin{enumerate}
 % 			\item[$\left(\Leftarrow\right)$]
 
-% 				Sea $z$ un vector arbitrario y $x$ la única solución para $x=Tx+c$.
-% 				Defina $x^{0}=x-z$, y, para $k\geq1$, $x^{k}=Tx^{\left(k-1\right)}+c$
+% 				Sea $z$ un vector arbitrario y $x$ la única solución para
+% 				$x=Tx+c$.
+% 				Defina $x^{0}=x-z$, y, para $k\geq1$,
+% 				$x^{k}=Tx^{\left(k-1\right)}+c$
 % 		\end{enumerate}
 % 	\end{proof}
 % \end{frame}
 
 \begin{frame}
+
 	\frametitle{Formulación matemática del método de Sobrerrelajación sucesiva (SOR)}
 	Sean $A\in\mathbb{C}^{n\times n}$ y $b$ un vector columna dado en
 	$\mathbb{C}^{n}$.
@@ -168,10 +228,12 @@
 		}_{U}.
 	\end{equation*}
 	% donde $D=\operatorname{diag}\left\{a_{11},\ldots,a_{nn}\right\}$, y
-	% Para derivar los métodos iterativos clásicos ,asumiendo que el $\det\left(D\right)\neq0$,
-	% $L$ y $U$ son matrices $n\times n$, respectivamente, estrictamente triangular
-	% inferior y estrictamente triangular superior, cuyas entradas son las entradas negativas de $A$,
-	% respectivamente, arriba y abajo de la diagonal principal de $A$.
+	% Para derivar los métodos iterativos clásicos, asumiendo que el
+	% $\det\left(D\right)\neq0$, $L$ y $U$ son matrices $n\times n$,
+	% respectivamente, estrictamente triangular inferior y estrictamente
+	% triangular superior, cuyas entradas son las entradas negativas de
+	% $A$, respectivamente, arriba y abajo de la diagonal principal de
+	% $A$.
 	Con esta notación y un parámetro
 	\begin{math}
 		\omega\in\mathbb{C}
@@ -184,60 +246,87 @@
 	% 	Dx=\left(L+U\right)x+b.
 	% \end{equation*}
 	\begin{align*}
-		A  & =
-		D-L-U=
-		\left(\frac{\alert{1}+\alert{\omega-1}}{\alert{\omega}}\right)D-L-U=
+		A
+		 & =
+		D-L-U
+		=
+		\left(
+		\frac{\alert{1}+\alert{\omega-1}}{\alert{\omega}}
+		\right)
+		D-L-U
+		=
 		\boxed{
-			\left(\frac{\alert{1}}{\alert{\omega}}D - L\right)+
-			\left(\frac{\alert{\omega-1}}{\alert{\omega}}D-U\right)
+			\left(
+			\frac{\alert{1}}{\alert{\omega}}D - L
+			\right)+
+			\left(
+			\frac{\alert{\omega-1}}{\alert{\omega}}D-U
+			\right)
 		},
 		\shortintertext{y así}
-		Ax & =
+		Ax
+		 & =
 		\left[
-			\left(\frac{\alert{1}}{\alert{\omega}}D - L\right)+
-			\left(\frac{\alert{\omega-1}}{\alert{\omega}}D-U\right)
+			\left(
+			\frac{\alert{1}}{\alert{\omega}}D - L
+			\right)+
+			\left(
+			\frac{\alert{\omega-1}}{\alert{\omega}}D-U
+			\right)
 			\right]x=
-		\left(\frac{\alert{1}}{\alert{\omega}}D-L\right)x+
-		\left(\frac{\alert{\omega-1}}{\alert{\omega}}D-U\right)x
+		\left(
+		\frac{\alert{1}}{\alert{\omega}}D-L
+		\right)x+
+		\left(
+		\frac{\alert{\omega-1}}{\alert{\omega}}D-U
+		\right)x
 		= b.
 	\end{align*}
 \end{frame}
 
 \begin{frame}
-	En consecuencia, el sistema de ecuaciones lineales $Ax=b$ se convierte en
-	\begin{align*}
-		\left(\frac{\alert{1}}{\alert{\omega}}D-L\right)x
-		 & = -\left(\frac{\alert{\omega-1}}{\alert{\omega}}D-U\right)x + b. \\
+
+	En consecuencia, el sistema de ecuaciones lineales $Ax=b$ se
+	convierte en
+	\begin{align}
+		\left(
+		\frac{\alert{1}}{\alert{\omega}}D-L
+		\right)x
+		 & =
+		-\left(
+		\frac{\alert{\omega-1}}{\alert{\omega}}D-U
+		\right)x + b. \notag                                                    \\
 		x
-		 & ={\left(\frac{\alert{1}}{\alert{\omega}}D-L\right)}^{-1}
+		 & =
+		{\left(\frac{\alert{1}}{\alert{\omega}}D-L\right)}^{-1}
 		\left[
 			-\left(\frac{\alert{\omega-1}}{\alert{\omega}}D-U\right)x+
 			b
-		\right].                                                            \\
+		\right].                                                         \notag \\
 		x
 		 & =
 		-{\left(\frac{\alert{1}}{\alert{\omega}}D-L\right)}^{-1}
 		\left(\frac{\alert{\omega-1}}{\alert{\omega}}D-U\right)x+
 		{\left(\frac{\alert{1}}{\alert{\omega}}D-L\right)}^{-1}
-		b.                                                                  \\
+		b.                                                          \notag      \\
 		% x
 		%  & =
 		% -{\left(\frac{\alert{1}}{\alert{\omega}}D - L\right)}^{-1}
 		% \left(\frac{\alert{\omega-1}}{\alert{\omega}}D-U\right)x+
 		% {\left(\frac{\alert{1}}{\alert{\omega}}D - L\right)}^{-1}
-		% b.                                                                  \\
+		% b.                                                       \notag           \\
 		x
 		 & =
 		-{\left(\frac{D-\alert{\omega}L}{\alert{\omega}}\right)}^{-1}
 		\left(\frac{\left(\alert{\omega-1}\right)D-\alert{\omega}U}{\alert{\omega}}\right)x+
 		{\left(\frac{D-\alert{\omega}L}{\alert{\omega}}\right)}^{-1}
-		b.                                                                  \\
+		b.                                                \notag                \\
 		x
 		 & =
 		-{\left(\frac{1}{\alert{\omega}}\right)}^{-1}{\left(D-\alert{\omega}L\right)}^{-1}
 		\left(\frac{1}{\alert{\omega}}\right)\left(\left(\alert{\omega-1}\right)D-\alert{\omega}U\right)x+
 		{\left(\frac{1}{\alert{\omega}}\right)}^{-1}{\left(D-\alert{\omega}L\right)}^{-1}
-		b.                                                                  \\
+		b.                                                 \notag               \\
 		\Aboxed{
 		x
 		 & =
@@ -248,8 +337,8 @@
 		\underbrace{
 			\alert{\omega}{\left(D-\alert{\omega}L\right)}^{-1}b
 		}_{c_{\omega}}.
-		}
-	\end{align*}
+		}\label{eq:sor_iteration}
+	\end{align}
 
 	En notación de un esquema iterativo resulta el \alert{método de SOR}
 	\begin{equation*}
@@ -274,6 +363,123 @@
 
 \begin{frame}
 
+	\begin{theorem}[Kahan]
+		Una condición necesaria para que el \alert{método de SOR} converja
+		es $\left|\omega-1\right|<1$.
+		(Para $\omega\in\mathbb{R}$ esta condición resulta
+		$\omega\in\left(0,2\right)$.)
+	\end{theorem}
+
+	% \begin{definition}
+	% 	Una matriz $A\in\mathbb{C}^{n\times n}$ se dice que es Hermitiana
+	% 	sii $A^{\ast}=A$, donde el superíndice $\ast$ denota la
+	% 	transpuesta conjugada compleja.
+	% 	(Una matriz Hermitiana real es una matriz simétrica real y que
+	% 	cumple $A^{T}=A$, donde $T$ denota la transpuesta)
+	% \end{definition}
+
+	% \begin{definition}
+	% 	Una matriz Hermitiana $A\in\mathbb{C}^{n\times n}$ se dice que
+	% 	es definida positiva sii $\forall x^{\ast}Ax>0$,
+	% 	$\forall x\in\mathbb{C}^{n}\setminus\left\{0\right\}$.
+	% 	(Para $A$ real simétrica, la condición resulta
+	% 	$\forall x^{T}Ax>0$,
+	% 	$\forall x\in\mathbb{R}^{n}\setminus\left\{0\right\}$)
+	% \end{definition}
+
+	\begin{theorem}
+		Sea $B\in\mathbb{C}^{n\times n}$ con
+		$\operatorname{diag}\left(B\right)=0$ tal que $B=E+F$, donde
+		$E$ y $F$ son matrices triangulares
+		estrictamente inferior y estrictamente superior, respectivamente.
+		De~\eqref{eq:sor_iteration}, como $D-\omega L$ es no singular
+		para cualquier $\omega$, haciendo $E\coloneqq D^{-1}L$ y
+		$F\coloneqq D^{-1}U$, este toma la forma de
+		\begin{equation*}
+			T_{\omega}\coloneqq
+			{\left(I-\omega E\right)}^{-1}\left(\omega F+(1-\omega)I\right),
+		\end{equation*}
+		entonces, para cualquer número real o complejo $\omega$,
+		\begin{equation*}
+			\rho\left(T_{\omega}\right)\geq\left|\omega-1\right|
+		\end{equation*}
+		manteniéndose la igualdad sii todos los autovalores de
+		$T_{\omega}$ son de módulo $\left|\omega-1\right|$.
+	\end{theorem}
+
+	\begin{proof}
+		Sea
+		\begin{math}
+			\phi\left(\lambda\right)\coloneqq
+			\det\left(\lambda I-T_{\omega}\right)
+		\end{math}
+		el polinomia característico de $T_{\omega}$.
+		Dado que $E$ es triangular estrictamente inferior, entonces
+		$\left(I-\omega E\right)$ es no singular, y como
+		\begin{math}
+			\det\left(I-\omega E\right)=1,
+		\end{math}
+		entonces
+		\begin{equation*}
+			\phi\left(\lambda\right)=
+			\det\left(I-\omega E\right)\cdot
+			\det\left(\lambda I-T_{\omega}\right)=
+			\det\left\{
+			\left(\lambda+\omega-1\right)I-
+			\omega\lambda E-\omega U
+			\right\}.
+		\end{equation*}
+		Sea $\mu$ el el término constante $\phi\left(\lambda\right)$, el
+		producto de los negativos de los autovalores de $T_{\omega}$,
+		es obtenido reemplazando $\lambda=0$ en esta expresión.
+		Así,
+		\begin{equation*}
+			\mu=
+			\prod_{i=1}^{n}
+			\left(-\lambda_{i}\left(\omega\right)\right)=
+			\det
+			\left(
+			\left(\omega-1\right)I-\omega U
+			\right)
+			=
+			{\left(\omega-1\right)}^{n}.
+		\end{equation*}
+		Por lo tanto,
+		\begin{math}
+			\rho\left(T_{\omega}\right)=
+			\max\limits_{1\leq i\leq n}
+			\left|\lambda_{i}\left(\omega\right)\right|\geq
+			|\omega-1|
+		\end{math}.
+	\end{proof}
+\end{frame}
+
+\begin{frame}
+
+	\begin{theorem}[Convergencia del método de SOR]
+		Suponga que $A$ es una matriz con elementos positivos en su
+		diagonal y que $0<\omega<2$.
+		El método de SOR converge para cualquier vector inicial
+		$x^{\left(0\right)}\in\mathbb{R}^{n}$ sii $A$ es simétrica y
+		definida positiva.
+	\end{theorem}
+
+	\begin{theorem}[Reich - Ostrowski - Varga]
+		Sea $A=D-E-E^{\ast}\in\mathbb{C}^{n\times n}$ Hermitiana,
+		$D$ es Hermitiana y definida positiva, y
+		$\det\left(D-\omega E\right)\neq0$,
+		$\forall\omega\in\left[0,2\right]$.
+		Entonces, $\rho\left(T_{\omega}\right)<1$ sii $A$ es definida
+		positiva y $\omega\in\left(0,2\right)$.
+		Más aún, esta convergencia es monótona con respecto a la norma
+		${\left\|\cdot\right\|}_{A}$.
+		Finalmente, si $A$ es estrictamente diagonalmente dominante por
+		filas, entonces el \alert{método de SOR} converge si
+		$0<\omega\leq1$.
+	\end{theorem}
+
+	\
+
 	Para cada método iterativo, podemos asociar el vector error
 	\begin{math}
 		\epsilon^{\left(k\right)}\coloneqq
@@ -292,47 +498,10 @@
 	$\epsilon^{\left(k\right)}$ tienden al vector cero para todas las
 	elecciones de $\epsilon^{\left(0\right)}$ sii el radio espectral
 	$\rho\left(T\right)$ de la matriz del método es menor que uno.
-
-	\begin{theorem}[Kahan]
-		Una condición necesaria para que el \alert{método de SOR} converja
-		es $\left|\omega-1\right|<1$.
-		(Para $\omega\in\mathbb{R}$ esta condición resulta
-		$\omega\in\left(0,2\right)$.)
-	\end{theorem}
-
-	\begin{definition}
-		Una matriz $A\in\mathbb{C}^{n\times n}$ se dice que es Hermitiana
-		sii $A^{\ast}=A$, donde el superíndice $\ast$ denota la
-		transpuesta conjugada compleja.
-		(Una matriz Hermitiana real es una matriz simétrica real y que
-		cumple $A^{T}=A$, donde $T$ denota la transpuesta)
-	\end{definition}
-
-	\begin{definition}
-		Una matriz Hermitiana $A\in\mathbb{C}^{n\times n}$ se dice que
-		es definida positiva sii $\forall x^{\ast}Ax>0$,
-		$\forall x\in\mathbb{C}^{n}\setminus\left\{0\right\}$.
-		(Para $A$ real simétrica, la condición resulta
-		$\forall x^{T}Ax>0$,
-		$\forall x\in\mathbb{R}^{n}\setminus\left\{0\right\}$)
-	\end{definition}
-
-	\begin{theorem}[Reich - Ostrowski - Varga]
-		Sea $A=D-E-E^{\ast}\in\mathbb{C}^{n\times n}$ Hermitiana,
-		$D$ es Hermitiana y definida positiva, y
-		$\det\left(D-\omega E\right)\neq0$,
-		$\forall\omega\left(0,2\right)$.
-		Entonces, $\rho\left(T_{\omega}\right)<1$ sii $A$ es definida
-		positiva y $\omega\in\left(0,2\right)$.
-		Más aún, esta convergencia es monótona con respecto a la norma
-		${\left\|\cdot\right\|}_{A}$.
-		Finalmente, si $A$ es estrictamente diagonalmente dominante por
-		filas, entonces el \alert{método de SOR} converge si
-		$0<\omega\leq1$.
-	\end{theorem}
 \end{frame}
 
 \begin{frame}
+
 	\frametitle{Formulación matemática del método del descenso más rápido}
 	Resolver el sistema lineal $Ax=b$ es equivalente a encontrar el
 	\begin{math}
@@ -372,11 +541,12 @@
 	\begin{theorem}[Convergencia del método del descenso más rápido]
 		Sea $A$ una matriz simétrica y definida positiva, entonces el
 		\alert{método del descenso más rápido} es convergente para
-		cualquier dato inicial $x^{\left(0\right)}$.
+		cualquier dato inicial $x^{\left(0\right)}\in\mathbb{R}^{n}$.
 	\end{theorem}
 \end{frame}
 
 \begin{frame}
+
 	\begin{enumerate}\setcounter{enumi}{10}
 		\item
 
@@ -432,12 +602,12 @@
 		\begin{math}
 			A=
 			\begin{bNiceMatrix}
-				4  & -1 & 0  & -1 & 0  & 0  \\
-				-1 & 4  & -1 & 0  & -1 & 0  \\
-				0  & -1 & 4  & 0  & 0  & -1 \\
-				-1 & 0  & 0  & 4  & -1 & 0  \\
-				0  & -1 & 0  & -1 & 4  & -1 \\
-				0  & 0  & -1 & 0  & -1 & 4
+				4          & \alert{-1} & 0          & \alert{-1} & 0          & 0          \\
+				\alert{-1} & 4          & \alert{-1} & 0          & \alert{-1} & 0          \\
+				0          & \alert{-1} & 4          & 0          & 0          & \alert{-1} \\
+				\alert{-1} & 0          & 0          & 4          & \alert{-1} & 0          \\
+				0          & \alert{-1} & 0          & \alert{-1} & 4          & \alert{-1} \\
+				0          & 0          & \alert{-1} & 0          & \alert{-1} & 4
 			\end{bNiceMatrix}
 			% ,\quad
 			% x=
@@ -463,23 +633,24 @@
 		\begin{math}
 			\sigma\left(A\right)=
 			\left\{
-			\lambda\in\mathbb{C}\colon \det\left(A-\lambda I\right)=0
+			\lambda\in\mathbb{C}\colon \det\left(A-\lambda I\right)=0.
 			\right\}
 		\end{math}
 		el conjunto de sus valores propios.
 
-		Como $A$ es simétrica, $\sigma\left(A\right)\subset\mathbb{R}$.
-		Y calculando,
+		Como la matriz $A$ es \alert{simétrica}, es decir, $A=A^{T}$,
+		entonces $\sigma\left(A\right)\subset\mathbb{R}$.
+		Luego,
 		\begin{equation*}
 			\sigma\left(A\right)=
 			\left\{
-			6.41421356,
-			1.58578644,
-			5,
-			4.41421356,
-			3,
-			3.58578644
-			\right\}
+			\alert{6.41421356},\quad
+			\alert{1.58578644},\quad
+			\alert{5},\quad
+			\alert{4.41421356},\quad
+			\alert{3},\quad
+			\alert{3.58578644}
+			\right\}.
 		\end{equation*}
 
 		Además, $A$ es \alert{definida positiva} porque
@@ -507,14 +678,14 @@
 		%     x_{6}
 		%   \end{bNiceMatrix} & >0   \\
 		% \end{align*}
-		La matriz $A$ es \alert{simétrica} porque $A=A^{T}$.
 	\end{solution}
 \end{frame}
 
 % highlightlines={18-19,23,25},
 \begin{frame}
+
 	\begin{solution}
-		\begin{minipage}{0.45\textwidth}
+		\begin{minipage}{0.35\textwidth}
 			\begin{listing}[H]
 				\inputminted[
 					fontsize=\scriptsize,
@@ -524,7 +695,7 @@
 				]{text}{resultado_pregunta11.txt}
 			\end{listing}
 		\end{minipage}
-		\begin{minipage}{0.45\textwidth}
+		\begin{minipage}{0.55\textwidth}
 			\begin{listing}[H]
 				\inputminted[
 					fontsize=\scriptsize,
@@ -547,8 +718,8 @@
 				\inputminted[
 					fontsize=\scriptsize,
 					breaklines,
-					firstline=84,
-					lastline=86
+					firstline=76,
+					lastline=90
 				]{python}{pregunta11.py}
 			\end{listing}
 		\end{minipage}
@@ -556,13 +727,34 @@
 \end{frame}
 
 \begin{frame}
+
 	\begin{solution}
 
-		Con $\omega=1.3$, $x^{\left(0\right)}=0\in\mathbb{R}^{6}$ obtenemos la matriz
-		del \alert{método de SOR} $T_{\omega}$ y $c_{\omega}$.
-		Y $\rho\left(T_{\omega}\right)<1$ por lo que el
-		método converge.
+		Para $\omega=1.3$,
+		\begin{math}
+			\rho\left(T_{\omega}\right)<
+			1
+		\end{math}
+		\alert{método de SOR} converge para cualquier vector inicial
+		\begin{math}
+			x^{\left(0\right)}
+			\in\mathbb{R}^{6}
+		\end{math}.
 		\begin{minipage}{0.45\textwidth}
+			\begin{align*}
+				\Aboxed{
+				T_{\omega} & =
+				{\left(D-\omega L\right)}^{-1}
+				\left(\left(1-\omega\right)D+\omega U\right).
+				}
+				\\
+				\Aboxed{
+				c_{\omega} & =
+					\omega{\left(D-\omega L\right)}^{-1}b.
+				}              %\\
+				% \left\|x^{k+1}-x^{k}\right\|<
+				% \operatorname{tolerancia}
+			\end{align*}
 			\begin{listing}[H]
 				\inputminted[
 					fontsize=\scriptsize,
@@ -588,6 +780,7 @@
 \end{frame}
 
 \begin{frame}[c]
+
 	\begin{listing}[H]
 		\inputminted[
 			breaklines,
@@ -595,8 +788,9 @@
 			lastline=17
 		]{text}{sor_pregunta11.txt}
 	\end{listing}
-	Notamos que converge después de $12$ iteraciones
-	a la solución exacta
+	Dado $x^{\left(0\right)}=0\in\mathbb{R}^{6}$, el
+	\alert{método de SOR converge} después de $12$ iteraciones a la
+	solución exacta
 	\begin{math}
 		\begin{pNiceMatrix}
 			1 \\
@@ -611,21 +805,43 @@
 \end{frame}
 
 \begin{frame}
+
 	\begin{solution}
 		\begin{minipage}{0.45\textwidth}
-			Ahora veremos con el \alert{método del descenso más rápido}.
+			El \alert{método del descenso más rápido} converge para
+			cualquier vector inicial
+			\begin{math}
+				x^{\left(0\right)}
+				\in\mathbb{R}^{6}
+			\end{math}
+			porque $A$ es \alert{simétrica} y
+			\alert{definida positiva}.
 
-			Como $A$ es simétrica y definida positiva, converge con este método.
-
-			Tomando $x^{\left(0\right)}=0\in\mathbb{R}^{6}$.
+			\begin{align*}
+				\alpha_{k}
+				                     & =
+				\frac{
+				{r^{\left(k\right)}}^{T}r^{\left(k\right)}
+				}{
+				{r^{\left(k\right)}}^{T}Ar^{\left(k\right)}
+				},                            \\
+				x^{\left(k+1\right)} & =
+				x^{\left(k\right)}+
+				\alpha_{k}r^{\left(k\right)}, \\
+				r^{\left(k+1\right)} & =
+				r^{\left(k\right)}-
+				\alpha_{k}Ar^{\left(k\right)}.
+			\end{align*}
 		\end{minipage}
 		\begin{minipage}{0.45\textwidth}
 			\begin{listing}[H]
 				\inputminted[
 					fontsize=\tiny,
 					breaklines,
-					firstline=16,
-					lastline=50
+					escapeinside=||,
+					mathescape=true,
+					firstline=27,
+					lastline=54
 				]{python}{descensorapido.py}
 			\end{listing}
 		\end{minipage}
@@ -633,6 +849,7 @@
 \end{frame}
 
 \begin{frame}[c]
+
 	\begin{listing}[H]
 		\inputminted[
 			fontsize=\tiny,
@@ -641,8 +858,9 @@
 			lastline=26
 		]{text}{descensorapido_pregunta11.txt}
 	\end{listing}
-	Notamos que converge después de $19$ iteraciones
-	a la solución exacta
+	Dado $x^{\left(0\right)}=0\in\mathbb{R}^{6}$, el
+	\alert{método del descenso más rápido converge} después de $19$
+	iteraciones a la solución
 	\begin{math}
 		\begin{pNiceMatrix}
 			1 \\

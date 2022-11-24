@@ -94,7 +94,6 @@ def sor_iterations(A, b, x0, w, ERROR, NUM_ITERATIONS):
     tabla["x"].append(x0.flatten())
     tabla["error"].append("---")
 
-    # print("G = {}".format(G))
     for k in range(NUM_ITERATIONS):
         x1 = np.dot(G, x0) + c
         comp = sl.norm(x1 - x0) / sl.norm(x1)

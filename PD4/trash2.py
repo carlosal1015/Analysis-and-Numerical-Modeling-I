@@ -59,6 +59,9 @@ def is_symmetric(A, rtol=1e-5, atol=1e-8):
     """Retorna verdadero si la matriz A es simétrica."""
     return np.allclose(A, A.T, rtol=rtol, atol=atol)
 
+    # print(f"Triangular superior:\n{-np.triu(A, 1)}\n")
+    # print(f"Triangular inferior:\n{-np.tril(A, -1)}\n")
 
-# print(f"Triangular superior:\n{-np.triu(A, 1)}\n")
-# print(f"Triangular inferior:\n{-np.tril(A, -1)}\n")
+
+(i, j) = (5, 1)
+print(f"a{i}{j} = ", A[i - 1][j - 1])

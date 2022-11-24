@@ -1,4 +1,5 @@
 \begin{frame}
+
 	\begin{enumerate}\setcounter{enumi}{11}
 		\item
 
@@ -43,32 +44,190 @@
 		      \end{equation*}
 	\end{enumerate}
 	\begin{solution}
-		.
+		Sea
+		\begin{math}\tiny
+			A =
+			\setcounter{MaxMatrixCols}{25}
+			\begin{bNiceMatrix}
+				4 & -1 & 0  & 0  & -1 & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\
+				4 & 0  & -1 & 0  & 0  & -1 & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\
+				4 & -1 & 0  & -1 & 0  & 0  & -1 & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\
+				4 & 0  & -1 & 0  & 0  & 0  & 0  & -1 & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\
+				4 & 0  & 0  & 0  & 0  & -1 & 0  & 0  & -1 & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\
+				4 & -1 & 0  & 0  & -1 & 0  & -1 & 0  & 0  & -1 & 0  & 0  & 0  & 0  & 0  & 0  \\
+				4 & 0  & -1 & 0  & 0  & -1 & 0  & -1 & 0  & 0  & -1 & 0  & 0  & 0  & 0  & 0  \\
+				4 & 0  & 0  & -1 & 0  & 0  & -1 & 0  & 0  & 0  & 0  & -1 & 0  & 0  & 0  & 0  \\
+				4 & 0  & 0  & 0  & -1 & 0  & 0  & 0  & 0  & -1 & 0  & 0  & -1 & 0  & 0  & 0  \\
+				4 & 0  & 0  & 0  & 0  & -1 & 0  & 0  & -1 & 0  & -1 & 0  & 0  & -1 & 0  & 0  \\
+				4 & 0  & 0  & 0  & 0  & 0  & -1 & 0  & 0  & -1 & 0  & -1 & 0  & 0  & -1 & 0  \\
+				4 & 0  & 0  & 0  & 0  & 0  & 0  & -1 & 0  & 0  & -1 & 0  & 0  & 0  & 0  & -1 \\
+				4 & 0  & 0  & 0  & 0  & 0  & 0  & 0  & -1 & 0  & 0  & 0  & 0  & -1 & 0  & 0  \\
+				4 & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & -1 & 0  & 0  & -1 & 0  & -1 & 0  \\
+				4 & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & -1 & 0  & 0  & -1 & 0  & -1 \\
+				4 & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & -1 & 0  & 0  & -1 & 0
+			\end{bNiceMatrix}
+		\end{math}
+		pero \alert{no es simétrica} y
+		\alert{no es definida positiva}.
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		\begin{minipage}{0.4\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\tiny,
+					breaklines,
+					firstline=1,
+					lastline=21
+				]{text}{resultado_pregunta12.txt}
+			\end{listing}
+		\end{minipage}
+		\begin{minipage}{0.5\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=6,
+					lastline=17
+				]{python}{pregunta12.py}
+				\inputminted[
+					fontsize=\scriptsize,
+					breaklines,
+					firstline=20,
+					lastline=41
+				]{python}{pregunta12.py}
+			\end{listing}
+		\end{minipage}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\begin{solution}
+		Por lo que vamos a multplicar por $A^{T}$ al sistema $Ax=b$, resultando
+		\begin{align*}
+			Ax             & =b             \\
+			A^{T}Ax        & =A^{T}b        \\
+			\widetilde{A}x & =\widetilde{b}
+		\end{align*}
+
+		\begin{minipage}{0.45\textwidth}
+			\begin{listing}[H]
+				\inputminted[
+					fontsize=\tiny,
+					breaklines,
+					firstline=23,
+					lastline=39
+				]{text}{resultado_pregunta12.txt}
+				\inputminted[
+					fontsize=\tiny,
+					breaklines,
+					firstline=95,
+					lastline=97
+				]{text}{resultado_pregunta12.txt}
+			\end{listing}
+		\end{minipage}
+		\begin{minipage}{0.45\textwidth}
+			\inputminted[
+				fontsize=\tiny,
+				breaklines,
+				firstline=41,
+				lastline=57
+			]{text}{resultado_pregunta12.txt}
+		\end{minipage}
 	\end{solution}
 \end{frame}
 
 \begin{frame}
 	\begin{solution}
 		\begin{minipage}{0.45\textwidth}
-			Por el \alert{método del descenso más rápido}.
-			% \begin{listing}[H]
-			% 	\inputminted[
-			% 		fontsize=\scriptsize,
-			% 		breaklines,
-			% 		firstline=36,
-			% 		lastline=37
-			% 	]{text}{resultado_descensorapido.txt}
-			% \end{listing}
-		\end{minipage}
-		\begin{minipage}{0.45\textwidth}
 			\begin{listing}[H]
 				\inputminted[
 					fontsize=\tiny,
 					breaklines,
-					firstline=16,
-					lastline=50
-				]{python}{descensorapido.py}
+					firstline=59,
+					lastline=75
+				]{text}{resultado_pregunta12.txt}
 			\end{listing}
 		\end{minipage}
+		\begin{minipage}{0.45\textwidth}
+			\inputminted[
+				fontsize=\tiny,
+				breaklines,
+				firstline=77,
+				lastline=94
+			]{text}{resultado_pregunta12.txt}
+		\end{minipage}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\tiny
+	\begin{solution}
+		\begin{listing}[H]
+			\inputminted[
+				fontsize=\tiny,
+				breaklines,
+				firstline=99,
+				lastline=134
+			]{text}{resultado_pregunta12.txt}
+		\end{listing}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\tiny
+	\begin{solution}
+		\begin{listing}[H]
+			\inputminted[
+				fontsize=\tiny,
+				breaklines,
+				firstline=135,
+				lastline=171
+			]{text}{resultado_pregunta12.txt}
+		\end{listing}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\tiny
+	\begin{solution}
+		\begin{listing}[H]
+			\inputminted[
+				fontsize=\tiny,
+				breaklines,
+				firstline=172,
+				lastline=206
+			]{text}{resultado_pregunta12.txt}
+		\end{listing}
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\tiny
+	\begin{solution}
+		\begin{listing}[H]
+			\inputminted[
+				fontsize=\tiny,
+				breaklines,
+				firstline=207,
+				lastline=225
+			]{text}{resultado_pregunta12.txt}
+		\end{listing}
+		Dado $x^{\left(0\right)}=0\in\mathbb{R}^{16}$, el
+		\alert{método del descenso más rápido} después de $59$ iteraciones a la
+		solución exacta
+		\begin{math}
+			\begin{pNiceMatrix}
+				1 \\
+				2 \\
+				1 \\
+				2 \\
+				1 \\
+				2
+			\end{pNiceMatrix}\in
+			\mathbb{R}^{6}
+		\end{math}.
 	\end{solution}
 \end{frame}

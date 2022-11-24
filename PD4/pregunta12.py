@@ -36,20 +36,36 @@ b = np.array(
         1.902207,
     ],
     dtype=np.float64,
-).T
+)
+x0 = np.zeros(16, dtype=np.float64)
 
 
 if __name__ == "__main__":
     print(f"A = \n{A}\n")
-    (i, j) = (5, 1)
-    print(f"a{i}{j} = ", A[i - 1][j - 1])
-    from pregunta11 import is_symmetric, is_positive_definite
+    from pregunta11 import (
+        is_symmetric,
+        is_positive_definite,
+        diagonal,
+        lower_inferior,
+        upper_superior,
+    )
 
     print(f"La matriz A es definida positiva: {is_positive_definite(A)}.\n")
     print(f"La matriz A es simétrica: {is_symmetric(A)}.\n")
     A_tilde = A.T @ A
-    b_tile = A.T @ b.T
+    b_tilde = A.T @ b.T
+    D = diagonal(A_tilde)
+    L = lower_inferior(A_tilde)
+    U = upper_superior(A_tilde)
+    print(f"A_tilde = \n{D - L - U}\n")
+    print(f"D = \n{D}\n")
+    print(f"L = \n{L}\n")
+    print(f"U = \n{U}\n")
     print(f"La matriz A_tilde es definida positiva: {is_positive_definite(A_tilde)}.\n")
     print(f"La matriz A_tilde es simétrica: {is_symmetric(A_tilde)}.\n")
+    from descensorapido import maximo_descenso
+
+    xk = maximo_descenso(A_tilde, b_tilde, x0, 0.0001, 2000)
+    # print(np.linalg.solve(A_tilde, b_tilde))
 # https://stackoverflow.com/a/24900335
 # https://stackoverflow.com/a/16964006
