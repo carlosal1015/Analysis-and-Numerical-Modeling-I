@@ -30,6 +30,7 @@ b = np.array(object=[0, 5, 0, 6, -2, 6], dtype=np.int64)
 D = diagonal(A)
 L = lower_inferior(A)
 U = upper_superior(A)
+omega = 1.3
 
 
 def sor_left_sum(A, x_new, i):
@@ -80,7 +81,6 @@ if __name__ == "__main__":
     print(f"U = \n{U}\n")
     print(f"¿A es definida positiva? {is_positive_definite(A)}.\n")
     print(f"¿A es simétrica? {is_symmetric(A)}.\n")
-    omega = 1.3
     T_w = np.linalg.inv(D - omega * L) @ ((1 - omega) * D + omega * U)
     c_w = omega * np.linalg.inv(D - omega * L) @ b.T
     print(f"T_w = \n{T_w}\n")

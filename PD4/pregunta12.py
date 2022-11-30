@@ -63,10 +63,10 @@ if __name__ == "__main__":
     print(f"U = \n{U}\n")
     print(f"La matriz A_tilde es definida positiva: {is_positive_definite(A_tilde)}.\n")
     print(f"La matriz A_tilde es simétrica: {is_symmetric(A_tilde)}.\n")
-    from descensorapido import maximo_descenso
+    # from descensorapido import maximo_descenso
 
-    xk = maximo_descenso(A_tilde, b_tilde, x0, 0.0001, 2000)
-    print(np.linalg.solve(A_tilde, b_tilde))
-    print(f"Verificación: {A_tilde @ np.linalg.solve(A_tilde, b_tilde) - b_tilde}")
-# https://stackoverflow.com/a/24900335
-# https://stackoverflow.com/a/16964006
+    # xk = maximo_descenso(A_tilde, b_tilde, x0, 0.0001, 2000)
+    # print(np.linalg.solve(A_tilde, b_tilde))
+    # print(f"Verificación: {A_tilde @ np.linalg.solve(A_tilde, b_tilde) - b_tilde}")
+    # https://stackoverflow.com/a/24900335
+    # https://stackoverflow.com/a/16964006

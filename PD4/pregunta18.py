@@ -41,9 +41,9 @@ if __name__ == "__main__":
 
     A_tilde = A.T @ A
     b_tilde = A.T @ b.T
-    print(f"A_tilde = \n{A_tilde}\n")
     print(f"¿A_tilde es definida positiva? {is_positive_definite(A_tilde)}.\n")
     print(f"¿A_tilde es simétrica? {is_symmetric(A_tilde)}.\n")
+    print(A[2][2])
     print(f"A_tilde = \n{A_tilde}\n")
     print(f"b_tilde = \n{b_tilde}\n")
     x, exit_code = cg(A_tilde, b_tilde)

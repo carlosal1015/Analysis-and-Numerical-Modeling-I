@@ -26,8 +26,8 @@ def gradienteConjugado(A, b, x0, gtol, maxiter):
 
 
 if __name__ == "__main__":
-    A_tilde = np.dot(np.transpose(A), A)
-    b_tilde = np.dot(np.transpose(A), b)
-    x_0 = np.zeros(3)
+    A_tilde = A.T @ A
+    b_tilde = A.T @ b.T
+    x_0 = np.array([2, 5, 0])  # np.zeros(3)
     # gradienteConjugado(A, b, x0, 1e-5, maxiter=100)
     gradienteConjugado(A=A_tilde, b=b_tilde, x0=x_0, gtol=1e-5, maxiter=100)
