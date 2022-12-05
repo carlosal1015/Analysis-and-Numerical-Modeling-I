@@ -8,6 +8,10 @@ segunda.pdf
 solution_segunda.pdf
 tercera.pdf
 solution_tercera.pdf
+cuarta.pdf
+solution_cuarta.pdf
+quinta.pdf
+solution_quinta.pdf
 *.bbl
 *.bcf
 *.blg
@@ -33,4 +37,3 @@ pregunta3c_gaussian_elimination.txt
 *.out
 PD4/pregunta1.pdf
 PD4/pregunta2.pdf
-PD4/solution_cuarta.pdf
